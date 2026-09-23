@@ -1,0 +1,1300 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Warum lohnt es sich für jemanden, der Software schreibt, die Hardware darunter zu verstehen?",
+    "options": [
+     "Weil Programmiersprachen sich ständig ändern",
+     "Weil dieselbe Rechenarbeit je nach Zugriffsmuster um Grössenordnungen unterschiedlich schnell läuft",
+     "Damit man eigene Chips bauen kann",
+     "Weil Compiler sonst nicht funktionieren"
+    ],
+    "answer": 1,
+    "why": "Zwei Programme mit gleich vielen Operationen können sich um den Faktor 10 oder mehr unterscheiden - allein durch die Reihenfolge der Speicherzugriffe."
+   },
+   {
+    "q": "Welche Grössen stehen beim Chipentwurf typischerweise im Zielkonflikt?",
+    "options": [
+     "Speichergrösse und Programmiersprache",
+     "Geschwindigkeit, Energieverbrauch, Fläche und Kosten",
+     "Nur Preis und Verfügbarkeit",
+     "Nur Taktfrequenz und Kernzahl"
+    ],
+    "answer": 1,
+    "why": "Fast jede Entscheidung verbessert eine Grösse auf Kosten einer anderen. Architektur ist deshalb weniger Optimieren als Abwägen - ein Muster, das auch in der Software gilt."
+   },
+   {
+    "q": "Was bedeutet Abstraktionsebene in diesem Zusammenhang?",
+    "options": [
+     "Jede Ebene verbirgt Details der darunterliegenden, damit man nicht alles gleichzeitig denken muss",
+     "Die Anzahl der Schichten im Betriebssystem",
+     "Ein Mass für die Komplexität",
+     "Der Grad der Objektorientierung"
+    ],
+    "answer": 0,
+    "why": "Transistor, Gatter, Baustein, Prozessor, Programm. Die Ebenen funktionieren nur, weil man normalerweise nicht hindurchschauen muss - und schmerzen, wenn man doch muss."
+   },
+   {
+    "q": "Warum steigt die Taktfrequenz seit etwa 2005 kaum noch?",
+    "options": [
+     "Weil Energieverbrauch und Abwärme sonst nicht mehr beherrschbar wären",
+     "Weil die Software nicht mitkommt",
+     "Weil die Physik keine schnelleren Transistoren erlaubt",
+     "Weil die Nachfrage fehlt"
+    ],
+    "answer": 0,
+    "why": "Die Leistungsaufnahme wuchs schneller als der Nutzen. Seither kommt Mehrleistung aus mehr Kernen und besserer Organisation statt aus mehr Takt."
+   },
+   {
+    "q": "Was ist die typische Folge dieser Entwicklung für Software?",
+    "options": [
+     "Der Speicherbedarf sinkt",
+     "Compiler übernehmen das vollständig",
+     "Mehrleistung muss man sich durch Parallelität und bessere Datenzugriffe erarbeiten",
+     "Programme werden automatisch schneller"
+    ],
+    "answer": 2,
+    "why": "Früher wurde Code von allein schneller. Heute nicht mehr - deshalb ist Wissen über Speicher und Parallelität kein Spezialwissen mehr."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Was zeichnet eine kombinatorische Schaltung aus?",
+    "options": [
+     "Sie kann Werte speichern",
+     "Sie arbeitet nur mit einem Bit",
+     "Ihre Ausgabe hängt allein von den aktuellen Eingaben ab, nicht von der Vergangenheit",
+     "Sie braucht einen Takt"
+    ],
+    "answer": 2,
+    "why": "Kein Gedächtnis. Gleiche Eingabe, gleiche Ausgabe - immer. Genau das ist der Unterschied zur sequenziellen Schaltung."
+   },
+   {
+    "q": "Wozu dient eine Wahrheitstabelle?",
+    "options": [
+     "Zum Vergleich zweier Chips",
+     "Sie listet zu jeder Eingabekombination die gewünschte Ausgabe und legt die Schaltung damit fest",
+     "Zum Dokumentieren von Fehlern",
+     "Zum Messen der Laufzeit"
+    ],
+    "answer": 1,
+    "why": "Die Tabelle ist die Spezifikation. Aus ihr lässt sich systematisch eine Schaltung ableiten - der Weg von 'was soll es tun' zu 'wie wird es gebaut'."
+   },
+   {
+    "q": "Wie viele Zeilen hat die Wahrheitstabelle einer Schaltung mit n Eingängen?",
+    "options": [
+     "2n",
+     "n²",
+     "n",
+     "2^n"
+    ],
+    "answer": 3,
+    "why": "Jeder Eingang verdoppelt die Zahl der Kombinationen. Bei 10 Eingängen sind das bereits 1024 Zeilen - deshalb braucht es kompaktere Beschreibungen."
+   },
+   {
+    "q": "Was macht ein Komparator?",
+    "options": [
+     "Er addiert zwei Zahlen",
+     "Er vergleicht zwei Werte und meldet zum Beispiel Gleichheit",
+     "Er speichert einen Wert",
+     "Er wandelt binär in dezimal"
+    ],
+    "answer": 1,
+    "why": "Ein typischer Baustein: für Gleichheit vergleicht man bitweise und verknüpft alle Ergebnisse. Aus solchen Bausteinen entsteht später die ALU."
+   },
+   {
+    "q": "Warum baut man Schaltungen modular aus kleineren Bausteinen?",
+    "options": [
+     "Weil sich grosse Schaltungen sonst weder entwerfen noch prüfen liessen",
+     "Weil es Material spart",
+     "Weil es schneller ist",
+     "Weil der Compiler es verlangt"
+    ],
+    "answer": 0,
+    "why": "Ein Chip mit Milliarden Transistoren ist nur beherrschbar, wenn man in geprüften Bausteinen denkt. Dieselbe Begründung wie für Funktionen in Software."
+   }
+  ]
+ },
+ "3": {
+  "questions": [
+   {
+    "q": "Was unterscheidet eine sequenzielle von einer kombinatorischen Schaltung?",
+    "options": [
+     "Sie arbeitet analog",
+     "Sie hat einen Zustand - die Ausgabe hängt auch davon ab, was vorher geschah",
+     "Sie ist schneller",
+     "Sie braucht weniger Gatter"
+    ],
+    "answer": 1,
+    "why": "Mit dem Zustand kommt das Gedächtnis in die Hardware. Erst dadurch werden Zähler, Register und Prozessoren möglich."
+   },
+   {
+    "q": "Wozu dient der Takt?",
+    "options": [
+     "Er legt fest, wann Zustände gemeinsam und geordnet übernommen werden",
+     "Er liefert Energie",
+     "Er synchronisiert mit dem Speicher",
+     "Er misst die Laufzeit"
+    ],
+    "answer": 0,
+    "why": "Ohne gemeinsamen Zeitpunkt würden Signale in unvorhersehbarer Reihenfolge ankommen. Der Takt macht aus einem Durcheinander eine Schrittfolge."
+   },
+   {
+    "q": "Was bedeutet flankengesteuert?",
+    "options": [
+     "Sie übernimmt den Wert nur im Moment des Taktwechsels",
+     "Sie reagiert auf die Spannungshöhe",
+     "Die Schaltung reagiert, solange der Takt hoch ist",
+     "Sie arbeitet mit zwei Takten"
+    ],
+    "answer": 0,
+    "why": "Nur der Übergang zählt, nicht der Pegel. Dadurch gibt es pro Takt genau eine Übernahme - Grundlage für berechenbares Zeitverhalten."
+   },
+   {
+    "q": "Was ist ein Register?",
+    "options": [
+     "Ein Speicherbereich im Arbeitsspeicher",
+     "Eine Gruppe von Speicherelementen, die gemeinsam mit dem Takt einen Wert übernimmt",
+     "Ein Eintrag in einer Tabelle",
+     "Ein Zähler für Takte"
+    ],
+    "answer": 1,
+    "why": "Register sind der schnellste Speicher überhaupt, direkt im Prozessor. Deshalb bemühen sich Compiler so sehr, Werte darin zu halten."
+   },
+   {
+    "q": "Was hat ein Zustandsautomat in Hardware mit dem Automatenbegriff aus der Theorie zu tun?",
+    "options": [
+     "Der Hardware-Automat ist mächtiger",
+     "Der theoretische Automat ist schneller",
+     "Es ist dieselbe Idee: endlich viele Zustände und Übergänge, hier in Gattern gebaut",
+     "Nichts, es ist nur ein ähnlicher Name"
+    ],
+    "answer": 2,
+    "why": "Dieselbe Struktur, einmal als Beweiswerkzeug, einmal aus Transistoren. Ein schöner Berührungspunkt zwischen den beiden Kursen hier."
+   }
+  ]
+ },
+ "4": {
+  "questions": [
+   {
+    "q": "Was ist eine Hardwarebeschreibungssprache?",
+    "options": [
+     "Eine Programmiersprache für eingebettete Systeme",
+     "Eine Sprache für Testfälle",
+     "Ein Format zur Dokumentation von Chips",
+     "Eine Sprache, in der man Schaltungsstruktur und Verhalten beschreibt, aus der Hardware erzeugt wird"
+    ],
+    "answer": 3,
+    "why": "Der wichtigste Denkfehler am Anfang: man programmiert keinen Ablauf, man beschreibt eine Schaltung. Alles existiert gleichzeitig, nicht nacheinander."
+   },
+   {
+    "q": "Warum wird ein 32-Bit-Wert üblicherweise als 31 bis 0 geschrieben?",
+    "options": [
+     "Weil es kürzer ist",
+     "Weil Zählen bei 0 beginnt",
+     "Weil der Compiler es verlangt",
+     "Weil das höchstwertige Bit links steht - wie bei Zahlen üblich"
+    ],
+    "answer": 3,
+    "why": "Die Schreibweise hält die Stellenwertigkeit sichtbar. Eine Konvention - aber eine, deren Verletzung zu sehr schwer auffindbaren Fehlern führt."
+   },
+   {
+    "q": "Was ist der gefährlichste Unterschied zu gewöhnlichem Programmieren?",
+    "options": [
+     "Man kann nicht testen",
+     "Es gibt keine Variablen",
+     "Die Syntax",
+     "Beschriebene Blöcke arbeiten gleichzeitig, nicht der Reihe nach"
+    ],
+    "answer": 3,
+    "why": "Zwei Zuweisungen untereinander laufen in Hardware parallel. Wer sie als Reihenfolge liest, entwirft etwas völlig anderes als gedacht."
+   },
+   {
+    "q": "Wozu dient eine Testbench?",
+    "options": [
+     "Zum Platzieren auf dem Chip",
+     "Sie legt Eingaben an die beschriebene Schaltung an und prüft die Ausgaben",
+     "Zum Übersetzen in Gatter",
+     "Zum Messen des Stromverbrauchs"
+    ],
+    "answer": 1,
+    "why": "Simulation vor der Fertigung - denn einen gefertigten Chip kann man nicht nachbessern. Derselbe Gedanke wie bei automatisierten Tests in Software, nur mit härterer Konsequenz."
+   },
+   {
+    "q": "Warum ist die Grenze zwischen synthetisierbarem und nicht synthetisierbarem Code wichtig?",
+    "options": [
+     "Sie ist nur bei grossen Entwürfen relevant",
+     "Sie betrifft nur den Stil",
+     "Nur ein Teil der Sprache lässt sich in echte Hardware übersetzen - der Rest dient allein der Simulation",
+     "Sie beeinflusst die Simulationsgeschwindigkeit"
+    ],
+    "answer": 2,
+    "why": "Code, der in der Simulation tadellos läuft, kann unsynthetisierbar sein. Deshalb entwirft man von Anfang an im synthetisierbaren Teil der Sprache."
+   }
+  ]
+ },
+ "5": {
+  "questions": [
+   {
+    "q": "Was ist die Laufzeitverzögerung eines Gatters?",
+    "options": [
+     "Die Zeit bis zum nächsten Takt",
+     "Die Zeit, die vergeht, bis sich eine Eingangsänderung am Ausgang zeigt",
+     "Die Zeit zum Laden des Registers",
+     "Die Dauer eines Taktzyklus"
+    ],
+    "answer": 1,
+    "why": "Signale brauchen Zeit. Die Summe entlang des längsten Pfads bestimmt, wie kurz ein Taktzyklus überhaupt sein darf."
+   },
+   {
+    "q": "Was ist der kritische Pfad?",
+    "options": [
+     "Der Pfad mit dem höchsten Stromverbrauch",
+     "Der am häufigsten benutzte Pfad",
+     "Der Pfad mit den meisten Gattern",
+     "Der langsamste Signalweg zwischen zwei Registern - er begrenzt die Taktfrequenz"
+    ],
+    "answer": 3,
+    "why": "Die Taktdauer muss für den langsamsten Weg reichen. Optimieren lohnt deshalb nur dort - jede Verbesserung anderswo bringt exakt null."
+   },
+   {
+    "q": "Was besagt die Setup-Zeit?",
+    "options": [
+     "Die Dauer der Taktflanke",
+     "Wie lange ein Signal vor der Taktflanke stabil anliegen muss",
+     "Wie lange nach der Flanke gewartet wird",
+     "Wie lange der Chip zum Starten braucht"
+    ],
+    "answer": 1,
+    "why": "Kommt das Signal zu spät, übernimmt das Register einen undefinierten Wert. Setup und Hold umrahmen die Taktflanke mit einem Ruhefenster."
+   },
+   {
+    "q": "Was ist ein Glitch?",
+    "options": [
+     "Ein Fertigungsfehler",
+     "Ein kurzer falscher Ausgangswert, weil Signale unterschiedlich schnell ankommen",
+     "Ein zu langsamer Takt",
+     "Eine fehlerhafte Eingabe"
+    ],
+    "answer": 1,
+    "why": "Kurz nach einer Änderung zappelt der Ausgang, bis sich alles eingeschwungen hat. Genau deshalb wertet man nur zum Taktzeitpunkt aus - dann ist Ruhe eingekehrt."
+   },
+   {
+    "q": "Was ist Metastabilität?",
+    "options": [
+     "Ein Register hängt zwischen 0 und 1, weil das Signal genau im verbotenen Fenster kam",
+     "Ein instabiles Programm",
+     "Ein Fehler im Takt",
+     "Ein überhitzter Chip"
+    ],
+    "answer": 0,
+    "why": "Der Zustand löst sich auf, aber wann, ist nicht garantiert. Bei Signalen aus einem fremden Taktbereich ist er unvermeidbar - man kann die Wahrscheinlichkeit nur drücken."
+   }
+  ]
+ },
+ "6": {
+  "questions": [
+   {
+    "q": "Was ist eine Befehlssatzarchitektur (ISA)?",
+    "options": [
+     "Der Vertrag zwischen Hardware und Software: welche Befehle es gibt und was sie bewirken",
+     "Das Betriebssystem",
+     "Die Anordnung der Register auf dem Chip",
+     "Der Schaltplan des Prozessors"
+    ],
+    "answer": 0,
+    "why": "Die ISA sagt, was passiert - nicht wie. Genau diese Trennung erlaubt es, denselben Code auf völlig verschieden gebauten Prozessoren laufen zu lassen."
+   },
+   {
+    "q": "Was ist der Unterschied zwischen ISA und Mikroarchitektur?",
+    "options": [
+     "Die ISA betrifft nur den Speicher",
+     "Die Mikroarchitektur ist ein Teil des Befehlssatzes",
+     "Die ISA ist das sichtbare Verhalten, die Mikroarchitektur die konkrete Umsetzung darunter",
+     "Es ist dasselbe"
+    ],
+    "answer": 2,
+    "why": "Zwei Prozessoren mit gleicher ISA können völlig unterschiedlich gebaut sein - einer sparsam, einer schnell. Für die Software sehen sie gleich aus."
+   },
+   {
+    "q": "Was macht eine ALU?",
+    "options": [
+     "Sie dekodiert Befehle",
+     "Sie verwaltet den Speicher",
+     "Sie führt Rechen- und Logikoperationen aus",
+     "Sie steuert den Programmablauf"
+    ],
+    "answer": 2,
+    "why": "Die Recheneinheit des Prozessors - gebaut aus genau den kombinatorischen Bausteinen aus den frühen Lektionen."
+   },
+   {
+    "q": "Warum nennt man die ISA einen Vertrag?",
+    "options": [
+     "Weil sie Geld kostet",
+     "Weil sie lizenziert werden muss",
+     "Weil beide Seiten sich darauf verlassen können und sich unabhängig weiterentwickeln dürfen",
+     "Weil sie rechtlich bindend ist"
+    ],
+    "answer": 2,
+    "why": "Solange der Vertrag hält, kann die Hardware sich frei verändern, ohne Software zu brechen. Dasselbe Prinzip wie eine stabile Schnittstelle im Code."
+   },
+   {
+    "q": "Warum ist die Wahl der Befehle eine Abwägung?",
+    "options": [
+     "Weil der Compiler nur wenige unterstützt",
+     "Mächtige Befehle sparen Programmspeicher, machen die Hardware aber komplizierter und oft langsamer",
+     "Weil mehr Befehle immer besser sind",
+     "Weil Befehle Speicherplatz kosten"
+    ],
+    "answer": 1,
+    "why": "Das ist die alte Debatte zwischen einfachen und mächtigen Befehlssätzen. Einfache Befehle lassen sich leichter schnell und sparsam ausführen."
+   }
+  ]
+ },
+ "7": {
+  "questions": [
+   {
+    "q": "Was enthält der Programmzähler?",
+    "options": [
+     "Die Nummer des laufenden Programms",
+     "Die Adresse des nächsten auszuführenden Befehls",
+     "Die Anzahl ausgeführter Befehle",
+     "Den aktuellen Rechenwert"
+    ],
+    "answer": 1,
+    "why": "Ein einziges Register bestimmt, wo es weitergeht. Ein Sprung ist deshalb nichts anderes als das Beschreiben dieses Registers."
+   },
+   {
+    "q": "Was ist ein Registerfile?",
+    "options": [
+     "Die Sammlung der schnellen Arbeitsregister im Prozessor, aus der gleichzeitig gelesen werden kann",
+     "Eine Datei mit Registerwerten",
+     "Ein Bereich im Arbeitsspeicher",
+     "Ein Zwischenspeicher für Befehle"
+    ],
+    "answer": 0,
+    "why": "Meist muss in einem Zyklus zweimal gelesen und einmal geschrieben werden. Das prägt die Bauform aller gängigen Befehlssätze."
+   },
+   {
+    "q": "Wie wird ein bedingter Sprung typischerweise umgesetzt?",
+    "options": [
+     "Eine Bedingung wird geprüft, und je nach Ergebnis wird der Programmzähler neu gesetzt oder weitergezählt",
+     "Durch Kopieren des Registers",
+     "Durch Anhalten des Prozessors",
+     "Durch Neustart des Befehls"
+    ],
+    "answer": 0,
+    "why": "Zwei mögliche Nachfolger statt einem. Genau diese Verzweigung macht später beim Pipelining so viel Ärger - man weiss noch nicht, wie es weitergeht."
+   },
+   {
+    "q": "Was ist der Datenpfad?",
+    "options": [
+     "Der Weg des Befehls durch den Dekoder",
+     "Die Leitung zum Arbeitsspeicher",
+     "Die Gesamtheit der Wege, auf denen Daten zwischen Registern, Recheneinheit und Speicher fliessen",
+     "Die Verbindung zwischen zwei Prozessoren"
+    ],
+    "answer": 2,
+    "why": "Der Datenpfad führt aus, das Steuerwerk sagt ihm was. Diese Zweiteilung strukturiert jeden Prozessorentwurf."
+   },
+   {
+    "q": "Warum sind Sprünge teurer als Rechenbefehle?",
+    "options": [
+     "Weil sie länger sind",
+     "Weil sie mehr Energie brauchen",
+     "Weil sie mehr Register belegen",
+     "Weil der nächste Befehl erst feststeht, wenn die Bedingung ausgewertet ist"
+    ],
+    "answer": 3,
+    "why": "Die Ungewissheit ist das Teure. Deshalb steckt in modernen Prozessoren so viel Aufwand in Sprungvorhersage."
+   }
+  ]
+ },
+ "8": {
+  "questions": [
+   {
+    "q": "Wie lässt sich ein Prozessor als Zustandsautomat auffassen?",
+    "options": [
+     "Sein Zustand ist der Inhalt aller Register und des Speichers, jeder Befehl ist ein Übergang",
+     "Gar nicht, das sind verschiedene Dinge",
+     "Nur der Dekoder ist ein Automat",
+     "Nur bei einfachen Prozessoren"
+    ],
+    "answer": 0,
+    "why": "Ein Befehl bildet einen Zustand auf den nächsten ab. Diese Sicht macht Korrektheitsargumente überhaupt erst möglich."
+   },
+   {
+    "q": "Warum baut man den Prozessor nicht einfach als eine riesige Zustandsmaschine?",
+    "options": [
+     "Weil es keine Werkzeuge dafür gibt",
+     "Weil es zu langsam wäre",
+     "Weil die Zustandszahl astronomisch wäre - man braucht strukturierende Abstraktionen",
+     "Weil das nicht funktionieren würde"
+    ],
+    "answer": 2,
+    "why": "Mit 32 Registern zu je 32 Bit gibt es mehr Zustände als Atome im Universum. Deshalb Datenpfad und Steuerwerk statt einer flachen Tabelle."
+   },
+   {
+    "q": "Was bedeutet Architekturzustand?",
+    "options": [
+     "Der Inhalt des Caches",
+     "Der Teil des Zustands, den die ISA sichtbar macht - Register, Programmzähler, Speicher",
+     "Der Zustand des Betriebssystems",
+     "Der Zustand aller Transistoren"
+    ],
+    "answer": 1,
+    "why": "Der Cache gehört nicht dazu: er ändert das Ergebnis nicht, nur das Tempo. Diese Trennung erlaubt alle internen Tricks, ohne Programme zu brechen."
+   },
+   {
+    "q": "Warum darf ein Prozessor intern anders arbeiten, als die ISA es beschreibt?",
+    "options": [
+     "Das ist nicht erlaubt",
+     "Solange der sichtbare Zustand am Ende stimmt, ist der Weg dorthin frei",
+     "Weil moderne Compiler das ausgleichen",
+     "Weil die ISA nur eine Empfehlung ist"
+    ],
+    "answer": 1,
+    "why": "Genau darauf beruhen Pipelining und Ausführung ausser der Reihe. Der Vertrag betrifft das Ergebnis, nicht den Weg."
+   },
+   {
+    "q": "Was ist der Vorteil dieser Trennung für die Software?",
+    "options": [
+     "Programme werden kleiner",
+     "Derselbe Code läuft auf Prozessorgenerationen, die intern völlig anders gebaut sind",
+     "Compiler werden überflüssig",
+     "Der Speicherbedarf sinkt"
+    ],
+    "answer": 1,
+    "why": "Jahrzehntelange Abwärtskompatibilität bei gleichzeitig völlig neu gebauter Hardware - das ist der Ertrag einer gut gewählten Schnittstelle."
+   }
+  ]
+ },
+ "9": {
+  "questions": [
+   {
+    "q": "Was kennzeichnet einen Single-Cycle-Prozessor?",
+    "options": [
+     "Er arbeitet ohne Takt",
+     "Er führt einen Befehl pro Sekunde aus",
+     "Er hat nur einen Befehl",
+     "Jeder Befehl wird vollständig in einem einzigen Taktzyklus ausgeführt"
+    ],
+    "answer": 3,
+    "why": "Einfach zu verstehen, aber mit einem harten Nachteil: der Takt muss für den langsamsten Befehl reichen - alle anderen warten."
+   },
+   {
+    "q": "Was ist der Hauptnachteil dieses Entwurfs?",
+    "options": [
+     "Der Taktzyklus richtet sich nach dem langsamsten Befehl, also ist die Hardware meist unterfordert",
+     "Er ist schwer zu bauen",
+     "Er kann keine Sprünge",
+     "Er braucht zu viele Register"
+    ],
+    "answer": 0,
+    "why": "Ein Additionsbefehl wartet genauso lange wie ein Speicherzugriff. Genau diese Verschwendung motiviert Mehrzyklen-Entwurf und Pipelining."
+   },
+   {
+    "q": "Welche Schritte durchläuft ein Befehl typischerweise?",
+    "options": [
+     "Holen, Dekodieren, Ausführen, Speicherzugriff, Zurückschreiben",
+     "Laden, Rechnen, Löschen",
+     "Nur Holen und Ausführen",
+     "Übersetzen, Optimieren, Ausführen"
+    ],
+    "answer": 0,
+    "why": "Diese fünf Schritte sind die Grundlage: erst als Ablauf gedacht, später als Pipelinestufen parallel ausgeführt."
+   },
+   {
+    "q": "Welche Rolle spielen die Steuersignale?",
+    "options": [
+     "Sie steuern den Speicher extern",
+     "Sie takten den Prozessor",
+     "Sie stellen für jeden Befehl die Multiplexer und Schreibfreigaben im Datenpfad passend ein",
+     "Sie melden Fehler"
+    ],
+    "answer": 2,
+    "why": "Der Datenpfad ist für alle Befehle derselbe. Erst die Steuersignale bestimmen, welcher Weg tatsächlich benutzt wird."
+   },
+   {
+    "q": "Warum entwirft man zuerst den Datenpfad und dann das Steuerwerk?",
+    "options": [
+     "Weil das Steuerwerk komplizierter ist",
+     "Weil Werkzeuge es so verlangen",
+     "Weil erst feststehen muss, welche Wege es gibt, bevor man sie auswählen kann",
+     "Weil es schneller geht"
+    ],
+    "answer": 2,
+    "why": "Die Steuersignale ergeben sich aus dem Datenpfad. Umgekehrt herum müsste man raten - erst die Möglichkeiten, dann die Auswahl."
+   }
+  ]
+ },
+ "10": {
+  "questions": [
+   {
+    "q": "Woraus gewinnt Pipelining seine Beschleunigung?",
+    "options": [
+     "Mehrere Befehle sind gleichzeitig in Arbeit, jeder in einer anderen Stufe",
+     "Aus mehr Registern",
+     "Aus paralleler Ausführung auf mehreren Kernen",
+     "Aus einem höheren Takt"
+    ],
+    "answer": 0,
+    "why": "Wie eine Waschküche: waschen, trocknen, falten laufen parallel für verschiedene Ladungen. Der einzelne Befehl wird nicht schneller, der Durchsatz schon."
+   },
+   {
+    "q": "Was ändert sich für die Dauer eines einzelnen Befehls?",
+    "options": [
+     "Sie halbiert sich",
+     "Sie hängt vom Befehl ab",
+     "Sie bleibt gleich oder steigt sogar leicht - nur der Durchsatz steigt",
+     "Sie sinkt deutlich"
+    ],
+    "answer": 2,
+    "why": "Pipelining verbessert Durchsatz, nicht Latenz. Diese Unterscheidung gilt weit über Prozessoren hinaus - auch bei Warteschlangen in Software."
+   },
+   {
+    "q": "Warum braucht jede Pipelinestufe eigene Register dazwischen?",
+    "options": [
+     "Um Energie zu sparen",
+     "Um Fehler zu erkennen",
+     "Um die Zwischenergebnisse jeder Stufe bis zum nächsten Takt festzuhalten",
+     "Um den Takt zu erzeugen"
+    ],
+    "answer": 2,
+    "why": "Ohne diese Register würden sich die Stufen gegenseitig überschreiben. Sie sind die Trennwände, die das gleichzeitige Arbeiten erst möglich machen."
+   },
+   {
+    "q": "Eine Pipeline mit 5 Stufen - wird das Programm fünfmal schneller?",
+    "options": [
+     "Nein - Konflikte, Sprünge und ungleich lange Stufen fressen einen Teil des Gewinns",
+     "Nein, die Pipeline bringt gar nichts",
+     "Ja, immer",
+     "Ja, aber nur bei langen Programmen"
+    ],
+    "answer": 0,
+    "why": "Der Faktor 5 ist die theoretische Obergrenze. In der Praxis bleibt weniger übrig - je nachdem, wie oft die Pipeline stockt."
+   },
+   {
+    "q": "Warum lohnt es sich, den Takt nicht weiter an den langsamsten Befehl zu binden?",
+    "options": [
+     "Weil sich die Arbeit in ähnlich lange Stufen zerlegen lässt und der Takt sich dann nach der längsten Stufe richtet",
+     "Weil es weniger Energie braucht",
+     "Weil der Speicher schneller wird",
+     "Weil alle Befehle gleich lang sind"
+    ],
+    "answer": 0,
+    "why": "Aus einem langen Befehl werden fünf kurze Stufen. Der Takt richtet sich nur noch nach der längsten davon - deshalb kann er deutlich schneller laufen."
+   }
+  ]
+ },
+ "11": {
+  "questions": [
+   {
+    "q": "Was ist ein Datenkonflikt in der Pipeline?",
+    "options": [
+     "Zwei Befehle greifen auf denselben Speicher zu",
+     "Ein Befehl braucht ein Ergebnis, das ein früherer Befehl noch nicht zurückgeschrieben hat",
+     "Zwei Befehle haben dieselbe Adresse",
+     "Der Speicher ist überlastet"
+    ],
+    "answer": 1,
+    "why": "Das Ergebnis ist schon gerechnet, aber noch unterwegs. Der Folgebefehl würde den alten Registerwert lesen - und falsch rechnen."
+   },
+   {
+    "q": "Was macht Forwarding?",
+    "options": [
+     "Es leitet ein Ergebnis direkt an die nachfolgende Stufe weiter, statt auf das Zurückschreiben zu warten",
+     "Es verdoppelt die Register",
+     "Es überspringt Befehle",
+     "Es verschiebt Befehle nach hinten"
+    ],
+    "answer": 0,
+    "why": "Eine Abkürzung im Datenpfad. Damit lassen sich die meisten Datenkonflikte ohne Wartezyklen auflösen."
+   },
+   {
+    "q": "Wann hilft Forwarding nicht?",
+    "options": [
+     "Es hilft immer",
+     "Bei Sprüngen",
+     "Bei Additionen",
+     "Wenn der Wert erst aus dem Speicher kommt und schlicht noch nicht da ist"
+    ],
+    "answer": 3,
+    "why": "Was noch nicht existiert, kann man nicht weiterleiten. Nach einem Ladebefehl bleibt oft nur ein Wartezyklus - oder der Compiler schiebt etwas Nützliches dazwischen."
+   },
+   {
+    "q": "Was ist ein Steuerkonflikt?",
+    "options": [
+     "Der Takt ist zu schnell",
+     "Nach einem Sprung ist noch unklar, welcher Befehl als Nächstes geholt werden soll",
+     "Zwei Steuerwerke widersprechen sich",
+     "Ein Befehl hat falsche Steuersignale"
+    ],
+    "answer": 1,
+    "why": "Die Pipeline will ständig nachladen, aber das Sprungziel steht noch nicht fest. Entweder warten - oder raten und notfalls verwerfen."
+   },
+   {
+    "q": "Was passiert bei einem Stall?",
+    "options": [
+     "Das Programm wird neu gestartet",
+     "Der Befehl wird übersprungen",
+     "Die Pipeline hält betroffene Stufen an, bis die Voraussetzung erfüllt ist",
+     "Der Prozessor stürzt ab"
+    ],
+    "answer": 2,
+    "why": "Eine Blase in der Pipeline: korrekt, aber sie kostet Durchsatz. Das gesamte weitere Kapitel dreht sich darum, Stalls zu vermeiden."
+   }
+  ]
+ },
+ "12": {
+  "questions": [
+   {
+    "q": "Was bedeutet Ausführung ausser der Reihe?",
+    "options": [
+     "Das Programm wird umsortiert gespeichert",
+     "Befehle starten, sobald ihre Operanden bereit sind - nicht zwingend in Programmreihenfolge",
+     "Befehle werden in zufälliger Reihenfolge ausgeführt",
+     "Mehrere Programme laufen gleichzeitig"
+    ],
+    "answer": 1,
+    "why": "Wartet ein Befehl auf den Speicher, dürfen spätere unabhängige Befehle vorbei. Nach aussen bleibt die Reihenfolge trotzdem erhalten."
+   },
+   {
+    "q": "Wozu dienen Reservation Stations?",
+    "options": [
+     "Zum Reservieren von Speicher",
+     "Zum Vorhersagen von Sprüngen",
+     "Zum Verwalten der Register",
+     "Sie puffern Befehle samt bekannter Operanden, bis die fehlenden Werte eintreffen"
+    ],
+    "answer": 3,
+    "why": "Ein Wartebereich mit Weckdienst: jeder Befehl wartet dort, bis alles da ist, und startet dann sofort - unabhängig von seinen Nachbarn."
+   },
+   {
+    "q": "Warum müssen Ergebnisse als Wert samt Kennung verteilt werden?",
+    "options": [
+     "Damit der Speicher sie findet",
+     "Damit jeder wartende Befehl erkennt, ob genau dieser Wert der gesuchte ist",
+     "Um die Reihenfolge zu sichern",
+     "Zur Fehlererkennung"
+    ],
+    "answer": 1,
+    "why": "Die Kennung sagt: dies ist das Ergebnis, auf das du wartest. Alle Wartenden hören mit und nehmen sich, was sie brauchen."
+   },
+   {
+    "q": "Wie bleibt das Ergebnis korrekt, obwohl die Reihenfolge durcheinandergerät?",
+    "options": [
+     "Durch erneutes Ausführen",
+     "Die Reihenfolge spielt keine Rolle",
+     "Durch Sperren der Register",
+     "Die Ergebnisse werden am Ende wieder in Programmreihenfolge sichtbar gemacht"
+    ],
+    "answer": 3,
+    "why": "Intern ungeordnet, nach aussen geordnet - genau der Vertrag aus der ISA. Deshalb merkt die Software von all dem nichts."
+   },
+   {
+    "q": "Was ist der Preis dieser Technik?",
+    "options": [
+     "Geringere Taktfrequenz",
+     "Kleinere Caches",
+     "Weniger Register",
+     "Deutlich mehr Chipfläche, Komplexität und Energieverbrauch"
+    ],
+    "answer": 3,
+    "why": "Die Buchführung kostet viel Hardware. Deshalb verzichten sparsame Prozessoren bewusst darauf und führen streng der Reihe nach aus."
+   }
+  ]
+ },
+ "13": {
+  "questions": [
+   {
+    "q": "Warum braucht ein Prozessor Sprungvorhersage?",
+    "options": [
+     "Um Speicher zu sparen",
+     "Weil die Pipeline weiterladen muss, bevor das Sprungziel feststeht",
+     "Um Fehler zu erkennen",
+     "Um Befehle zu sortieren"
+    ],
+    "answer": 1,
+    "why": "Warten wäre die ehrliche Lösung, kostet aber bei jedem Sprung Zyklen. Also rät der Prozessor - und korrigiert, wenn es schiefging."
+   },
+   {
+    "q": "Was passiert bei einer falschen Vorhersage?",
+    "options": [
+     "Das Ergebnis wird falsch",
+     "Die falsch geladenen Befehle werden verworfen und die Pipeline neu gefüllt",
+     "Der Befehl wird wiederholt",
+     "Das Programm stürzt ab"
+    ],
+    "answer": 1,
+    "why": "Korrektheit ist nie in Gefahr - nur Tempo. Eine Fehlvorhersage kostet je nach Pipelinetiefe leicht zehn bis zwanzig Zyklen."
+   },
+   {
+    "q": "Warum sind längere Pipelines empfindlicher gegenüber Fehlvorhersagen?",
+    "options": [
+     "Weil mehr begonnene Befehle verworfen werden müssen",
+     "Weil sie mehr Energie brauchen",
+     "Weil sie langsamer takten",
+     "Weil sie weniger Register haben"
+    ],
+    "answer": 0,
+    "why": "Tiefe Pipeline heisst hoher Takt, aber auch hoher Preis pro Fehlgriff. Ein klassischer Zielkonflikt im Entwurf."
+   },
+   {
+    "q": "Worauf stützt sich eine gute Vorhersage?",
+    "options": [
+     "Auf Zufall",
+     "Auf Compiler-Hinweise allein",
+     "Auf das beobachtete Verhalten desselben Sprungs in der Vergangenheit",
+     "Auf die Befehlslänge"
+    ],
+    "answer": 2,
+    "why": "Schleifen springen fast immer zurück. Aus solchen Mustern erreichen moderne Vorhersager über 95 Prozent Trefferquote."
+   },
+   {
+    "q": "Was folgt daraus für Software?",
+    "options": [
+     "Schleifen sind immer langsam",
+     "Der Compiler löst das vollständig",
+     "Gut vorhersagbare Verzweigungen sind billig, unregelmässige können teuer werden",
+     "Sprünge sollte man ganz vermeiden"
+    ],
+    "answer": 2,
+    "why": "Eine Bedingung, die zufällig mal so und mal so ausfällt, ist der schlimmste Fall. Sortierte Daten können denselben Code deutlich beschleunigen."
+   }
+  ]
+ },
+ "14": {
+  "questions": [
+   {
+    "q": "Was ist die Grundidee von VLIW?",
+    "options": [
+     "Befehle werden komprimiert",
+     "Der Compiler packt mehrere unabhängige Operationen in ein Befehlswort, die Hardware führt sie gemeinsam aus",
+     "Die Pipeline wird verlängert",
+     "Mehr Kerne auf einem Chip"
+    ],
+    "answer": 1,
+    "why": "Die Aufgabe des Umsortierens wandert von der Hardware in den Compiler. Der Chip wird einfacher, der Compiler anspruchsvoller."
+   },
+   {
+    "q": "Was ist der Vorteil gegenüber Ausführung ausser der Reihe?",
+    "options": [
+     "Bessere Vorhersage",
+     "Deutlich einfachere und sparsamere Hardware, weil die Planung vorab geschieht",
+     "Höhere Taktfrequenz",
+     "Mehr Register"
+    ],
+    "answer": 1,
+    "why": "Kein Wartebereich, keine Umsortierlogik. Deshalb findet man das Prinzip vor allem in Signalprozessoren und Beschleunigern."
+   },
+   {
+    "q": "Wo liegt die Schwäche?",
+    "options": [
+     "Die Befehle sind zu kurz",
+     "Der Compiler kennt Laufzeitverhalten wie Cache-Treffer nicht und muss vorsichtig planen",
+     "Die Hardware ist zu langsam",
+     "Es gibt keine Sprünge"
+    ],
+    "answer": 1,
+    "why": "Ob ein Zugriff den Cache trifft, entscheidet sich erst zur Laufzeit. Diese Ungewissheit kann der Compiler nicht auflösen - die Hardware schon."
+   },
+   {
+    "q": "Was bedeutet Befehlsparallelität (ILP)?",
+    "options": [
+     "Ein Befehl wird auf mehrere Daten angewandt",
+     "Innerhalb eines Befehlsstroms gibt es unabhängige Befehle, die parallel laufen könnten",
+     "Mehrere Kerne teilen sich Arbeit",
+     "Mehrere Programme laufen gleichzeitig"
+    ],
+    "answer": 1,
+    "why": "Diese Parallelität steckt schon im gewöhnlichen Code. Sie zu finden und auszunutzen ist die gemeinsame Aufgabe von Compiler und Hardware."
+   },
+   {
+    "q": "Warum ist ILP begrenzt?",
+    "options": [
+     "Weil Prozessoren zu wenig Kerne haben",
+     "Weil Compiler zu langsam sind",
+     "Weil echte Abhängigkeiten zwischen Befehlen eine Reihenfolge erzwingen",
+     "Weil der Speicher zu klein ist"
+    ],
+    "answer": 2,
+    "why": "Wer auf ein Ergebnis wartet, muss warten. Deshalb stösst dieser Weg an eine Grenze - und man wechselt zu Datenparallelität."
+   }
+  ]
+ },
+ "15": {
+  "questions": [
+   {
+    "q": "Was ist ein systolisches Array?",
+    "options": [
+     "Ein Netzwerk aus Prozessoren",
+     "Eine Cache-Bauform",
+     "Ein Speicherbaustein",
+     "Ein Gitter einfacher Rechenzellen, durch das Daten taktweise hindurchfliessen"
+    ],
+    "answer": 3,
+    "why": "Die Daten wandern von Zelle zu Zelle, jede rechnet einen kleinen Schritt. Für Matrixmultiplikation extrem effizient - deshalb stecken solche Arrays in KI-Beschleunigern."
+   },
+   {
+    "q": "Warum sind solche Spezialbauten so sparsam?",
+    "options": [
+     "Weil sie weniger Transistoren haben",
+     "Weil sie langsamer takten",
+     "Weil Daten direkt weitergereicht werden, statt ständig aus dem Speicher geholt zu werden",
+     "Weil sie kleiner gefertigt werden"
+    ],
+    "answer": 2,
+    "why": "Datenbewegung kostet weit mehr Energie als Rechnen. Wer Daten am Ort weiterreicht, spart genau den teuren Teil."
+   },
+   {
+    "q": "Was ist der Nachteil von Spezialhardware?",
+    "options": [
+     "Sie braucht mehr Energie",
+     "Sie lässt sich nicht fertigen",
+     "Sie ist langsamer",
+     "Sie glänzt nur bei Problemen, die zu ihrer Struktur passen - sonst liegt sie brach"
+    ],
+    "answer": 3,
+    "why": "Der Gewinn kommt aus der Spezialisierung und verschwindet mit ihr. Passt das Problem nicht, ist ein gewöhnlicher Prozessor besser."
+   },
+   {
+    "q": "Warum erleben solche Beschleuniger gerade eine Blüte?",
+    "options": [
+     "Weil Software einfacher geworden ist",
+     "Weil allgemeine Prozessoren kaum noch schneller werden und Spezialisierung der verbleibende Hebel ist",
+     "Weil Transistoren billiger werden",
+     "Weil der Speicher grösser wurde"
+    ],
+    "answer": 1,
+    "why": "Das Ende der einfachen Taktsteigerung hat die Spezialisierung zurückgebracht. Daher GPUs, Videoeinheiten und KI-Beschleuniger in fast jedem Gerät."
+   },
+   {
+    "q": "Was ist die Kehrseite für die Softwareseite?",
+    "options": [
+     "Keine",
+     "Compiler werden überflüssig",
+     "Der Code wird kürzer",
+     "Man muss sein Problem in die Form giessen, die der Beschleuniger erwartet"
+    ],
+    "answer": 3,
+    "why": "Die Leistung gibt es nicht geschenkt. Passt das Problem nicht zur Struktur, bleibt der Beschleuniger weitgehend ungenutzt."
+   }
+  ]
+ },
+ "16": {
+  "questions": [
+   {
+    "q": "Was bedeutet Datenparallelität?",
+    "options": [
+     "Dieselbe Operation wird gleichzeitig auf viele Datenelemente angewandt",
+     "Daten werden parallel gespeichert",
+     "Mehrere Kerne teilen sich den Cache",
+     "Mehrere Programme laufen gleichzeitig"
+    ],
+    "answer": 0,
+    "why": "Eine Anweisung, viele Daten. Bei Bildern, Vektoren und Matrizen ist das der natürliche Fall - und deshalb so lohnend."
+   },
+   {
+    "q": "Was ist der Vorteil eines Vektorbefehls gegenüber einer Schleife?",
+    "options": [
+     "Er braucht weniger Speicher",
+     "Ein Befehl wird einmal geholt und dekodiert, wirkt aber auf viele Elemente",
+     "Er ist kürzer zu schreiben",
+     "Er ist besser vorhersagbar"
+    ],
+    "answer": 1,
+    "why": "Der Verwaltungsaufwand pro Element fällt weg. Das spart nicht nur Zeit, sondern vor allem Energie."
+   },
+   {
+    "q": "Was unterscheidet einen Array-Prozessor von einem Vektorprozessor?",
+    "options": [
+     "Der Vektorprozessor ist älter",
+     "Der Array-Prozessor hat viele Rechenwerke nebeneinander, der Vektorprozessor schiebt Elemente durch ein Fliessband",
+     "Der Array-Prozessor kann nur addieren",
+     "Gar nichts"
+    ],
+    "answer": 1,
+    "why": "Echte Gleichzeitigkeit gegen Fliessbandarbeit. Mehr Rechenwerke bringen mehr Leistung, kosten aber deutlich mehr Fläche."
+   },
+   {
+    "q": "Wann bringt Datenparallelität wenig?",
+    "options": [
+     "Wenn jedes Element eine andere Behandlung braucht",
+     "Bei sortierten Daten",
+     "Bei Fliesskommazahlen",
+     "Bei grossen Datenmengen"
+    ],
+    "answer": 0,
+    "why": "Verzweigt der Code je Element unterschiedlich, muss die Einheit beide Wege nacheinander abarbeiten. Der Gewinn schrumpft entsprechend."
+   },
+   {
+    "q": "Warum ist regelmässiger Speicherzugriff hier besonders wichtig?",
+    "options": [
+     "Weil Caches sonst überlaufen",
+     "Weil der Compiler es verlangt",
+     "Weil sonst die Register ausgehen",
+     "Weil verstreute Zugriffe die Einheit aushungern - sie wartet dann nur noch auf Daten"
+    ],
+    "answer": 3,
+    "why": "Die Rechenwerke sind schnell, der Speicher ist der Engpass. Deshalb entscheidet die Anordnung der Daten oft mehr als die Rechenleistung."
+   }
+  ]
+ },
+ "17": {
+  "questions": [
+   {
+    "q": "Was bedeutet SIMD?",
+    "options": [
+     "Mehrere Befehle auf einem Datum",
+     "Mehrere Programme auf mehreren Daten",
+     "Ein Befehl wirkt gleichzeitig auf mehrere Daten",
+     "Ein Befehl wirkt auf ein Datum"
+    ],
+    "answer": 2,
+    "why": "Eine Anweisung, viele Daten. Moderne Prozessoren haben dafür breite Register, die mehrere Werte gleichzeitig aufnehmen."
+   },
+   {
+    "q": "Was ist der Unterschied zwischen SIMD und SIMT?",
+    "options": [
+     "SIMT ist älter",
+     "Keiner",
+     "SIMD arbeitet nur mit ganzen Zahlen",
+     "Bei SIMT schreibt man den Code für einen einzelnen Thread, und die Hardware führt viele davon im Gleichschritt aus"
+    ],
+    "answer": 3,
+    "why": "SIMT ist das GPU-Modell: man denkt in einem Thread, die Hardware bündelt viele. Bequemer zu programmieren, aber die Bündelung bleibt spürbar."
+   },
+   {
+    "q": "Was passiert, wenn Threads einer Gruppe unterschiedlich verzweigen?",
+    "options": [
+     "Die Gruppe wird aufgeteilt",
+     "Beide Zweige werden nacheinander abgearbeitet, jeweils mit einem Teil der Threads untätig",
+     "Sie laufen unabhängig weiter",
+     "Der Code stürzt ab"
+    ],
+    "answer": 1,
+    "why": "Das ist der grosse Effizienzfresser auf GPUs. Deshalb lohnt es sich, Daten so zu ordnen, dass benachbarte Threads gleich verzweigen."
+   },
+   {
+    "q": "Warum haben GPUs so viele gleichzeitige Threads?",
+    "options": [
+     "Um Wartezeiten auf den Speicher zu überdecken - wartet eine Gruppe, rechnet eine andere",
+     "Um Energie zu sparen",
+     "Um mehr Programme auszuführen",
+     "Weil der Speicher es verlangt"
+    ],
+    "answer": 0,
+    "why": "Statt Wartezeit zu vermeiden, versteckt die GPU sie hinter anderer Arbeit. Eine grundlegend andere Strategie als beim Prozessor mit seinen Caches."
+   },
+   {
+    "q": "Wofür eignen sich GPUs schlecht?",
+    "options": [
+     "Für Matrixmultiplikation",
+     "Für Aufgaben mit wenig Parallelität und vielen unregelmässigen Verzweigungen",
+     "Für Bildverarbeitung",
+     "Für neuronale Netze"
+    ],
+    "answer": 1,
+    "why": "Ohne Masse an gleichartiger Arbeit liegt die Hardware brach. Ein einzelner komplizierter Kontrollfluss läuft auf einem Prozessorkern besser."
+   }
+  ]
+ },
+ "18": {
+  "questions": [
+   {
+    "q": "Wie ist DRAM grob aufgebaut?",
+    "options": [
+     "Als Ringspeicher",
+     "Als lange Kette von Bytes",
+     "Als Baum von Speicherzellen",
+     "In Bänken, die in Zeilen und Spalten organisiert sind"
+    ],
+    "answer": 3,
+    "why": "Diese Struktur erklärt, warum Speicherzugriffe so ungleich teuer sind - je nachdem, wo das Vorherige lag."
+   },
+   {
+    "q": "Warum ist ein Zugriff auf eine bereits geöffnete Zeile deutlich schneller?",
+    "options": [
+     "Weil weniger Strom fliesst",
+     "Weil die Zeile bereits in den Leseverstärkern liegt und nicht erst geöffnet werden muss",
+     "Weil der Cache hilft",
+     "Weil die Adresse kürzer ist"
+    ],
+    "answer": 1,
+    "why": "Das Öffnen einer Zeile ist der teure Teil. Aufeinanderfolgende Zugriffe in dieselbe Zeile sind daher um ein Vielfaches billiger."
+   },
+   {
+    "q": "Was bringen mehrere Bänke?",
+    "options": [
+     "Höhere Taktfrequenz",
+     "Bessere Fehlerkorrektur",
+     "Zugriffe auf verschiedene Bänke können sich zeitlich überlappen",
+     "Mehr Speicherplatz"
+    ],
+    "answer": 2,
+    "why": "Während eine Bank noch arbeitet, kann die nächste schon beginnen. Parallelität als Antwort auf Latenz - dasselbe Muster wie beim Pipelining."
+   },
+   {
+    "q": "Warum heisst DRAM dynamisch?",
+    "options": [
+     "Weil die Ladung in den Zellen abfliesst und regelmässig aufgefrischt werden muss",
+     "Weil der Takt schwankt",
+     "Weil sich die Grösse ändert",
+     "Weil Daten verschoben werden"
+    ],
+    "answer": 0,
+    "why": "Jede Zelle ist im Kern ein kleiner Kondensator. Die nötige Auffrischung kostet Zeit und Energie - ein Grund, warum DRAM langsamer ist als SRAM."
+   },
+   {
+    "q": "Was ist die wichtigste Lehre für Software?",
+    "options": [
+     "Benachbart liegende Daten hintereinander zu lesen ist um ein Vielfaches billiger als verstreute Zugriffe",
+     "Speicher ist unbegrenzt schnell",
+     "Man sollte weniger Speicher verwenden",
+     "Zugriffe sollten zufällig verteilt sein"
+    ],
+    "answer": 0,
+    "why": "Dieselbe Datenmenge, andere Reihenfolge, um Grössenordnungen anderes Tempo. Genau deshalb schlägt ein Array oft eine verkettete Liste."
+   }
+  ]
+ },
+ "19": {
+  "questions": [
+   {
+    "q": "Wozu dient ein Cache?",
+    "options": [
+     "Zur Fehlerkorrektur",
+     "Zum Komprimieren von Daten",
+     "Zum dauerhaften Speichern",
+     "Er hält häufig genutzte Daten nah am Prozessor, damit der langsame Hauptspeicher seltener gebraucht wird"
+    ],
+    "answer": 3,
+    "why": "Zwischen Prozessor und Hauptspeicher klafft eine Lücke von zwei Grössenordnungen. Der Cache überbrückt sie - solange die Zugriffe ein Muster haben."
+   },
+   {
+    "q": "Was bedeutet zeitliche Lokalität?",
+    "options": [
+     "Daten werden zur selben Zeit geschrieben",
+     "Was gerade benutzt wurde, wird wahrscheinlich bald wieder gebraucht",
+     "Zugriffe erfolgen regelmässig",
+     "Daten liegen nah beieinander"
+    ],
+    "answer": 1,
+    "why": "Schleifenvariablen sind das Musterbeispiel. Deshalb lohnt es sich überhaupt, etwas aufzubewahren."
+   },
+   {
+    "q": "Was bedeutet räumliche Lokalität?",
+    "options": [
+     "Zugriffe erfolgen von einem Kern",
+     "Daten liegen im selben Rechner",
+     "Daten werden am selben Ort erzeugt",
+     "Wird eine Adresse gebraucht, werden benachbarte Adressen wahrscheinlich bald auch gebraucht"
+    ],
+    "answer": 3,
+    "why": "Deshalb lädt der Cache nie einzelne Bytes, sondern ganze Blöcke. Ein Array durchlaufen ist damit fast gratis - nach dem ersten Zugriff."
+   },
+   {
+    "q": "Was ist eine Cache-Zeile?",
+    "options": [
+     "Eine Zeile im Quelltext",
+     "Ein Eintrag in der Seitentabelle",
+     "Eine Zeile im DRAM",
+     "Der kleinste Block, den der Cache am Stück lädt - typisch 64 Byte"
+    ],
+    "answer": 3,
+    "why": "Ein einzelnes Byte lesen holt trotzdem die ganze Zeile. Wer diese 64 Byte nutzt, bekommt den Rest geschenkt; wer nicht, verschwendet sie."
+   },
+   {
+    "q": "Was sagt die Trefferquote aus?",
+    "options": [
+     "Wie voll der Cache ist",
+     "Wie oft der Cache Fehler macht",
+     "Wie schnell der Cache ist",
+     "Den Anteil der Zugriffe, die aus dem Cache bedient werden konnten"
+    ],
+    "answer": 3,
+    "why": "Eine gefährlich gutmütige Zahl: bei 90 Prozent Trefferquote bestimmen die restlichen 10 Prozent trotzdem den Grossteil der Wartezeit."
+   }
+  ]
+ },
+ "20": {
+  "questions": [
+   {
+    "q": "Was bedeutet Assoziativität?",
+    "options": [
+     "Wie schnell der Cache antwortet",
+     "An wie vielen Stellen im Cache eine bestimmte Adresse abgelegt werden darf",
+     "Wie viele Caches es gibt",
+     "Wie gross eine Cache-Zeile ist"
+    ],
+    "answer": 1,
+    "why": "Bei direkter Abbildung gibt es genau einen Platz, bei vollassoziativ jeden. Mehr Wahlmöglichkeit heisst weniger Verdrängung, aber teurere Suche."
+   },
+   {
+    "q": "Was ist ein Konfliktfehlzugriff?",
+    "options": [
+     "Die Daten wurden nie geladen",
+     "Der Cache ist voll",
+     "Zwei Kerne greifen gleichzeitig zu",
+     "Mehrere gebrauchte Adressen konkurrieren um dieselben wenigen Plätze und verdrängen sich gegenseitig"
+    ],
+    "answer": 3,
+    "why": "Der Cache wäre gross genug - nur passt die Abbildung nicht. Solche Fehlzugriffe verschwinden oft schon durch eine kleine Änderung der Datenanordnung."
+   },
+   {
+    "q": "Welche drei Arten von Fehlzugriffen unterscheidet man üblicherweise?",
+    "options": [
+     "Lesen, Schreiben, Löschen",
+     "Erstzugriff, begrenzte Kapazität und Konflikt",
+     "Klein, mittel, gross",
+     "Schnell, langsam, blockierend"
+    ],
+    "answer": 1,
+    "why": "Die Einteilung ist nützlich, weil jede Art eine andere Gegenmassnahme verlangt - mehr Kapazität hilft nur gegen eine davon."
+   },
+   {
+    "q": "Warum bringt mehr Assoziativität irgendwann kaum noch etwas?",
+    "options": [
+     "Weil der Cache dann zu gross wird",
+     "Weil die Zeilen zu kurz sind",
+     "Weil die Suche zu langsam wird",
+     "Weil die Konfliktfehlzugriffe bereits weitgehend verschwunden sind und der Rest andere Ursachen hat"
+    ],
+    "answer": 3,
+    "why": "Typischerweise flacht der Gewinn ab etwa acht Wegen deutlich ab. Der verbleibende Aufwand lohnt den zusätzlichen Strom- und Flächenbedarf nicht mehr."
+   },
+   {
+    "q": "Was ist die praktische Lehre für Programmierer?",
+    "options": [
+     "Man sollte kleinere Datentypen verwenden",
+     "Nur der Compiler kann hier etwas ändern",
+     "Die Anordnung und Durchlaufreihenfolge von Daten beeinflusst die Trefferquote erheblich",
+     "Caches lassen sich nicht beeinflussen"
+    ],
+    "answer": 2,
+    "why": "Zwei Schleifen über dieselbe Matrix, nur mit vertauschter Reihenfolge, können sich um den Faktor zehn unterscheiden - bei identischem Ergebnis."
+   }
+  ]
+ },
+ "21": {
+  "questions": [
+   {
+    "q": "Wozu dient virtueller Speicher?",
+    "options": [
+     "Jedes Programm sieht einen eigenen zusammenhängenden Adressraum, unabhängig vom echten Speicher",
+     "Zum Vergrössern des Caches",
+     "Zum schnelleren Zugriff",
+     "Zum Komprimieren von Daten"
+    ],
+    "answer": 0,
+    "why": "Er nimmt dem Programmierer die Speicherverwaltung ab und trennt Programme voneinander. Ein Musterbeispiel für eine gelungene Abstraktion."
+   },
+   {
+    "q": "Was leistet die Seitentabelle?",
+    "options": [
+     "Sie zählt die Zugriffe",
+     "Sie verwaltet den Cache",
+     "Sie speichert die Daten",
+     "Sie übersetzt virtuelle Adressen in physische"
+    ],
+    "answer": 3,
+    "why": "Die Übersetzung geschieht seitenweise, üblicherweise in Blöcken von 4 Kilobyte. Jeder Speicherzugriff braucht sie - deshalb muss sie schnell sein."
+   },
+   {
+    "q": "Wozu dient der TLB?",
+    "options": [
+     "Er ist ein kleiner Cache für kürzlich benutzte Adressübersetzungen",
+     "Zum Verwalten der Prozesse",
+     "Zum Zwischenspeichern von Daten",
+     "Zur Fehlererkennung"
+    ],
+    "answer": 0,
+    "why": "Ohne ihn bräuchte jeder Zugriff zusätzliche Speicherzugriffe für die Tabelle. Der TLB ist der Cache für den Cache-Zugang, sozusagen."
+   },
+   {
+    "q": "Was passiert bei einem Seitenfehler?",
+    "options": [
+     "Die gesuchte Seite ist nicht im Hauptspeicher und muss erst nachgeladen werden",
+     "Die Adresse ist ungültig",
+     "Das Programm stürzt ab",
+     "Der Cache wird geleert"
+    ],
+    "answer": 0,
+    "why": "Ein Zugriff, der sonst Nanosekunden dauert, kostet dann Millisekunden. Deshalb ist Auslagern auf die Platte so schmerzhaft spürbar."
+   },
+   {
+    "q": "Wie hängt virtueller Speicher mit Sicherheit zusammen?",
+    "options": [
+     "Gar nicht",
+     "Er verschlüsselt den Speicher",
+     "Jedes Programm kann nur auf die ihm zugeteilten Seiten zugreifen - fremder Speicher ist unerreichbar",
+     "Er prüft Signaturen"
+    ],
+    "answer": 2,
+    "why": "Die Trennung der Prozesse ist ein Nebenprodukt der Adressübersetzung - und heute ihr vielleicht wichtigster Nutzen."
+   }
+  ]
+ },
+ "22": {
+  "questions": [
+   {
+    "q": "Was macht ein Prefetcher?",
+    "options": [
+     "Er sortiert Speicherzugriffe",
+     "Er komprimiert Daten",
+     "Er lädt Daten in den Cache, bevor das Programm sie anfordert",
+     "Er verwaltet den TLB"
+    ],
+    "answer": 2,
+    "why": "Er wettet auf die nahe Zukunft. Geht die Wette auf, ist die Wartezeit verschwunden - geht sie schief, wurde Bandbreite verschwendet."
+   },
+   {
+    "q": "Worauf stützt sich die Vorhersage typischerweise?",
+    "options": [
+     "Auf Hinweise des Betriebssystems",
+     "Auf Zufall",
+     "Auf den Programmtext",
+     "Auf erkannte Muster in den Adressabständen bisheriger Zugriffe"
+    ],
+    "answer": 3,
+    "why": "Gleichmässige Abstände sind leicht zu erkennen und fortzuschreiben. Deshalb profitieren Schleifen über Arrays besonders stark."
+   },
+   {
+    "q": "Was ist die Gefahr eines zu aggressiven Prefetchers?",
+    "options": [
+     "Er verdrängt nützliche Daten aus dem Cache und belegt Bandbreite für Ungebrauchtes",
+     "Er wird zu langsam",
+     "Er verbraucht zu viele Register",
+     "Er erzeugt falsche Ergebnisse"
+    ],
+    "answer": 0,
+    "why": "Zu viel Vorausladen schadet. Deshalb beobachten moderne Prefetcher ihre eigene Trefferquote und drosseln bei schlechtem Erfolg."
+   },
+   {
+    "q": "Welche Zugriffsmuster lassen sich gut vorhersagen?",
+    "options": [
+     "Das Verfolgen von Zeigerketten",
+     "Gleichmässiges Durchlaufen mit festem Abstand",
+     "Zugriffe über eine Hashtabelle",
+     "Zufällige Sprünge im Speicher"
+    ],
+    "answer": 1,
+    "why": "Regelmässigkeit ist alles. Zeigerketten und Hashzugriffe sind praktisch unvorhersagbar - ein starkes Argument für zusammenhängende Datenstrukturen."
+   },
+   {
+    "q": "Was ist die zusammenfassende Lehre des Speicherteils?",
+    "options": [
+     "Caches sollten möglichst gross sein",
+     "Nicht die Menge der Zugriffe entscheidet, sondern ihr Muster",
+     "Speicher ist billig und schnell",
+     "Prefetching löst alle Probleme"
+    ],
+    "answer": 1,
+    "why": "Zwei Programme mit identischer Zugriffszahl können sich um Grössenordnungen unterscheiden. Wer das weiss, optimiert an der richtigen Stelle."
+   }
+  ]
+ }
+}

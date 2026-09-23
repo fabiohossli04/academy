@@ -1,0 +1,8 @@
+# Untertitel und Transkripte der ETH-Vorlesungen: fremdes Material.
+# Nur lokal zum Lernen - gehoert NICHT in ein Repository.
+transcripts/
+
+# Rohabzug aus dem ETH-Portal (jederzeit per scripts/fetch.py neu erzeugbar)
+data/courses-raw.json
+
+.DS_Store

@@ -1,0 +1,1418 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Was genau ist ein Alphabet in der theoretischen Informatik?",
+    "options": [
+     "Jede Menge von Zeichen, auch eine unendliche",
+     "Eine nichtleere, endliche Menge von Symbolen",
+     "Genau die 26 Buchstaben von A bis Z",
+     "Eine geordnete Folge von Symbolen"
+    ],
+    "answer": 1,
+    "why": "Beide Bedingungen haben einen Grund: leer wäre nutzlos, weil man ohne Symbol nichts beschreiben kann. Und endlich muss es sein, damit jedes Symbol selbst noch endlich darstellbar bleibt."
+   },
+   {
+    "q": "Wie viele verschiedene Wörter der Länge n gibt es über einem Alphabet mit k Symbolen?",
+    "options": [
+     "k^n",
+     "k · n",
+     "k! / n!",
+     "n^k"
+    ],
+    "answer": 0,
+    "why": "An jeder der n Stellen hast du freie Wahl aus k Symbolen, also k · k · … · k, das sind k^n. Dieses Abzählen kommt später bei Beweisen ständig wieder."
+   },
+   {
+    "q": "Was ist das leere Wort?",
+    "options": [
+     "Ein Wort, das aus genau einem Symbol besteht",
+     "Ein Fehlerzustand, den man vermeiden sollte",
+     "Das Wort der Länge 0 - es gehört zu jeder Wortmenge über dem Alphabet",
+     "Ein Wort, das nur Leerzeichen enthält"
+    ],
+    "answer": 2,
+    "why": "Das leere Wort hat Länge 0 und ist ein ganz normales Wort. Ein Leerzeichen wäre dagegen ein Symbol - also ein Wort der Länge 1."
+   },
+   {
+    "q": "Was ist eine formale Sprache?",
+    "options": [
+     "Die Menge aller möglichen Alphabete",
+     "Eine beliebige Teilmenge aller Wörter über einem Alphabet",
+     "Eine Programmiersprache mit strengen Regeln",
+     "Eine Sprache mit eindeutiger Grammatik"
+    ],
+    "answer": 1,
+    "why": "Mehr steckt zunächst nicht dahinter: eine Sprache ist einfach eine Auswahl von Wörtern. Genau dadurch wird 'ein Problem lösen' zu 'entscheiden, ob ein Wort dazugehört'."
+   },
+   {
+    "q": "Warum lohnt es sich, ein Problem als Sprache zu schreiben?",
+    "options": [
+     "Weil man dadurch Speicher spart",
+     "Weil sich damit jede Frage auf 'gehört dieses Wort dazu?' zurückführen lässt",
+     "Weil es dann schneller läuft",
+     "Weil nur so Rekursion möglich wird"
+    ],
+    "answer": 1,
+    "why": "Das ist der Trick des ganzen Fachs: ganz unterschiedliche Aufgaben bekommen eine einheitliche Form. Danach kann man über alle gleichzeitig reden und beweisen."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Wie ist die Kolmogorov-Komplexität eines Wortes definiert?",
+    "options": [
+     "Die Anzahl der Symbole im Wort",
+     "Die Anzahl verschiedener Symbole im Wort",
+     "Die Zeit, die ein Programm zum Erzeugen braucht",
+     "Die Länge des kürzesten Programms, das genau dieses Wort erzeugt"
+    ],
+    "answer": 3,
+    "why": "Nicht die Länge des Wortes zählt, sondern die kürzeste Beschreibung. Eine Million Nullen sind lang, aber in einem Satz beschreibbar."
+   },
+   {
+    "q": "Welches dieser Wörter hat die kleinste Kolmogorov-Komplexität?",
+    "options": [
+     "Alle drei sind gleich komplex, weil sie gleich lang sind",
+     "Eine Million Nullen hintereinander",
+     "Die ersten eine Million Bits eines verschlüsselten Textes",
+     "Eine Million zufällig gewürfelter Bits"
+    ],
+    "answer": 1,
+    "why": "Für die Nullen reicht ein winziges Programm: 'schreibe eine Million mal 0'. Für echte Zufallsbits gibt es keine kürzere Beschreibung als die Bits selbst."
+   },
+   {
+    "q": "Die Definition hängt von der gewählten Programmiersprache ab. Warum ist das kein Problem?",
+    "options": [
+     "Weil man sich vorher auf eine Sprache einigt",
+     "Weil man immer die kürzeste Sprache nimmt",
+     "Weil der Unterschied nur eine feste Konstante ist - die Länge eines Übersetzers",
+     "Weil alle Sprachen gleich lange Programme erzeugen"
+    ],
+    "answer": 2,
+    "why": "Ein Übersetzer von Sprache A nach B hat eine feste Länge, unabhängig vom Wort. Deshalb unterscheiden sich die Werte höchstens um diese Konstante."
+   },
+   {
+    "q": "Was bedeutet es, wenn ein Wort nicht komprimierbar ist?",
+    "options": [
+     "Es enthält nur ein einziges Symbol",
+     "Seine kürzeste Beschreibung ist ungefähr so lang wie es selbst",
+     "Es lässt sich mit keinem Packprogramm verkleinern",
+     "Es ist unendlich lang"
+    ],
+    "answer": 1,
+    "why": "Nicht komprimierbar heisst: es gibt keine kürzere Regel als 'hier sind die Zeichen'. Solche Wörter nennt man zufällig - unabhängig davon, wie sie entstanden sind."
+   },
+   {
+    "q": "Warum macht man Aussagen meist über unendliche Folgen von Wörtern statt über ein einzelnes Wort?",
+    "options": [
+     "Weil unendliche Folgen einfacher zu beschreiben sind",
+     "Weil einzelne Wörter zu kurz sind",
+     "Weil einzelne Wörter nicht berechenbar sind",
+     "Weil die unbekannten Konstanten erst bei wachsender Länge vernachlässigbar werden"
+    ],
+    "answer": 3,
+    "why": "Die Konstanten aus den Übersetzern können gross sein. Bei einem einzelnen kurzen Wort erschlagen sie die Aussage - erst wenn die Länge wächst, fallen sie nicht mehr ins Gewicht."
+   }
+  ]
+ },
+ "3": {
+  "questions": [
+   {
+    "q": "Ein Abzählargument zeigt: für jede Länge n gibt es Wörter, die nicht komprimierbar sind. Was ist der Kern?",
+    "options": [
+     "Weil jedes Wort genau ein Programm hat",
+     "Es gibt 2^n Wörter der Länge n, aber weniger kürzere Programme - also bleiben Wörter übrig",
+     "Weil Programme länger als ihre Ausgabe sein müssen",
+     "Weil Zufall immer nicht komprimierbar ist"
+    ],
+    "answer": 1,
+    "why": "Ein Schubfachschluss: mehr Wörter als kurze Beschreibungen. Also kann nicht jedes Wort eine kurze haben. Der Beweis liefert kein konkretes Beispiel - er zeigt nur, dass es welche geben muss."
+   },
+   {
+    "q": "Die Kolmogorov-Komplexität ist nicht berechenbar. Was heisst das praktisch?",
+    "options": [
+     "Es gibt kein Programm, das für jedes Wort den exakten Wert ausgibt",
+     "Man kann sie nur schätzen, aber mit genug Rechenzeit exakt bestimmen",
+     "Sie hängt vom verwendeten Rechner ab",
+     "Sie ist nur für kurze Wörter berechenbar"
+    ],
+    "answer": 0,
+    "why": "Kein Algorithmus kann das allgemein leisten. Das ist einer der ersten Berührungspunkte mit Unentscheidbarkeit - lange bevor die Turingmaschine auftaucht."
+   },
+   {
+    "q": "Was zeichnet einen endlichen Automaten gegenüber einem allgemeinen Programm aus?",
+    "options": [
+     "Er kann keine Schleifen ausführen",
+     "Er arbeitet nur mit Zahlen",
+     "Sein Speicherbedarf wächst nicht mit der Länge der Eingabe",
+     "Er läuft schneller"
+    ],
+    "answer": 2,
+    "why": "Das ist die eine entscheidende Einschränkung: fester Speicher, egal wie lang die Eingabe wird. Alles Weitere über Automaten folgt aus dieser Beschränkung."
+   },
+   {
+    "q": "Warum ist diese Einschränkung interessant, statt einfach lästig?",
+    "options": [
+     "Weil man bei so beschränkten Maschinen sauber beweisen kann, was sie nicht können",
+     "Weil sie weniger Strom brauchen",
+     "Weil solche Maschinen billiger sind",
+     "Weil sie immer terminieren"
+    ],
+    "answer": 0,
+    "why": "Je schwächer das Modell, desto leichter fallen Unmöglichkeitsbeweise. Man übt an Automaten, was man später bei Turingmaschinen braucht."
+   },
+   {
+    "q": "Wie viel Information kann ein endlicher Automat über bereits Gelesenes aufbewahren?",
+    "options": [
+     "Höchstens so viel, wie sich in seiner festen Zustandszahl unterscheiden lässt",
+     "Genau ein Symbol",
+     "Beliebig viel, solange die Eingabe endlich ist",
+     "So viel wie sein Eingabeband lang ist"
+    ],
+    "answer": 0,
+    "why": "Das gesamte Gedächtnis steckt darin, in welchem Zustand er gerade ist. Bei k Zuständen kann er höchstens k Situationen auseinanderhalten - mehr nicht."
+   }
+  ]
+ },
+ "4": {
+  "questions": [
+   {
+    "q": "Aus welchen Teilen besteht ein deterministischer endlicher Automat?",
+    "options": [
+     "Band, Lesekopf und Steuerung",
+     "Eingabe, Ausgabe und Speicher",
+     "Zustandsmenge, Eingabealphabet, Übergangsfunktion, Startzustand, akzeptierende Zustände",
+     "Nur aus Zuständen und Übergängen"
+    ],
+    "answer": 2,
+    "why": "Fünf Bestandteile. Kein Speicher und keine Variablen kommen vor - genau das macht ihn zum einfachsten sinnvollen Rechenmodell."
+   },
+   {
+    "q": "Was ist eine Konfiguration eines Automaten?",
+    "options": [
+     "Die Reihenfolge, in der Zustände besucht werden",
+     "Die Liste aller seiner Zustände",
+     "Die Übergangsfunktion in Tabellenform",
+     "Der aktuelle Zustand zusammen mit dem noch nicht gelesenen Teil der Eingabe"
+    ],
+    "answer": 3,
+    "why": "Eine Konfiguration beschreibt die gesamte Momentaufnahme. Eine Berechnung ist dann nichts anderes als eine Folge von Konfigurationen."
+   },
+   {
+    "q": "Wann akzeptiert ein deterministischer endlicher Automat ein Wort?",
+    "options": [
+     "Wenn er nach dem Lesen des gesamten Wortes in einem akzeptierenden Zustand steht",
+     "Sobald er irgendwann einen akzeptierenden Zustand betritt",
+     "Wenn er das Wort ohne Schleife durchläuft",
+     "Wenn er nie in einen Fehlerzustand gerät"
+    ],
+    "answer": 0,
+    "why": "Entscheidend ist nur der Zustand ganz am Ende. Zwischendurch darf er akzeptierende Zustände beliebig oft betreten und wieder verlassen."
+   },
+   {
+    "q": "Warum ist die Übergangsfunktion beim deterministischen Automaten eine echte Funktion?",
+    "options": [
+     "Weil zu jedem Paar aus Zustand und Symbol genau ein Folgezustand gehört",
+     "Weil sie umkehrbar sein muss",
+     "Damit er schneller läuft",
+     "Weil sie sonst nicht endlich wäre"
+    ],
+    "answer": 0,
+    "why": "Genau ein Folgezustand - das ist die Bedeutung von deterministisch. Damit ist die gesamte Berechnung durch die Eingabe bereits festgelegt."
+   },
+   {
+    "q": "Ein Automat soll prüfen, ob eine Binärzahl durch 3 teilbar ist. Wie viele Zustände reichen?",
+    "options": [
+     "Zwei - teilbar oder nicht",
+     "So viele, wie die Zahl Stellen hat",
+     "Unendlich viele, weil Zahlen beliebig gross werden",
+     "Drei - einer je möglichem Rest beim Teilen durch 3"
+    ],
+    "answer": 3,
+    "why": "Man muss sich nur den Rest merken, nicht die Zahl. Genau das ist die Kunst beim Automatenbau: finden, welche endliche Information wirklich reicht."
+   }
+  ]
+ },
+ "5": {
+  "questions": [
+   {
+    "q": "Wie ist ein Widerspruchsbeweis aufgebaut?",
+    "options": [
+     "Man probiert alle Fälle durch",
+     "Man nimmt das Gegenteil an und leitet daraus etwas offensichtlich Falsches her",
+     "Man zeigt die Aussage direkt an einem Beispiel",
+     "Man verweist auf einen bekannten Satz"
+    ],
+    "answer": 1,
+    "why": "Wenn die Gegenannahme zu Unsinn führt, kann sie nicht stimmen. Das ist das Standardwerkzeug für Aussagen der Form 'es gibt kein …'."
+   },
+   {
+    "q": "Warum sind untere Schranken meist schwerer zu beweisen als obere?",
+    "options": [
+     "Weil sie längere Rechnungen erfordern",
+     "Weil obere Schranken immer exakt sind",
+     "Für eine obere Schranke genügt ein Verfahren - für eine untere muss man über alle möglichen Verfahren reden",
+     "Weil untere Schranken von der Hardware abhängen"
+    ],
+    "answer": 2,
+    "why": "Ein Algorithmus zeigen: fertig. Zeigen, dass keiner besser sein kann, heisst über unendlich viele mögliche Programme gleichzeitig eine Aussage machen."
+   },
+   {
+    "q": "Ein Abzählargument vergleicht zwei Mengen. Was schliesst man daraus?",
+    "options": [
+     "Dass mindestens ein Element der grösseren keinen Partner haben kann",
+     "Dass beide Mengen gleich gross sind",
+     "Dass eine Zuordnung immer existiert",
+     "Dass die kleinere Menge leer ist"
+    ],
+    "answer": 0,
+    "why": "Mehr Objekte als Plätze heisst: es bleibt etwas übrig. Aus diesem schlichten Prinzip entstehen überraschend starke Unmöglichkeitsaussagen."
+   },
+   {
+    "q": "Was ist der Unterschied zwischen 'ich kenne keinen Algorithmus' und 'es gibt keinen Algorithmus'?",
+    "options": [
+     "Der zweite ist schwächer",
+     "Der erste Satz ist eine Aussage über mich, der zweite eine bewiesene Aussage über die Welt",
+     "Kein Unterschied, das eine folgt aus dem anderen",
+     "Der erste lässt sich beweisen, der zweite nicht"
+    ],
+    "answer": 1,
+    "why": "Diese Unterscheidung ist der Kern des ganzen Fachs. Unwissen ist kein Beweis - ein Nichtexistenzbeweis dagegen schliesst alle denkbaren Verfahren aus."
+   },
+   {
+    "q": "Warum taucht in Beweisen so oft 'für genügend grosse n' auf?",
+    "options": [
+     "Weil kleine n nicht berechenbar sind",
+     "Weil man sonst unendlich viele Fälle prüfen müsste",
+     "Weil kleine Fälle uninteressant sind",
+     "Weil feste Konstanten erst bei wachsendem n gegenüber dem Rest verschwinden"
+    ],
+    "answer": 3,
+    "why": "Eine Konstante wie 1000 erschlägt jede Aussage bei n = 10. Bei n = 10 Millionen fällt sie nicht mehr ins Gewicht - deshalb die Einschränkung."
+   }
+  ]
+ },
+ "6": {
+  "questions": [
+   {
+    "q": "Was will ein Nichtexistenzbeweis für endliche Automaten zeigen?",
+    "options": [
+     "Dass der Automat zu viele Zustände braucht",
+     "Dass ein bestimmter Automat fehlerhaft ist",
+     "Dass die Sprache leer ist",
+     "Dass es für eine bestimmte Sprache überhaupt keinen endlichen Automaten geben kann"
+    ],
+    "answer": 3,
+    "why": "Nicht 'mein Automat klappt nicht', sondern 'keiner kann klappen'. Deshalb muss der Beweis über alle Automaten gleichzeitig argumentieren."
+   },
+   {
+    "q": "Warum lernt man drei verschiedene Methoden für dieselbe Art Aussage?",
+    "options": [
+     "Weil man immer alle drei gleichzeitig anwenden muss",
+     "Weil zwei davon fehlerhaft sind",
+     "Weil jede Methode andere Sprachen abdeckt und man das Werkzeug wählen können muss",
+     "Weil es historisch so gewachsen ist"
+    ],
+    "answer": 2,
+    "why": "Methodenvielfalt ist hier Absicht. Bei einer konkreten Sprache ist oft nur eine der Methoden handlich - erkennen, welche, ist die eigentliche Übung."
+   },
+   {
+    "q": "Die Sprache aller Wörter mit gleich vielen a wie b ist nicht durch einen endlichen Automaten erkennbar. Warum?",
+    "options": [
+     "Weil die Wörter beliebig lang werden",
+     "Weil sie unendlich viele Wörter enthält",
+     "Weil a und b nicht unterscheidbar sind",
+     "Weil der Automat beliebig weit zählen müsste, aber nur endlich viele Zustände hat"
+    ],
+    "answer": 3,
+    "why": "Unendlich viele Wörter sind kein Problem - Zählen ohne Obergrenze schon. Für jede Anzahl bräuchte er einen eigenen Zustand, und die sind begrenzt."
+   },
+   {
+    "q": "Was ist der typische erste Schritt in solchen Beweisen?",
+    "options": [
+     "Ein Gegenbeispiel suchen",
+     "Die Sprache vereinfachen",
+     "Den Automaten konstruieren",
+     "Annehmen, es gäbe einen solchen Automaten mit einer festen Zahl von Zuständen"
+    ],
+    "answer": 3,
+    "why": "Man gibt dem Gegner seinen Automaten - mit irgendeiner festen Zustandszahl k. Genau an dieser Festlegung bricht der Beweis ihn dann."
+   },
+   {
+    "q": "Warum genügt es nicht, sehr viele Automaten auszuprobieren?",
+    "options": [
+     "Weil Automaten sich nicht aufzählen lassen",
+     "Weil das zu lange dauert",
+     "Weil es unendlich viele gibt - Probieren kann Nichtexistenz nie belegen",
+     "Weil man den richtigen übersehen könnte"
+    ],
+    "answer": 2,
+    "why": "Ausprobieren kann eine Existenz belegen, aber nie eine Nichtexistenz. Dafür braucht es ein Argument, das alle Fälle auf einmal erfasst."
+   }
+  ]
+ },
+ "7": {
+  "questions": [
+   {
+    "q": "Ein Automat mit k Zuständen liest ein Wort mit mehr als k Zeichen. Was folgt zwingend?",
+    "options": [
+     "Er akzeptiert das Wort",
+     "Mindestens ein Zustand wird zweimal besucht",
+     "Er braucht mehr Speicher",
+     "Er stürzt ab"
+    ],
+    "answer": 1,
+    "why": "Mehr Schritte als Zustände heisst: einer muss sich wiederholen. Das ist das Schubfachprinzip und der Motor fast aller Beweise über Automatengrenzen."
+   },
+   {
+    "q": "Was bedeutet eine solche Zustandswiederholung für die Berechnung?",
+    "options": [
+     "Der Automat hängt fest",
+     "Zwischen den beiden Besuchen liegt eine Schleife, die man beliebig oft wiederholen kann",
+     "Die Eingabe wird doppelt gelesen",
+     "Der Automat vergisst den Anfang"
+    ],
+    "answer": 1,
+    "why": "Kommt er zweimal in denselben Zustand, kann er das Stück dazwischen nochmal laufen - und das Ergebnis bleibt gleich. Genau damit erzeugt man Widersprüche."
+   },
+   {
+    "q": "Warum ist diese Schleife ein Problem für den Automaten?",
+    "options": [
+     "Weil sie nicht terminiert",
+     "Weil sie ihn verlangsamt",
+     "Weil sie Speicher verbraucht",
+     "Weil er dann auch Wörter akzeptiert, die er eigentlich ablehnen müsste"
+    ],
+    "answer": 3,
+    "why": "Er kann nicht unterscheiden, ob die Schleife ein- oder dreimal durchlaufen wurde. Findet man dazu ein Wort, das nicht in die Sprache gehört, ist der Widerspruch da."
+   },
+   {
+    "q": "Wie viele Zustände braucht ein Automat mindestens, wenn er n Wörter wirklich auseinanderhalten muss?",
+    "options": [
+     "Mindestens n",
+     "log n",
+     "Immer genau zwei",
+     "n²"
+    ],
+    "answer": 0,
+    "why": "Landen zwei unterscheidbare Wörter im selben Zustand, behandelt er alles Weitere gleich. Also braucht jede echt zu unterscheidende Situation einen eigenen Zustand."
+   },
+   {
+    "q": "Was ist die allgemeine Lehre aus diesem Kapitel für die Praxis?",
+    "options": [
+     "Wer nur endlich viel mitschreiben kann, kann nicht unbegrenzt mitzählen",
+     "Automaten sind nutzlos",
+     "Man sollte immer mehr Zustände einplanen",
+     "Schleifen sollte man vermeiden"
+    ],
+    "answer": 0,
+    "why": "Die Aussage gilt weit über Automaten hinaus: fester Speicher heisst feste Unterscheidungsfähigkeit. Bei Puffern, Fenstern und Zählern trifft man genau das wieder."
+   }
+  ]
+ },
+ "8": {
+  "questions": [
+   {
+    "q": "Was darf ein nichtdeterministischer Automat, was ein deterministischer nicht darf?",
+    "options": [
+     "Das Eingabewort verändern",
+     "Rückwärts lesen",
+     "Mehr Speicher verwenden",
+     "Zu einem Zustand und Symbol mehrere mögliche Folgezustände haben"
+    ],
+    "answer": 3,
+    "why": "Statt eines festgelegten Wegs gibt es mehrere mögliche. Man stellt sich das am besten als gleichzeitiges Verfolgen aller Wege vor."
+   },
+   {
+    "q": "Wann akzeptiert ein nichtdeterministischer Automat ein Wort?",
+    "options": [
+     "Wenn die Mehrheit der Berechnungen akzeptiert",
+     "Wenn alle möglichen Berechnungen akzeptieren",
+     "Wenn mindestens eine mögliche Berechnung akzeptiert",
+     "Wenn die erste Berechnung akzeptiert"
+    ],
+    "answer": 2,
+    "why": "Eine genügt. Dieses 'es gibt einen Weg' ist dieselbe Denkfigur, die später bei NP wieder auftaucht - dort heisst der Weg dann Zertifikat."
+   },
+   {
+    "q": "Was besagt die Potenzmengenkonstruktion?",
+    "options": [
+     "Man kann Zustände beliebig zusammenlegen",
+     "Jeder Automat lässt sich minimieren",
+     "Jeder nichtdeterministische Automat lässt sich in einen deterministischen umbauen",
+     "Nichtdeterministische Automaten sind echt mächtiger"
+    ],
+    "answer": 2,
+    "why": "Beide erkennen genau dieselben Sprachen. Nichtdeterminismus bringt hier keine zusätzliche Mächtigkeit - nur eine kompaktere Beschreibung."
+   },
+   {
+    "q": "Was ist ein Zustand des konstruierten deterministischen Automaten?",
+    "options": [
+     "Eine Folge von Zuständen",
+     "Eine Menge von Zuständen des Ausgangsautomaten",
+     "Ein Paar aus Zustand und gelesenem Symbol",
+     "Ein einzelner Zustand des Ausgangsautomaten"
+    ],
+    "answer": 1,
+    "why": "Er merkt sich gleichzeitig alle Zustände, in denen der nichtdeterministische Automat gerade sein könnte. Daher der Name Potenzmenge."
+   },
+   {
+    "q": "Was ist der Preis dieser Umwandlung?",
+    "options": [
+     "Die Zustandszahl kann von n auf bis zu 2^n anwachsen",
+     "Der neue Automat braucht mehr Speicher pro Schritt",
+     "Man verliert manche Wörter",
+     "Der neue Automat ist langsamer"
+    ],
+    "answer": 0,
+    "why": "Gleiche Mächtigkeit, aber möglicherweise exponentiell mehr Zustände. Mächtigkeit und Grösse der Beschreibung sind eben zwei verschiedene Fragen."
+   }
+  ]
+ },
+ "9": {
+  "questions": [
+   {
+    "q": "Woraus besteht eine Turingmaschine im Kern?",
+    "options": [
+     "Aus einem Prozessor und einem Arbeitsspeicher",
+     "Aus Zuständen, einem unbegrenzten Band und einem Kopf, der liest, schreibt und sich bewegt",
+     "Aus einem Stapelspeicher und einer Eingabe",
+     "Aus einer endlichen Zustandsmenge ohne jeden Speicher"
+    ],
+    "answer": 1,
+    "why": "Der entscheidende Zusatz gegenüber dem endlichen Automaten ist das Band: unbegrenzter Platz, auf dem man auch schreiben darf."
+   },
+   {
+    "q": "Was besagt die Church-Turing-These?",
+    "options": [
+     "Jedes Problem ist mit einer Turingmaschine lösbar",
+     "Alles, was im intuitiven Sinn berechenbar ist, ist mit einer Turingmaschine berechenbar",
+     "Turingmaschinen sind schneller als reale Rechner",
+     "Jede Programmiersprache ist gleich schnell"
+    ],
+    "answer": 1,
+    "why": "Eine These, kein Satz - sie verbindet einen unscharfen Alltagsbegriff mit einem exakten Modell und lässt sich deshalb nicht beweisen, nur stützen."
+   },
+   {
+    "q": "Warum ist es bemerkenswert, dass das Modell von 1936 stammt?",
+    "options": [
+     "Weil es seither mehrfach korrigiert wurde",
+     "Weil es entstand, bevor es überhaupt digitale Rechner gab - es beschreibt Rechnen, nicht eine Maschine",
+     "Weil es zuerst als Spielzeug gedacht war",
+     "Weil es damals schon Computer gab"
+    ],
+    "answer": 1,
+    "why": "Turing hat keine kommende Technik beschrieben, sondern gefragt, was ein Mensch beim schrittweisen Rechnen tut. Deshalb hat das Modell jeden Technikwechsel überlebt."
+   },
+   {
+    "q": "Warum wählt man ein absichtlich minimalistisches Modell?",
+    "options": [
+     "Weil Unmöglichkeitsbeweise leichter fallen, wenn das Modell wenig kann",
+     "Weil es weniger Speicher braucht",
+     "Weil es einfacher zu programmieren ist",
+     "Weil komplexe Modelle nicht berechenbar sind"
+    ],
+    "answer": 0,
+    "why": "Zeigt man, dass schon dieses karge Modell etwas nicht kann, ist die Aussage schwach. Zeigt man umgekehrt, dass es alles kann, ist die Aussage stark - darum die Minimalität."
+   },
+   {
+    "q": "Was unterscheidet die Turingmaschine grundsätzlich vom endlichen Automaten?",
+    "options": [
+     "Sie ist nichtdeterministisch",
+     "Sie liest die Eingabe schneller",
+     "Ihr Speicherbedarf darf mit der Eingabe wachsen",
+     "Sie hat mehr Zustände"
+    ],
+    "answer": 2,
+    "why": "Nicht die Zahl der Zustände macht den Unterschied, sondern das mitwachsende Band. Genau daran scheiterte der endliche Automat beim Zählen."
+   }
+  ]
+ },
+ "10": {
+  "questions": [
+   {
+    "q": "Was ändert sich, wenn man einer Turingmaschine mehrere Bänder gibt?",
+    "options": [
+     "Sie kann Probleme lösen, die vorher unlösbar waren",
+     "Sie verliert die Eigenschaft, deterministisch zu sein",
+     "Sie wird langsamer",
+     "Sie wird oft schneller, aber die Menge der lösbaren Probleme bleibt gleich"
+    ],
+    "answer": 3,
+    "why": "Mehr Bänder bringen Bequemlichkeit und Tempo, keine neue Mächtigkeit. Ein Band kann mehrere simulieren - mit Zeitverlust, aber ohne Verlust an Möglichkeiten."
+   },
+   {
+    "q": "Was bedeutet es, dass das Modell robust ist?",
+    "options": [
+     "Es verträgt fehlerhafte Eingaben",
+     "Vernünftige Erweiterungen ändern nichts daran, was überhaupt berechenbar ist",
+     "Es funktioniert auf jeder Hardware",
+     "Es stürzt nicht ab"
+    ],
+    "answer": 1,
+    "why": "Zusätzliche Bänder, grössere Alphabete, zweidimensionale Bänder - nichts davon erweitert die Klasse der berechenbaren Probleme. Das macht den Begriff erst belastbar."
+   },
+   {
+    "q": "Wie zeigt man, dass ein erweitertes Modell nicht mächtiger ist?",
+    "options": [
+     "Man zählt die Zustände",
+     "Man probiert Beispiele durch",
+     "Man gibt an, wie die einfache Maschine die erweiterte Schritt für Schritt nachspielt",
+     "Man misst die Laufzeit"
+    ],
+    "answer": 2,
+    "why": "Simulation ist das Standardwerkzeug. Wer die eine Maschine durch die andere nachbauen kann, hat die Gleichmächtigkeit bewiesen."
+   },
+   {
+    "q": "Wozu darf man sich ein Orakel, das unlösbare Fragen sofort beantwortet, nicht einfach dazudenken?",
+    "options": [
+     "Weil es die Zustandszahl sprengt",
+     "Weil Orakel nicht deterministisch sind",
+     "Weil es zu langsam wäre",
+     "Weil so ein Modell nichts über wirklich baubare Rechner aussagt"
+    ],
+    "answer": 3,
+    "why": "Man kann sich beliebige Modelle ausdenken - nur verlieren sie ihren Sinn, sobald sie nichts Realisierbares mehr beschreiben. Die Grenze ist Implementierbarkeit."
+   },
+   {
+    "q": "Warum sind Mehrband-Maschinen trotzdem nützlich?",
+    "options": [
+     "Weil sich Algorithmen damit viel bequemer entwerfen lassen",
+     "Weil sie mehr Probleme lösen",
+     "Weil sie weniger Zustände brauchen",
+     "Weil sie immer terminieren"
+    ],
+    "answer": 0,
+    "why": "Man entwirft im bequemen Modell und weiss durch die Simulation, dass alles auch im minimalen Modell geht. Ein Muster, das die ganze Informatik durchzieht."
+   }
+  ]
+ },
+ "11": {
+  "questions": [
+   {
+    "q": "Wann heissen zwei unendliche Mengen gleich gross?",
+    "options": [
+     "Wenn beide unendlich sind",
+     "Wenn eine Teilmenge der anderen ist",
+     "Wenn sich ihre Elemente paarweise eindeutig einander zuordnen lassen",
+     "Wenn sie dieselben Elemente enthalten"
+    ],
+    "answer": 2,
+    "why": "Zählen hilft bei Unendlichkeit nicht - Vergleichen schon. Diese Zuordnungsidee führt zu Ergebnissen, die dem Alltagsgefühl widersprechen."
+   },
+   {
+    "q": "Was zeigt Hilberts Hotel?",
+    "options": [
+     "Dass Hotels endlich sein sollten",
+     "Dass Unendlichkeit nicht existiert",
+     "Dass ein volles Hotel mit unendlich vielen Zimmern noch weitere Gäste aufnehmen kann",
+     "Dass unendlich viele Gäste unmöglich unterzubringen sind"
+    ],
+    "answer": 2,
+    "why": "Jeder rückt ein Zimmer weiter, und Zimmer 1 wird frei - obwohl vorher alles belegt war. Bei unendlichen Mengen ist 'voll' eben nicht dasselbe wie bei endlichen."
+   },
+   {
+    "q": "Welche dieser Mengen ist überabzählbar?",
+    "options": [
+     "Die ganzen Zahlen",
+     "Die reellen Zahlen",
+     "Die Menge aller Programme",
+     "Die natürlichen Zahlen"
+    ],
+    "answer": 1,
+    "why": "Die reellen Zahlen lassen sich nicht durchnummerieren. Alle anderen genannten schon - auch die Programme, denn jedes ist ein endlicher Text."
+   },
+   {
+    "q": "Warum ist es entscheidend, dass es nur abzählbar viele Programme gibt?",
+    "options": [
+     "Weil Programme kurz sein müssen",
+     "Weil es überabzählbar viele Probleme gibt - also müssen Probleme ohne Programm übrig bleiben",
+     "Weil sonst kein Compiler funktionieren würde",
+     "Weil man Programme sonst nicht speichern könnte"
+    ],
+    "answer": 1,
+    "why": "Das ist das Abzählargument in seiner schönsten Form: mehr Aufgaben als Lösungen. Unlösbare Probleme müssen existieren, noch bevor man eines konkret kennt."
+   },
+   {
+    "q": "Worauf beruht das Diagonalargument?",
+    "options": [
+     "Auf der Symmetrie von Matrizen",
+     "Auf dem Schubfachprinzip",
+     "Man baut ein Objekt, das sich von jedem Eintrag einer angenommenen Liste an einer Stelle unterscheidet",
+     "Auf dem Durchprobieren aller Fälle"
+    ],
+    "answer": 2,
+    "why": "Die Liste soll vollständig sein - und man konstruiert genau das eine Element, das nicht darin vorkommen kann. Dieser Trick trägt später das Halteproblem."
+   }
+  ]
+ },
+ "12": {
+  "questions": [
+   {
+    "q": "Wie ist die Diagonalsprache grob gebaut?",
+    "options": [
+     "Aus allen Wörtern, die kein Programm sind",
+     "Aus den Kodierungen genau der Maschinen, die ihre eigene Kodierung nicht akzeptieren",
+     "Aus den kürzesten Wörtern jeder Sprache",
+     "Aus allen Wörtern gerader Länge"
+    ],
+    "answer": 1,
+    "why": "Eine Selbstbezüglichkeit nach dem Muster 'die Menge aller Dinge, die sich nicht selbst enthalten'. Genau daraus entsteht der Widerspruch."
+   },
+   {
+    "q": "Warum ist die Diagonalsprache nicht rekursiv?",
+    "options": [
+     "Weil jede Maschine, die sie entscheiden würde, sich bei ihrer eigenen Kodierung widersprechen müsste",
+     "Weil sie zu viele Wörter enthält",
+     "Weil sie unendlich ist",
+     "Weil sie nicht abzählbar ist"
+    ],
+    "answer": 0,
+    "why": "Fragt man die angebliche Entscheider-Maschine nach sich selbst, muss sie ja sagen, wenn nein richtig wäre - und umgekehrt. Also kann es sie nicht geben."
+   },
+   {
+    "q": "Was heisst es, ein Problem A auf ein Problem B zu reduzieren?",
+    "options": [
+     "A lässt sich in B umbenennen",
+     "B ist ein Spezialfall von A",
+     "A und B sind gleich schwer",
+     "Man löst A, indem man Eingaben so umformt, dass eine Lösung für B die Antwort liefert"
+    ],
+    "answer": 3,
+    "why": "Die Reduktion überträgt Lösbarkeit in die eine und Unlösbarkeit in die andere Richtung. Das ist das Arbeitspferd des ganzen weiteren Kurses."
+   },
+   {
+    "q": "A lässt sich auf B reduzieren und A ist unentscheidbar. Was folgt für B?",
+    "options": [
+     "B ist entscheidbar",
+     "B ist ebenfalls unentscheidbar",
+     "Über B lässt sich nichts sagen",
+     "B ist einfacher als A"
+    ],
+    "answer": 1,
+    "why": "Wäre B lösbar, könnte man über die Reduktion auch A lösen - Widerspruch. Merke die Richtung: die Härte wandert vom bekannten zum neuen Problem."
+   },
+   {
+    "q": "Warum ist die Reduktion so wertvoll?",
+    "options": [
+     "Weil sie jedes Problem vereinfacht",
+     "Weil sie Programme beschleunigt",
+     "Weil ein einziges bewiesenes hartes Problem genügt, um die Härte vieler weiterer zu zeigen",
+     "Weil sie Speicher spart"
+    ],
+    "answer": 2,
+    "why": "Ein Ankerproblem beweisen, danach nur noch umformen. Genau so entsteht später die lange Liste NP-vollständiger Probleme."
+   }
+  ]
+ },
+ "13": {
+  "questions": [
+   {
+    "q": "Was leistet die universelle Turingmaschine?",
+    "options": [
+     "Sie erkennt, ob eine Maschine anhält",
+     "Sie ist schneller als jede andere Maschine",
+     "Sie bekommt die Beschreibung einer Maschine samt Eingabe und spielt deren Verhalten nach",
+     "Sie löst jedes Problem"
+    ],
+    "answer": 2,
+    "why": "Sie ist das theoretische Gegenstück zum Interpreter. Dass Programme selbst Daten sein können, ist die Grundlage von allem, was danach kommt."
+   },
+   {
+    "q": "Warum ist diese Idee so folgenreich?",
+    "options": [
+     "Weil sie Nichtdeterminismus erlaubt",
+     "Weil Programme damit selbst zu Eingaben werden - erst das macht Selbstbezug möglich",
+     "Weil sie Speicher spart",
+     "Weil sie mehrere Bänder benötigt"
+    ],
+    "answer": 1,
+    "why": "Programme über Programme reden zu lassen, öffnet beides: den universellen Rechner und die Unentscheidbarkeitsbeweise. Beides folgt aus derselben Einsicht."
+   },
+   {
+    "q": "Worum geht es beim Postschen Korrespondenzproblem?",
+    "options": [
+     "Um die Frage, ob sich Dominosteine mit je zwei Aufschriften so aneinanderreihen lassen, dass oben und unten dasselbe steht",
+     "Um das Sortieren von Zeichenketten",
+     "Um das Vergleichen zweier Programme",
+     "Um die Übertragung von Nachrichten"
+    ],
+    "answer": 0,
+    "why": "Ein Problem, das sich harmlos wie ein Puzzle anhört - und trotzdem unentscheidbar ist. Genau deshalb ist es als Ankerproblem so nützlich."
+   },
+   {
+    "q": "Was lehrt dieses Beispiel über Unentscheidbarkeit?",
+    "options": [
+     "Auch rein kombinatorische Aufgaben ohne jeden Programmbezug können unentscheidbar sein",
+     "Unentscheidbarkeit hängt von der Sprache ab",
+     "Nur Probleme über Programme sind unentscheidbar",
+     "Puzzles sind immer lösbar"
+    ],
+    "answer": 0,
+    "why": "Unentscheidbarkeit ist kein Sonderfall der Selbstbezüglichkeit. Sie steckt auch in Fragen, die aussehen wie Knobelaufgaben."
+   },
+   {
+    "q": "Warum sammelt man solche Ankerprobleme?",
+    "options": [
+     "Um sie auswendig zu lernen",
+     "Weil eine Reduktion von einem passenden Anker meist viel einfacher ist als ein Beweis von Grund auf",
+     "Weil sie in Prüfungen drankommen",
+     "Weil sie besonders schnell lösbar sind"
+    ],
+    "answer": 1,
+    "why": "Je näher der Anker am neuen Problem liegt, desto kürzer die Reduktion. Deshalb lohnt sich ein Vorrat verschiedenartiger Anker."
+   }
+  ]
+ },
+ "14": {
+  "questions": [
+   {
+    "q": "Was besagt der Satz von Rice sinngemäss?",
+    "options": [
+     "Programme kürzer als 25 Zeilen sind entscheidbar",
+     "Alle Programme lassen sich optimieren",
+     "Syntaxfehler sind immer erkennbar",
+     "Jede nichttriviale Frage nach dem Verhalten eines Programms ist unentscheidbar"
+    ],
+    "answer": 3,
+    "why": "Gemeint ist das Verhalten, nicht die Textform. Ob ein Programm eine Klammer zu viel hat, ist prüfbar - ob es je eine bestimmte Ausgabe erzeugt, nicht."
+   },
+   {
+    "q": "Warum hilft es nicht, das Programm auf 25 Zeilen zu begrenzen?",
+    "options": [
+     "Weil schon sehr kurze Programme beliebig komplexes Verhalten zeigen können",
+     "Weil kurze Programme schwerer zu lesen sind",
+     "Weil kurze Programme meist falsch sind",
+     "Weil die Zeilenzahl nicht messbar ist"
+    ],
+    "answer": 0,
+    "why": "Kürze der Beschreibung sagt nichts über die Komplexität des Verhaltens. Ein paar Zeilen genügen für ein unlösbares Verhaltensrätsel."
+   },
+   {
+    "q": "Was ist eine triviale Eigenschaft im Sinn des Satzes?",
+    "options": [
+     "Eine, die sich in Linearzeit prüfen lässt",
+     "Eine, die nur die Syntax betrifft",
+     "Eine einfach zu prüfende Eigenschaft",
+     "Eine, die entweder auf alle Programme zutrifft oder auf keines"
+    ],
+    "answer": 3,
+    "why": "Trivial heisst hier: die Antwort ist immer dieselbe. Nur dann ist die Frage entscheidbar - sobald sie echt unterscheidet, wird sie unentscheidbar."
+   },
+   {
+    "q": "Was folgt daraus für Werkzeuge wie statische Codeanalyse?",
+    "options": [
+     "Sie müssen das Programm ausführen",
+     "Sie können nie gleichzeitig vollständig und immer korrekt sein - sie müssen Kompromisse machen",
+     "Sie funktionieren nur bei kurzen Programmen",
+     "Sie sind sinnlos"
+    ],
+    "answer": 1,
+    "why": "Deshalb gibt es Fehlalarme oder übersehene Fälle. Das ist kein Mangel der Werkzeuge, sondern eine bewiesene Grenze - gut zu wissen, bevor man sich über sie ärgert."
+   },
+   {
+    "q": "Wie beweist man solche Aussagen üblicherweise?",
+    "options": [
+     "Durch Ausprobieren vieler Programme",
+     "Durch Induktion über die Programmlänge",
+     "Durch Reduktion vom Halteproblem auf die betrachtete Eigenschaft",
+     "Durch Abzählen der Programme"
+    ],
+    "answer": 2,
+    "why": "Man zeigt: könnte man die Eigenschaft prüfen, könnte man auch das Halten entscheiden. Da Letzteres unmöglich ist, ist Ersteres es auch."
+   }
+  ]
+ },
+ "15": {
+  "questions": [
+   {
+    "q": "Was bedeutet 'rekursiv aufzählbar'?",
+    "options": [
+     "Jedes Wort lässt sich in Polynomzeit prüfen",
+     "Die Sprache lässt sich sortieren",
+     "Die Sprache ist endlich",
+     "Es gibt eine Maschine, die bei Wörtern der Sprache akzeptiert - bei anderen darf sie ewig laufen"
+    ],
+    "answer": 3,
+    "why": "Der Unterschied zu entscheidbar steckt allein im Nein-Fall: dort muss keine Antwort kommen. Genau diese Asymmetrie trägt viele Beweise."
+   },
+   {
+    "q": "Eine Sprache und ihr Komplement sind beide rekursiv aufzählbar. Was folgt?",
+    "options": [
+     "Nur eine von beiden ist entscheidbar",
+     "Beide sind entscheidbar",
+     "Beide sind unentscheidbar",
+     "Daraus folgt nichts"
+    ],
+    "answer": 1,
+    "why": "Lass beide Maschinen parallel laufen - eine von beiden hält garantiert und liefert die Antwort. Damit hat man einen echten Entscheider gebaut."
+   },
+   {
+    "q": "Warum reduziert man oft auf das Komplement einer Sprache?",
+    "options": [
+     "Weil Komplemente immer entscheidbar sind",
+     "Weil es rechnerisch einfacher ist",
+     "Weil Komplemente kleiner sind",
+     "Weil man so zeigt, dass eine Sprache nicht einmal rekursiv aufzählbar ist"
+    ],
+    "answer": 3,
+    "why": "Es gibt Abstufungen von Unlösbarkeit. 'Nicht entscheidbar' ist schwächer als 'nicht einmal aufzählbar' - und Komplemente sind der Weg, das zu trennen."
+   },
+   {
+    "q": "Worauf muss man beim Bau einer Reduktion als Erstes achten?",
+    "options": [
+     "Auf die Laufzeit",
+     "Dass die Eingabe kurz bleibt",
+     "Dass die Umformung auch bei falsch geformten Eingaben ein sinnvolles Ergebnis liefert",
+     "Dass die Maschine deterministisch ist"
+    ],
+    "answer": 2,
+    "why": "Die Abbildung muss für jede Eingabe definiert sein. Unsinnige Eingaben bildet man einfach auf ein festes Wort ausserhalb der Zielsprache ab."
+   },
+   {
+    "q": "Spielt die Laufzeit der Reduktion bei Berechenbarkeitsfragen eine Rolle?",
+    "options": [
+     "Ja, sie muss polynomiell sein",
+     "Nein - hier zählt nur, dass sie überhaupt berechenbar ist und terminiert",
+     "Ja, sie muss linear sein",
+     "Nein, sie darf auch unendlich laufen"
+    ],
+    "answer": 1,
+    "why": "Die Laufzeitschranke kommt erst bei NP-Vollständigkeit dazu. Hier genügt Berechenbarkeit - ein Unterschied, den man leicht durcheinanderbringt."
+   }
+  ]
+ },
+ "16": {
+  "questions": [
+   {
+    "q": "Wie hängen die Klassen zusammen?",
+    "options": [
+     "Sie überschneiden sich nur teilweise",
+     "Beide Klassen sind gleich",
+     "Entscheidbar ist eine echte Teilmenge von rekursiv aufzählbar",
+     "Rekursiv aufzählbar ist eine echte Teilmenge von entscheidbar"
+    ],
+    "answer": 2,
+    "why": "Jede entscheidbare Sprache ist aufzählbar, aber nicht umgekehrt - die universelle Sprache ist das Standardbeispiel für den Unterschied."
+   },
+   {
+    "q": "Was ist das übliche Beweismuster für ein neues unentscheidbares Problem?",
+    "options": [
+     "Alle Algorithmen durchprobieren",
+     "Die Sprache abzählen",
+     "Ein Gegenbeispiel suchen",
+     "Ein bereits als unentscheidbar bekanntes Problem darauf reduzieren"
+    ],
+    "answer": 3,
+    "why": "Fast nie beweist man von Grund auf. Man sucht den passenden Anker und baut die Umformung - deshalb ist das Repertoire an Ankern so wichtig."
+   },
+   {
+    "q": "Welche Rolle spielt die Kolmogorov-Komplexität bei diesen Beweisen?",
+    "options": [
+     "Gar keine",
+     "Sie misst die Laufzeit",
+     "Sie liefert ein unabhängiges Argument, weil es nicht komprimierbare Wörter geben muss",
+     "Sie ersetzt die Reduktion"
+    ],
+    "answer": 2,
+    "why": "Ein zweiter, ganz anders gebauter Zugang zu Unmöglichkeit. Zwei unabhängige Wege zum selben Ergebnis sind ein gutes Zeichen für die Tragfähigkeit."
+   },
+   {
+    "q": "Was ist die praktische Lehre aus dem Unentscheidbarkeitsteil?",
+    "options": [
+     "Nur Programme über Programme sind problematisch",
+     "Alle Probleme sind letztlich lösbar",
+     "Manche Fragen sind nicht durch mehr Rechenleistung lösbar - man muss die Frage ändern",
+     "Man sollte weniger programmieren"
+    ],
+    "answer": 2,
+    "why": "Es hilft kein schnellerer Rechner. Der Ausweg ist immer, die Frage abzuschwächen - Näherung, Einschränkung, oder ein 'weiss nicht' zulassen."
+   },
+   {
+    "q": "Warum ist ein Nichtexistenzbeweis wertvoller als eine lange erfolglose Suche?",
+    "options": [
+     "Weil er kürzer ist",
+     "Weil er leichter zu finden ist",
+     "Weil er einen Algorithmus liefert",
+     "Weil er die Suche beendet und Kraft für den nächsten Ansatz freimacht"
+    ],
+    "answer": 3,
+    "why": "Erfolglose Suche lässt immer offen, ob man nur nicht clever genug war. Ein Beweis schliesst das ab - und erlaubt, guten Gewissens die Fragestellung zu wechseln."
+   }
+  ]
+ },
+ "17": {
+  "questions": [
+   {
+    "q": "Was misst die Zeitkomplexität eines Algorithmus?",
+    "options": [
+     "Den benötigten Speicher",
+     "Die Anzahl der Programmzeilen",
+     "Die Laufzeit in Sekunden auf einem bestimmten Rechner",
+     "Die Anzahl der Rechenschritte in Abhängigkeit von der Eingabelänge"
+    ],
+    "answer": 3,
+    "why": "Sekunden hängen von Hardware und Tagesform ab. Schritte in Abhängigkeit von der Eingabegrösse sind eine Aussage über den Algorithmus selbst."
+   },
+   {
+    "q": "Warum betrachtet man das Verhalten für wachsende Eingaben statt feste Messwerte?",
+    "options": [
+     "Weil kleine Eingaben nicht messbar sind",
+     "Weil erst das Wachstumsverhalten unabhängig von Hardware und Konstanten vergleichbar ist",
+     "Weil kleine Eingaben unwichtig sind",
+     "Weil grosse Eingaben häufiger vorkommen"
+    ],
+    "answer": 1,
+    "why": "Ein doppelt so schneller Rechner halbiert alle Zeiten. Am Wachstum ändert er nichts - deshalb ist es der stabilere Vergleichsmassstab."
+   },
+   {
+    "q": "Was besagt der Satz über lineares Beschleunigen sinngemäss?",
+    "options": [
+     "Konstante Faktoren lassen sich wegoptimieren - deshalb zählt nur die Wachstumsordnung",
+     "Jede Turingmaschine ist gleich schnell",
+     "Jeder Algorithmus lässt sich beliebig beschleunigen",
+     "Speicher lässt sich immer halbieren"
+    ],
+    "answer": 0,
+    "why": "Durch grössere Alphabete oder mehr Zustände kann man konstante Faktoren einsparen. Deshalb ist es sinnlos, über sie zu streiten - die Ordnung ist die Aussage."
+   },
+   {
+    "q": "Ein Algorithmus braucht 100·n Schritte, ein anderer n². Ab wann ist der erste besser?",
+    "options": [
+     "Nie - 100 ist zu gross",
+     "Ab n > 100",
+     "Immer, weil linear besser als quadratisch ist",
+     "Nur für n kleiner 100"
+    ],
+    "answer": 1,
+    "why": "100n < n² genau ab n > 100. Bei kleinen Eingaben gewinnt der quadratische - ein guter Grund, die tatsächliche Grössenordnung der eigenen Daten zu kennen."
+   },
+   {
+    "q": "Wie hängen Zeit- und Platzbedarf grundsätzlich zusammen?",
+    "options": [
+     "Sie sind unabhängig voneinander",
+     "Beide sind immer gleich",
+     "Wer t Schritte macht, kann höchstens t Speicherzellen beschreiben - also ist Platz durch Zeit begrenzt",
+     "Platz ist immer grösser als Zeit"
+    ],
+    "answer": 2,
+    "why": "Pro Schritt wird höchstens eine Zelle beschrieben. Umgekehrt gilt das nicht: wenig Platz kann sehr viel Zeit bedeuten."
+   }
+  ]
+ },
+ "18": {
+  "questions": [
+   {
+    "q": "Was ist die Klasse P?",
+    "options": [
+     "Alle Probleme mit kurzer Beschreibung",
+     "Alle Probleme, die eine deterministische Maschine in polynomieller Zeit entscheidet",
+     "Alle Probleme, die überhaupt lösbar sind",
+     "Alle Probleme, die parallel lösbar sind"
+    ],
+    "answer": 1,
+    "why": "Polynomiell gilt als praktikabel - eine Konvention, die für n^100 offensichtlich wackelt, sich in der Praxis aber erstaunlich gut bewährt hat."
+   },
+   {
+    "q": "Was ist die Klasse NP?",
+    "options": [
+     "Probleme mit exponentieller Laufzeit",
+     "Probleme, bei denen sich eine vorgelegte Lösung in polynomieller Zeit überprüfen lässt",
+     "Probleme, die nicht lösbar sind",
+     "Probleme, die nur nichtdeterministisch lösbar sind"
+    ],
+    "answer": 1,
+    "why": "NP heisst nichtdeterministisch polynomiell, nicht 'nicht polynomiell'. Der Kern ist das schnelle Prüfen einer Lösung, nicht das Finden."
+   },
+   {
+    "q": "Was ist ein Zertifikat?",
+    "options": [
+     "Die Ausgabe des Programms",
+     "Ein Beweis für die Korrektheit des Algorithmus",
+     "Eine Signatur der Eingabe",
+     "Ein kurzer Zusatzhinweis, mit dem sich die Ja-Antwort schnell nachprüfen lässt"
+    ],
+    "answer": 3,
+    "why": "Beim Sudoku ist das ausgefüllte Gitter das Zertifikat: schwer zu finden, in Sekunden zu prüfen. Genau diese Lücke ist die Frage P gegen NP."
+   },
+   {
+    "q": "Warum gilt P als Teilmenge von NP?",
+    "options": [
+     "Weil beide Klassen gleich gross sind",
+     "Das gilt gar nicht",
+     "Wer eine Lösung selbst schnell berechnen kann, kann eine vorgelegte erst recht schnell prüfen",
+     "Weil jedes Problem in NP auch in P liegt"
+    ],
+    "answer": 2,
+    "why": "Man rechnet die Lösung einfach selbst aus und vergleicht. Die offene Frage ist nur die Gegenrichtung - ob schnelles Prüfen auch schnelles Finden bedeutet."
+   },
+   {
+    "q": "Was wäre die Folge, wenn P gleich NP wäre?",
+    "options": [
+     "Verschlüsselung würde sicherer",
+     "Alle Probleme wären lösbar",
+     "Nichts Wesentliches",
+     "Für sehr viele Probleme, bei denen Prüfen leicht ist, gäbe es auch schnelle Lösungsverfahren"
+    ],
+    "answer": 3,
+    "why": "Planung, Optimierung, Schlüsselsuche - alles würde effizient lösbar. Gerade weil das so umwälzend wäre, glauben die meisten, dass P ungleich NP ist."
+   }
+  ]
+ },
+ "19": {
+  "questions": [
+   {
+    "q": "Was ist ein Konfigurationsgraph?",
+    "options": [
+     "Der Aufrufbaum der Funktionen",
+     "Ein Graph, dessen Knoten die möglichen Zustandsmomente sind und dessen Kanten die Schritte",
+     "Die Speicherbelegung über die Zeit",
+     "Der Aufbau des Programms als Diagramm"
+    ],
+    "answer": 1,
+    "why": "Damit wird aus einer Rechnung ein Wegproblem in einem Graphen. Fragen nach Laufzeit werden zu Fragen nach Weglängen."
+   },
+   {
+    "q": "Was folgt daraus für den Zusammenhang von Platz und Zeit?",
+    "options": [
+     "Bei beschränktem Platz gibt es nur endlich viele Konfigurationen - das begrenzt die sinnvolle Laufzeit",
+     "Nichts",
+     "Zeit lässt sich durch Platz ersetzen",
+     "Platz ist immer grösser als Zeit"
+    ],
+    "answer": 0,
+    "why": "Wiederholt sich eine Konfiguration, läuft die Maschine im Kreis und hält nie. Also ist die maximale Schrittzahl durch die Zahl der Konfigurationen begrenzt."
+   },
+   {
+    "q": "Warum sind Hierarchiesätze wichtig?",
+    "options": [
+     "Sie sortieren Algorithmen nach Laufzeit",
+     "Sie zeigen, dass mehr Ressourcen wirklich mehr lösbare Probleme bringen",
+     "Sie beweisen P ungleich NP",
+     "Sie ordnen die Probleme nach Beliebtheit"
+    ],
+    "answer": 1,
+    "why": "Ohne sie könnten alle Komplexitätsklassen zusammenfallen. Sie belegen: deutlich mehr Zeit erlaubt echt mehr - eine Selbstverständlichkeit, die bewiesen werden muss."
+   },
+   {
+    "q": "Warum lässt sich P gegen NP nicht mit denselben Mitteln entscheiden?",
+    "options": [
+     "Weil es keine geeigneten Probleme gibt",
+     "Weil die Beweise zu lang wären",
+     "Weil NP nicht wohldefiniert ist",
+     "Weil die bekannten Methoden Determinismus und Nichtdeterminismus nicht sauber trennen können"
+    ],
+    "answer": 3,
+    "why": "Hierarchiesätze vergleichen gleichartige Ressourcen. Der Sprung zwischen den Rechenmodellen ist eine andere Art von Frage - und seit über fünfzig Jahren offen."
+   },
+   {
+    "q": "Ein Problem braucht polynomiellen Platz. Was lässt sich über die Zeit sagen?",
+    "options": [
+     "Sie kann exponentiell sein, ist aber durch die Zahl der Konfigurationen begrenzt",
+     "Sie ist linear",
+     "Sie ist unbegrenzt",
+     "Sie ist ebenfalls polynomiell"
+    ],
+    "answer": 0,
+    "why": "Wenig Platz heisst nicht wenig Zeit. Bei polynomiellem Platz gibt es exponentiell viele Konfigurationen - und die darf die Maschine alle durchlaufen."
+   }
+  ]
+ },
+ "20": {
+  "questions": [
+   {
+    "q": "Wann heisst ein Problem NP-vollständig?",
+    "options": [
+     "Wenn es in NP liegt und sich jedes andere NP-Problem polynomiell darauf reduzieren lässt",
+     "Wenn es mehrere Lösungen hat",
+     "Wenn es nicht in P liegt",
+     "Wenn es in NP liegt und besonders lange braucht"
+    ],
+    "answer": 0,
+    "why": "Zwei Bedingungen, beide nötig. Solche Probleme sind die härtesten in NP - eines schnell lösen hiesse, alle schnell lösen."
+   },
+   {
+    "q": "Warum sind NP-vollständige Probleme so bedeutsam?",
+    "options": [
+     "Weil sie unlösbar sind",
+     "Weil sie am häufigsten vorkommen",
+     "Weil ein schneller Algorithmus für eines davon sofort P gleich NP bedeuten würde",
+     "Weil sie besonders einfach zu beschreiben sind"
+    ],
+    "answer": 2,
+    "why": "Sie sind über Reduktionen alle miteinander verbunden. Deshalb steht und fällt die ganze Frage mit jedem einzelnen von ihnen."
+   },
+   {
+    "q": "Was muss eine Reduktion zwischen NP-Problemen zusätzlich erfüllen?",
+    "options": [
+     "Sie muss deterministisch sein",
+     "Sie muss selbst in polynomieller Zeit laufen",
+     "Sie muss umkehrbar sein",
+     "Sie muss die Eingabelänge erhalten"
+    ],
+    "answer": 1,
+    "why": "Sonst würde die Umformung die gewonnene Schnelligkeit gleich wieder auffressen. Hier ist die Laufzeitschranke wesentlich - anders als bei Berechenbarkeit."
+   },
+   {
+    "q": "Wie zeigt man, dass ein neues Problem X NP-vollständig ist?",
+    "options": [
+     "Man zeigt X liegt in NP und reduziert ein bekanntes NP-vollständiges Problem auf X",
+     "Man zeigt, dass X nicht in P liegt",
+     "Man gibt einen exponentiellen Algorithmus an",
+     "Man reduziert X auf ein bekanntes NP-vollständiges Problem"
+    ],
+    "answer": 0,
+    "why": "Die Richtung ist die häufigste Fehlerquelle: das bekannte harte Problem muss auf das neue reduziert werden, nicht umgekehrt."
+   },
+   {
+    "q": "Was tut man in der Praxis mit einem NP-vollständigen Problem?",
+    "options": [
+     "Man kauft schnellere Hardware",
+     "Man weicht aus: Näherungen, Spezialfälle, Heuristiken oder kleinere Eingaben",
+     "Man gibt auf",
+     "Man sucht weiter nach einem schnellen Algorithmus"
+    ],
+    "answer": 1,
+    "why": "Die Einordnung ist keine Sackgasse, sondern eine Wegweisung: hör auf, den exakten schnellen Algorithmus zu suchen, und ändere stattdessen die Anforderung."
+   }
+  ]
+ },
+ "21": {
+  "questions": [
+   {
+    "q": "Warum genügt es, ein einziges Problem als NP-vollständig zu beweisen?",
+    "options": [
+     "Weil es keine weiteren gibt",
+     "Weil alle anderen dann automatisch gleich schwer sind",
+     "Weil alle NP-Probleme gleich aussehen",
+     "Weil man ab dann nur noch Reduktionen von diesem Anker aus bauen muss"
+    ],
+    "answer": 3,
+    "why": "Der erste Beweis ist Schwerstarbeit, jeder weitere ist eine Umformung. Genau deshalb ist der Satz von Cook der Dreh- und Angelpunkt."
+   },
+   {
+    "q": "Warum sind gute Reduktionen oft schwer zu finden?",
+    "options": [
+     "Weil man die Struktur des einen Problems in der Sprache des anderen nachbauen muss",
+     "Weil sie lange Laufzeiten haben",
+     "Weil es zu wenige NP-Probleme gibt",
+     "Weil sie viel Speicher brauchen"
+    ],
+    "answer": 0,
+    "why": "Aus Formeln Graphen machen oder umgekehrt - das ist konstruktive Arbeit. Der fertige Beweis wirkt danach oft selbstverständlich, war es beim Finden aber nie."
+   },
+   {
+    "q": "Was muss eine Reduktion in beide Richtungen garantieren?",
+    "options": [
+     "Dass die Eingaben gleich lang sind",
+     "Dass die Laufzeit gleich bleibt",
+     "Dass die Lösung erhalten bleibt",
+     "Ja-Instanzen werden zu Ja-Instanzen und Nein-Instanzen zu Nein-Instanzen"
+    ],
+    "answer": 3,
+    "why": "Nur eine Richtung zu zeigen ist der klassische Fehler. Ohne die Gegenrichtung könnte die Umformung aus einem Nein ein Ja machen."
+   },
+   {
+    "q": "Was bedeutet es, wenn sich zwei Probleme gegenseitig reduzieren lassen?",
+    "options": [
+     "Beide sind in P",
+     "Sie sind bis auf polynomiellen Aufwand gleich schwer",
+     "Sie sind identisch",
+     "Eines ist schwerer"
+    ],
+    "answer": 1,
+    "why": "Gleich schwer, nicht gleich. Man kann jedes mit dem Verfahren für das andere lösen - eine Äquivalenz, die von der konkreten Formulierung absieht."
+   },
+   {
+    "q": "Warum hilft die Einordnung als NP-vollständig auch dann, wenn P gegen NP offen bleibt?",
+    "options": [
+     "Weil sie das Problem vereinfacht",
+     "Weil sie einen Algorithmus liefert",
+     "Weil sie die Laufzeit angibt",
+     "Weil sie belegt, dass das Problem mindestens so hart ist wie viele gut untersuchte - das rechtfertigt den Wechsel zu Näherungen"
+    ],
+    "answer": 3,
+    "why": "Man weiss dann: hier haben schon viele kluge Leute vergeblich gesucht. Das ist ein belastbares Argument, die eigene Suche zu beenden."
+   }
+  ]
+ },
+ "22": {
+  "questions": [
+   {
+    "q": "Was besagt der Satz von Cook?",
+    "options": [
+     "Das Erfüllbarkeitsproblem aussagenlogischer Formeln ist NP-vollständig",
+     "SAT ist unentscheidbar",
+     "SAT ist in polynomieller Zeit lösbar",
+     "Jedes Problem ist auf SAT reduzierbar"
+    ],
+    "answer": 0,
+    "why": "Der erste Beweis dieser Art und damit der Anker für alles Weitere. Danach reichten Reduktionen, um hunderte weitere Probleme einzuordnen."
+   },
+   {
+    "q": "Wie funktioniert der Beweis im Kern?",
+    "options": [
+     "Durch Ausprobieren aller Formeln",
+     "Durch Induktion über die Formellänge",
+     "Durch Abzählen der Belegungen",
+     "Man baut aus dem Ablauf einer nichtdeterministischen Maschine eine Formel, die genau dann erfüllbar ist, wenn die Maschine akzeptiert"
+    ],
+    "answer": 3,
+    "why": "Die Formel kodiert den gesamten Rechenverlauf: was wann in welcher Zelle steht. Eine erfüllende Belegung ist dann nichts anderes als eine akzeptierende Rechnung."
+   },
+   {
+    "q": "Warum muss die erzeugte Formel polynomiell gross bleiben?",
+    "options": [
+     "Weil längere Formeln unerfüllbar sind",
+     "Weil SAT nur kurze Formeln verarbeitet",
+     "Damit sie lesbar ist",
+     "Weil die Reduktion sonst nicht in polynomieller Zeit möglich wäre"
+    ],
+    "answer": 3,
+    "why": "Hier zahlt sich die polynomielle Zeitschranke der Maschine aus: sie begrenzt, wie viele Zellen und Schritte überhaupt kodiert werden müssen."
+   },
+   {
+    "q": "Was bedeutet erfüllbar?",
+    "options": [
+     "Es gibt mindestens eine Belegung der Variablen, die die Formel wahr macht",
+     "Die Formel ist für jede Belegung wahr",
+     "Die Formel lässt sich vereinfachen",
+     "Die Formel enthält keine Negationen"
+    ],
+    "answer": 0,
+    "why": "Mindestens eine - dasselbe 'es gibt' wie beim Nichtdeterminismus. Genau deshalb passt SAT so natürlich zu NP."
+   },
+   {
+    "q": "Warum ist SAT trotz NP-Vollständigkeit praktisch so wichtig?",
+    "options": [
+     "Weil es in P liegt",
+     "Weil es nur kleine Instanzen gibt",
+     "Weil es sich immer vereinfachen lässt",
+     "Weil moderne SAT-Löser viele reale Instanzen erstaunlich schnell bewältigen"
+    ],
+    "answer": 3,
+    "why": "NP-vollständig ist eine Aussage über den schlimmsten Fall. Reale Instanzen haben oft Struktur, die gute Löser ausnutzen - Theorie und Praxis liegen hier weit auseinander."
+   }
+  ]
+ },
+ "23": {
+  "questions": [
+   {
+    "q": "Worin unterscheidet sich ein Optimierungsproblem von einem Entscheidungsproblem?",
+    "options": [
+     "Gar nicht",
+     "Entscheidungsprobleme haben mehrere Lösungen",
+     "Beim Entscheidungsproblem lautet die Antwort ja oder nein, beim Optimierungsproblem ist eine beste Lösung gesucht",
+     "Optimierungsprobleme sind immer schwerer"
+    ],
+    "answer": 2,
+    "why": "Die Theorie arbeitet mit Entscheidungsproblemen, weil sie einfacher zu handhaben sind. Fast jedes Optimierungsproblem lässt sich in diese Form bringen."
+   },
+   {
+    "q": "Was lässt sich bei einem Optimierungsproblem realistisch schnell prüfen?",
+    "options": [
+     "Dass eine vorgelegte Lösung zulässig ist und einen bestimmten Wert erreicht",
+     "Beides gleich gut",
+     "Weder noch",
+     "Dass eine vorgelegte Lösung optimal ist"
+    ],
+    "answer": 0,
+    "why": "Zulässigkeit und Wert nachrechnen: leicht. Beweisen, dass es nichts Besseres gibt: das ist die eigentliche Härte."
+   },
+   {
+    "q": "Was ist eine Ableitung in einer Grammatik?",
+    "options": [
+     "Die Umkehrung einer Regel",
+     "Die Ableitung einer Funktion",
+     "Eine Folge von Ersetzungsschritten vom Startsymbol bis zum fertigen Wort",
+     "Die Länge des erzeugten Wortes"
+    ],
+    "answer": 2,
+    "why": "Grammatiken erzeugen Wörter, statt sie zu prüfen. Das ist die Gegenrichtung zum Automaten - und beide beschreiben am Ende dieselben Sprachklassen."
+   },
+   {
+    "q": "Warum sind Grammatiken in der Praxis so verbreitet?",
+    "options": [
+     "Weil sie weniger Speicher brauchen",
+     "Weil sie schneller sind als Automaten",
+     "Weil sie immer eindeutig sind",
+     "Weil sich damit die Struktur geschachtelter Ausdrücke beschreiben lässt"
+    ],
+    "answer": 3,
+    "why": "Klammern, Blöcke, verschachtelte Ausdrücke - genau daran scheitert der endliche Automat. Deshalb arbeitet jeder Parser mit Grammatiken."
+   },
+   {
+    "q": "Wie hängt eine Grammatik mit der Lösbarkeit zusammen?",
+    "options": [
+     "Jede Grammatik beschreibt eine reguläre Sprache",
+     "Gar nicht",
+     "Die Art der erlaubten Regeln bestimmt, wie mächtig die beschriebene Sprachklasse ist",
+     "Grammatiken sind immer entscheidbar"
+    ],
+    "answer": 2,
+    "why": "Je freier die Regeln, desto mächtiger die Klasse - und desto teurer das Erkennen. Eine Abstufung, die sich durch die ganze Sprachtheorie zieht."
+   }
+  ]
+ },
+ "24": {
+  "questions": [
+   {
+    "q": "Welche Sprachen beschreiben reguläre Grammatiken?",
+    "options": [
+     "Genau die Sprachen, die auch endliche Automaten erkennen",
+     "Alle kontextfreien Sprachen",
+     "Alle entscheidbaren Sprachen",
+     "Nur endliche Sprachen"
+    ],
+    "answer": 0,
+    "why": "Reguläre Grammatik, endlicher Automat und regulärer Ausdruck sind drei Beschreibungen derselben Klasse - drei Sichten auf eine Sache."
+   },
+   {
+    "q": "Was können kontextfreie Grammatiken, was reguläre nicht können?",
+    "options": [
+     "Mehrere Startsymbole verwenden",
+     "Beliebig tiefe Schachtelung erfassen, etwa korrekt geklammerte Ausdrücke",
+     "Schneller erkennen",
+     "Unendliche Sprachen beschreiben"
+    ],
+    "answer": 1,
+    "why": "Genau daran scheiterte der endliche Automat: unbegrenzt mitzählen. Kontextfreie Grammatiken schaffen das - deshalb basiert jeder Parser darauf."
+   },
+   {
+    "q": "Was ist ein Ableitungsbaum?",
+    "options": [
+     "Der Zustandsgraph des Automaten",
+     "Die Liste aller Regeln",
+     "Eine Darstellung der Ableitung, die zeigt, welche Regel welchen Teil erzeugt hat",
+     "Der Aufrufbaum des Parsers"
+    ],
+    "answer": 2,
+    "why": "Der Baum macht die Struktur sichtbar - bei Rechenausdrücken zum Beispiel, welche Operation zuerst ausgewertet wird. Genau das braucht ein Compiler."
+   },
+   {
+    "q": "Was zeigt das Pumping-Lemma für kontextfreie Sprachen?",
+    "options": [
+     "Dass jede kontextfreie Sprache unendlich ist",
+     "Dass jeder Parser terminiert",
+     "Dass in genügend langen Wörtern zwei Teile gleichzeitig beliebig oft wiederholbar sind",
+     "Dass kontextfreie Sprachen entscheidbar sind"
+    ],
+    "answer": 2,
+    "why": "Bei regulären Sprachen pumpt man ein Stück, hier zwei gleichzeitig. Der Grund ist derselbe: in einem hohen Ableitungsbaum muss sich ein Symbol wiederholen."
+   },
+   {
+    "q": "Wozu dient dieses Lemma?",
+    "options": [
+     "Um Ableitungsbäume zu minimieren",
+     "Um Parser zu beschleunigen",
+     "Um Grammatiken zu bauen",
+     "Um zu beweisen, dass eine Sprache nicht kontextfrei ist"
+    ],
+    "answer": 3,
+    "why": "Es ist ein Werkzeug für Nichtexistenzbeweise - dieselbe Rolle wie das reguläre Pumping-Lemma eine Stufe tiefer. Damit schliesst sich der Bogen zum Kursanfang."
+   }
+  ]
+ }
+}

@@ -1,0 +1,852 @@
+{
+  "generated": "2026-09-23",
+  "dailyMinutes": 30,
+  "courses": [
+    {
+      "id": "theoinf",
+      "kind": "stream",
+      "title": "Theoretische Informatik",
+      "subtitle": "ETH Zürich · Dennis Komm · HS 2023",
+      "lang": "de",
+      "why": "Die Denkwerkzeuge dahinter: Was ist überhaupt berechenbar, warum sind manche Probleme hart, und wann hört Optimieren auf zu helfen. Auf Deutsch.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-infk/2023/autumn/252-0057-00L",
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Alphabete, Wörter und Sprachen",
+          "topics": [
+            "Alphabet",
+            "Wort",
+            "Sprache",
+            "Abzählen"
+          ],
+          "durationMs": 5249120.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a8309fd4-ef52-49e3-8416-794ed24ed565/77fa3d2d-1616-4921-942d-df57f68d985e/presentation-782de09e-f7c8-471a-93da-5a69f2cf0fd5.mp4",
+          "captionLocal": "transcripts/theoinf/01.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 2,
+          "title": "Kolmogorov-Komplexität: Wie viel Information steckt drin?",
+          "topics": [
+            "Informationsgehalt",
+            "Kodierung"
+          ],
+          "durationMs": 5505520.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/aa9b0e2e-82fc-4f63-9ed1-cf6afe7a858a/e5437541-f7d2-4bd4-bcd2-5639d7359829/presentation-ae8f25e5-9606-4d81-88c1-50dcb80d52fe.mp4",
+          "captionLocal": "transcripts/theoinf/02.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 3,
+          "title": "Komprimierbarkeit und der Weg zu endlichen Automaten",
+          "topics": [
+            "Zufälligkeit",
+            "untere Schranken"
+          ],
+          "durationMs": 5373480.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/68ad7a1f-a715-4072-9c41-ffc40b26d03f/b2264032-33e6-416e-8dea-dd68e4392c6e/presentation-6819c653-cbb3-4d34-81a0-9651462c60f3.mp4",
+          "captionLocal": "transcripts/theoinf/03.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 4,
+          "title": "Endliche Automaten: Definition und Berechnung",
+          "topics": [
+            "Zustand",
+            "Übergangsfunktion",
+            "Konfiguration"
+          ],
+          "durationMs": 5347200.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/596dfc4b-178e-4634-9963-07053bb76e8b/a9673d58-4f7b-44b7-9b8a-efcb73544357/presentation-a585a244-b77c-478a-9a20-54d3597fd234.mp4",
+          "captionLocal": "transcripts/theoinf/04.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 5,
+          "title": "Untere Schranken beweisen",
+          "topics": [
+            "Widerspruchsbeweis",
+            "Abzählargument"
+          ],
+          "durationMs": 5092160.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/f8072ff7-9263-4c2b-8c5a-5b47eea1beff/5722e9da-3c22-4e69-9e82-e7b07ac7d7ea/presentation-99a59115-d84b-4e12-9864-18ab769c87ce.mp4",
+          "captionLocal": "transcripts/theoinf/05.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 6,
+          "title": "Nichtexistenzbeweise für endliche Automaten",
+          "topics": [
+            "Beweismethoden",
+            "Grenzen"
+          ],
+          "durationMs": 5480520.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a3784ef6-f6ca-4a45-a414-9e04effd7624/62f78b6e-95f1-470a-b396-20daa3c12d97/presentation-cad04de2-e6a6-4fb8-bc3a-4cd03e1d8652.mp4",
+          "captionLocal": "transcripts/theoinf/06.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 7,
+          "title": "Warum Automaten sich erinnern müssen",
+          "topics": [
+            "Zustandswiederholung",
+            "Schubfachprinzip",
+            "Pumping"
+          ],
+          "durationMs": 5375640.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/781e560a-b476-4eb1-b13b-b62921a668f5/633a7142-37e1-4465-a253-42c84070ed0e/presentation-50addb48-a06c-400c-992f-097e143fdb61.mp4",
+          "captionLocal": "transcripts/theoinf/07.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 8,
+          "title": "Nichtdeterminismus und Potenzmengenkonstruktion",
+          "topics": [
+            "NEA",
+            "DEA",
+            "Äquivalenz"
+          ],
+          "durationMs": 5320680.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/463c2b74-ac97-4c7a-9e96-42e0f006682e/3afb5ded-d5a6-41b4-9073-a353590ee592/presentation-f9bb679a-c53a-492f-b5e6-831e66f8cd8b.mp4",
+          "captionLocal": "transcripts/theoinf/08.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 9,
+          "title": "Die Turingmaschine",
+          "topics": [
+            "Church-Turing-These",
+            "Band",
+            "Berechenbarkeit"
+          ],
+          "durationMs": 5454120.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a0c1e14b-dac6-466e-8d19-0d7f614033c9/fb849a96-14b2-41ae-b7d6-cad2e891b7b9/presentation-7845bb49-bfb5-4483-8fe0-ac5270e6963f.mp4",
+          "captionLocal": "transcripts/theoinf/09.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 10,
+          "title": "Varianten der Turingmaschine",
+          "topics": [
+            "Mehrband",
+            "Robustheit",
+            "Simulation"
+          ],
+          "durationMs": 5455320.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/acd3ca12-ab59-478c-851e-1fec8c8e5c2c/9c021b44-c9ee-4b9c-be66-872ee0ed21aa/presentation-217b2957-1b21-44cd-acdc-daf9d9d727cf.mp4",
+          "captionLocal": "transcripts/theoinf/10.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 11,
+          "title": "Abzählbar und überabzählbar",
+          "topics": [
+            "Hilberts Hotel",
+            "Kardinalität",
+            "Diagonalisierung"
+          ],
+          "durationMs": 5450320.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b8db2692-29a0-4bc2-9f18-b0ba109f6e76/97ca7180-1eb8-4df6-866e-9761c151c38d/presentation-65ed4c1d-7acd-4696-8e1a-c970074b57d0.mp4",
+          "captionLocal": "transcripts/theoinf/11.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 12,
+          "title": "Die Diagonalsprache und erste Reduktionen",
+          "topics": [
+            "Diagonalargument",
+            "Reduktion"
+          ],
+          "durationMs": 5205480.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/0a793bd1-ae7f-49ec-b070-1fa4c89c55b0/5ba7fee6-caec-4817-9048-eb267e727102/presentation-be07971b-b7cc-4bde-a8ef-c3655af1181e.mp4",
+          "captionLocal": "transcripts/theoinf/12.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 13,
+          "title": "Universelle Sprache und Postsches Korrespondenzproblem",
+          "topics": [
+            "universelle TM",
+            "PKP"
+          ],
+          "durationMs": 4571560.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c839474f-dfe5-49ab-8f51-907d5cc64c82/77a4674f-f2b6-4566-a40f-008c382cc7fa/presentation-7959ca4b-c959-4a07-a001-8bdc5a2661be.mp4",
+          "captionLocal": "transcripts/theoinf/13.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 14,
+          "title": "Unentscheidbarkeit von Programmeigenschaften",
+          "topics": [
+            "Satz von Rice",
+            "Halteproblem"
+          ],
+          "durationMs": 5416640.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/35d820fa-c313-4bc2-84d5-80e4f0e0d7ab/7c8a066c-728b-45f7-a207-4b05ff74d2ef/presentation-73ce5e89-002a-4bad-98d4-920eca5a7803.mp4",
+          "captionLocal": "transcripts/theoinf/14.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 15,
+          "title": "Reduktionen zwischen unentscheidbaren Sprachen",
+          "topics": [
+            "Reduktion",
+            "rekursiv aufzählbar"
+          ],
+          "durationMs": 5500320.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/8b71bd48-8f26-4999-a8ec-4b25e846be96/8681d412-b3b8-4c6e-9489-3fa5c3ca0676/presentation-25b0e766-b984-42d6-b39e-c19548db6b95.mp4",
+          "captionLocal": "transcripts/theoinf/15.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 16,
+          "title": "Überblick: die Landkarte der Unentscheidbarkeit",
+          "topics": [
+            "Klassifikation",
+            "Beweismuster"
+          ],
+          "durationMs": 2379800.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/67073250-cb15-4a5d-b290-68dfb908de93/e1cd10bd-909e-4182-b99a-1442eef75548/presentation-020ac0bd-3ab2-4af9-bb61-50c088754fe5.mp4",
+          "captionLocal": "transcripts/theoinf/16.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 17,
+          "title": "Komplexitätsmaße: Zeit und Platz",
+          "topics": [
+            "Laufzeit",
+            "Speicherbedarf",
+            "Speedup"
+          ],
+          "durationMs": 5437600.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ea9fffaa-206a-402e-83b3-316d33358157/01686b67-a780-41b4-8f9d-1c903076bf46/presentation-5b9fc17a-7de3-43df-80cb-85e07fff29fe.mp4",
+          "captionLocal": "transcripts/theoinf/17.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 18,
+          "title": "Die Klassen P und NP",
+          "topics": [
+            "Verifikation",
+            "Zertifikat",
+            "Nichtdeterminismus"
+          ],
+          "durationMs": 5360080.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ea0a338f-63e7-4ded-8125-67f4cf15cc5d/79ab08ef-c068-45ae-8638-47507c99274d/presentation-1148719a-d693-4b38-bb60-877c7dd86cbb.mp4",
+          "captionLocal": "transcripts/theoinf/18.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 19,
+          "title": "Beziehungen zwischen Zeit und Platz",
+          "topics": [
+            "Konfigurationsgraph",
+            "Hierarchie"
+          ],
+          "durationMs": 5530680.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/525b7c40-419e-4d08-879f-9986cf75e253/cd2b2623-8da3-4c15-8871-59608c2ae0cf/presentation-474405c2-b485-4df8-8b6e-1fefd2ed2c80.mp4",
+          "captionLocal": "transcripts/theoinf/19.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 20,
+          "title": "NP-Vollständigkeit",
+          "topics": [
+            "Reduktion",
+            "härteste Probleme"
+          ],
+          "durationMs": 5435640.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ad7d5f75-57e9-4d32-927f-2243559ca6a6/794c4971-9e55-41cf-9fe4-56b997f62fd5/presentation-07269ff5-d989-405d-b4ef-797b1db92173.mp4",
+          "captionLocal": "transcripts/theoinf/20.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 21,
+          "title": "Polynomielle Reduktionen in der Praxis",
+          "topics": [
+            "SAT",
+            "Clique",
+            "Problemtransfer"
+          ],
+          "durationMs": 5402440.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/fb485dcd-3b9d-4e61-ac91-2fb3ef025a53/00dd69ea-6db8-49b5-a5bf-cb196d829eb0/presentation-611bce0e-a10f-4cb8-811d-990e71daa4f8.mp4",
+          "captionLocal": "transcripts/theoinf/21.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 22,
+          "title": "Der Satz von Cook",
+          "topics": [
+            "SAT",
+            "Formel aus Berechnung"
+          ],
+          "durationMs": 5473960.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/8f6473b7-6209-4165-b056-d1a1506924d1/40c0baa9-f416-448c-bc05-ee9158885ce3/presentation-fa102720-42e5-4660-a22e-02bda316a88a.mp4",
+          "captionLocal": "transcripts/theoinf/22.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 23,
+          "title": "Optimierungsprobleme und Ableitungen",
+          "topics": [
+            "Optimierung",
+            "Verifikation",
+            "Grammatik"
+          ],
+          "durationMs": 5497880.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/f9b34e80-260c-4ea9-90db-5c090ac2b0f1/b1c26f3f-7b41-4c82-82b4-c8909e99f027/presentation-11b283dc-dea8-4505-8ecb-248eeabb1672.mp4",
+          "captionLocal": "transcripts/theoinf/23.vtt",
+          "captionLang": "de-DE"
+        },
+        {
+          "nr": 24,
+          "title": "Reguläre und kontextfreie Grammatiken",
+          "topics": [
+            "Grammatik",
+            "Ableitungsbaum",
+            "Pumping-Lemma"
+          ],
+          "durationMs": 5491800.0,
+          "creators": [
+            "Komm, Dennis"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/2318e5c7-5c32-4572-a45f-0d51a89c8b2e/80a904cf-aa9d-4f34-ae9f-4d8037925147/presentation-88e858d2-52ea-4e7b-84fc-e7350aa804a3.mp4",
+          "captionLocal": "transcripts/theoinf/24.vtt",
+          "captionLang": "de-DE"
+        }
+      ]
+    },
+    {
+      "id": "architektur",
+      "kind": "stream",
+      "title": "Digital Design und Rechnerarchitektur",
+      "subtitle": "ETH Zürich · Onur Mutlu · FS 2025",
+      "lang": "en",
+      "why": "Caches, Speicher und Parallelität von unten. Danach verstehst du, was eine Trefferquote wirklich bedeutet - und warum Reihenfolge und Lokalität über Tempo entscheiden.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-itet/2025/spring/227-0003-10L",
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Warum Rechnerarchitektur zählt",
+          "topics": [
+            "Motivation",
+            "Zielkonflikte",
+            "Leistung"
+          ],
+          "durationMs": 5497160.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/896d7d9e-2daf-4b13-b0f2-94e37cf4f046/10f559e2-bb7a-4f9c-a14d-c6bc44d26a3a/presentation-c2e56c08-44ba-4d59-bbb2-c24ac2964bac.mp4",
+          "captionLocal": "transcripts/architektur/01.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 2,
+          "title": "Kombinatorische Logik",
+          "topics": [
+            "Boolesche Algebra",
+            "Wahrheitstabelle",
+            "Komparator"
+          ],
+          "durationMs": 5555280.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/feb57392-3491-48be-994f-d6f58ba6ab54/610dd72d-79fb-4835-adb5-086ad71e8645/presentation-18ced351-ba45-4df6-809f-65262ef3e77c.mp4",
+          "captionLocal": "transcripts/architektur/02.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 3,
+          "title": "Sequenzielle Logik und Taktflanken",
+          "topics": [
+            "Flipflop",
+            "Takt",
+            "Zustandsautomat"
+          ],
+          "durationMs": 5351644.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/3479d0e1-beec-4372-8365-85fd5a4ccea3/6b07e247-7443-43b7-bf25-0b0258475ee1/presentation-4a2d1c29-fa0b-4971-94fb-dc62564b4f3d.mp4",
+          "captionLocal": "transcripts/architektur/03.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 4,
+          "title": "Hardware beschreiben mit Verilog",
+          "topics": [
+            "HDL",
+            "Bitvektoren",
+            "Modul"
+          ],
+          "durationMs": 5304058.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/5170e011-da37-4037-b126-a4096a6f6df7/fc21342c-e417-4457-a811-e210f92ec616/presentation-52d2e596-3f53-4324-a7d2-de7e88ec6810.mp4",
+          "captionLocal": "transcripts/architektur/04.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 5,
+          "title": "Zeitverhalten: Verzögerung, Setup und Hold",
+          "topics": [
+            "Laufzeit",
+            "Glitch",
+            "Taktgrenze"
+          ],
+          "durationMs": 5350400.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/3e2e9cf9-233c-4093-ad6b-4d4f4ee596ad/879dc1ce-fc95-40c5-b335-cf6267babfd1/presentation-cbf44656-6653-4daf-918d-7812a2b75211.mp4",
+          "captionLocal": "transcripts/architektur/05.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 6,
+          "title": "Rechenmodell und Befehlssatz",
+          "topics": [
+            "ISA",
+            "ALU",
+            "Ausführungseinheit"
+          ],
+          "durationMs": 5605680.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9d7e14aa-9993-4934-8ea4-053834fc208d/994f90bb-15a8-4073-b21a-538c7546654e/presentation-2528ced4-6e13-4849-9567-763d2101f71a.mp4",
+          "captionLocal": "transcripts/architektur/06.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 7,
+          "title": "Befehle, Sprünge und der Datenpfad",
+          "topics": [
+            "Sprung",
+            "Registerfile",
+            "Programmzähler"
+          ],
+          "durationMs": 5475520.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/14246a3e-acc4-40da-92cb-a6ad70cca2ef/5bc770c2-7586-4016-a251-abc5f28aaeae/presentation-9e1576e9-29e4-4e7f-a7a6-e866f54e642e.mp4",
+          "captionLocal": "transcripts/architektur/07.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 8,
+          "title": "Vom Zustandsautomaten zum Prozessor",
+          "topics": [
+            "Zustandsmaschine",
+            "Abstraktion"
+          ],
+          "durationMs": 5574080.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/42fc50b7-0f37-4255-aafb-281fdd8cfb14/80145977-e862-4a46-bf08-2e12265728fd/presentation-ab959458-d84c-40e6-8485-7de29c9e245a.mp4",
+          "captionLocal": "transcripts/architektur/08.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 9,
+          "title": "Mikroarchitektur: den Datenpfad bauen",
+          "topics": [
+            "Single-Cycle",
+            "Datenpfad",
+            "Steuersignale"
+          ],
+          "durationMs": 5607600.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/f1502988-2fbf-4db3-8903-a6790129940c/6e5ce96d-207c-4198-b502-5adccec374a0/presentation-8c4bb321-1f25-40bd-894c-58b6dbfa75cd.mp4",
+          "captionLocal": "transcripts/architektur/09.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 10,
+          "title": "Steuerwerk und der Einstieg ins Pipelining",
+          "topics": [
+            "Steuerwerk",
+            "Taktzyklus",
+            "Parallelität"
+          ],
+          "durationMs": 5569920.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/2dfd852e-1f46-4e85-956c-3b0741b528c4/4a61f718-1515-48ff-b2eb-e263c653c582/presentation-2c66c929-d07e-4bf5-89e8-70a0ae354f9a.mp4",
+          "captionLocal": "transcripts/architektur/10.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 11,
+          "title": "Pipelining: Register, Konflikte, Forwarding",
+          "topics": [
+            "Pipeline",
+            "Hazard",
+            "Stall"
+          ],
+          "durationMs": 5471720.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a74c6758-99ec-48e9-bd03-71ea4712a36b/d6385a50-9e60-4ee8-94d0-4a6c09cdacd7/presentation-80262d83-bd23-479b-928e-b333fd51663e.mp4",
+          "captionLocal": "transcripts/architektur/11.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 12,
+          "title": "Ausführung ausser der Reihe",
+          "topics": [
+            "Out-of-Order",
+            "Reservation Station",
+            "Tomasulo"
+          ],
+          "durationMs": 5307760.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c19ee925-67d0-4c39-9ae5-5ee60155b275/183f2037-bb35-442d-9529-298b6d93f9c0/presentation-2e88810e-cdb2-4cb1-9717-0902be951928.mp4",
+          "captionLocal": "transcripts/architektur/12.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 13,
+          "title": "Sprungvorhersage",
+          "topics": [
+            "Branch Prediction",
+            "Trefferquote",
+            "Strafzyklen"
+          ],
+          "durationMs": 5684840.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/0562cfcc-dc22-4c80-b875-eb4b559ac6e6/0e6e8aca-fa2a-4e68-9c37-73e75f459ec2/presentation-6cdcb284-64a5-4ea7-a12f-5df7fa5337a9.mp4",
+          "captionLocal": "transcripts/architektur/13.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 14,
+          "title": "VLIW und Befehlsparallelität",
+          "topics": [
+            "VLIW",
+            "ILP",
+            "Compiler"
+          ],
+          "durationMs": 5447560.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/10a20bae-f26f-4662-adce-ca2297f3b196/ce6d7284-ba6b-425e-835d-61942b05b8d7/presentation-06bb1f19-066f-48af-aed8-3514a7e85bba.mp4",
+          "captionLocal": "transcripts/architektur/14.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 15,
+          "title": "Systolische Arrays und Spezialhardware",
+          "topics": [
+            "Beschleuniger",
+            "Datenfluss"
+          ],
+          "durationMs": 5737200.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c93a13c1-06d6-41a1-9419-3e374efedbdd/851cff02-5a03-4984-aa72-4e117c8efdaa/presentation-29e5cc11-65cb-4f79-a485-4a4ccb84342a.mp4",
+          "captionLocal": "transcripts/architektur/15.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 16,
+          "title": "Array- und Vektorprozessoren",
+          "topics": [
+            "Vektor",
+            "Datenparallelität"
+          ],
+          "durationMs": 5519920.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a9022f08-c8e1-4f4d-9def-fc790b18167d/dea2764d-d1e0-4e4e-840c-cf300ae735e0/presentation-a6e6ed81-2e9e-4349-a28a-7227541aa9c0.mp4",
+          "captionLocal": "transcripts/architektur/16.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 17,
+          "title": "SIMD, SIMT und GPUs",
+          "topics": [
+            "SIMD",
+            "GPU",
+            "Threads"
+          ],
+          "durationMs": 5430208.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/648a16aa-ac35-465b-bc87-a5134c12a425/2ca80864-ce4d-4c3c-9a3c-4b9fecf50cfc/presentation-6f0d9fda-c101-43f3-a8fa-4f5412f3c3c2.mp4",
+          "captionLocal": "transcripts/architektur/17.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 18,
+          "title": "DRAM von innen",
+          "topics": [
+            "Bank",
+            "Zeile",
+            "Zugriffszeit"
+          ],
+          "durationMs": 5609480.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b5af93b9-baf8-46e9-a3ee-3e9b482ef2b8/ee998b2b-ca40-48b3-9570-c81eb8197bf6/presentation-6d5637f6-40c2-430a-a6c4-6fb49765d182.mp4",
+          "captionLocal": "transcripts/architektur/18.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 19,
+          "title": "Caches: das Grundprinzip",
+          "topics": [
+            "Lokalität",
+            "Trefferquote",
+            "Cache-Zeile"
+          ],
+          "durationMs": 5563560.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ed444ac4-2866-40fb-8529-1af7f657259b/10792196-faab-4eb1-889e-bef3cb8028d5/presentation-8adf273b-a03c-4123-b53a-da9e0b14df42.mp4",
+          "captionLocal": "transcripts/architektur/19.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 20,
+          "title": "Assoziativität und Fehlzugriffe",
+          "topics": [
+            "Assoziativität",
+            "Verdrängung",
+            "Miss-Rate"
+          ],
+          "durationMs": 5600680.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/7de974b7-f4d8-42a2-8ed3-9a3b8b5c0473/276c3318-b9c9-494c-bcfa-e5e33eb63cfa/presentation-5c94e05f-f9b0-4b9f-93a5-ca63c707f437.mp4",
+          "captionLocal": "transcripts/architektur/20.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 21,
+          "title": "Virtueller Speicher",
+          "topics": [
+            "Seitentabelle",
+            "Adressübersetzung",
+            "TLB"
+          ],
+          "durationMs": 5383800.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a9f9c3ed-df32-472c-9687-20cdebddcf6c/608bd02a-38f9-4e45-9722-013e8d13029b/presentation-0f7871d9-220d-458e-80e5-e30f2a011c12.mp4",
+          "captionLocal": "transcripts/architektur/21.vtt",
+          "captionLang": "en-US"
+        },
+        {
+          "nr": 22,
+          "title": "Vorausladen: Prefetching",
+          "topics": [
+            "Prefetch",
+            "Zugriffsmuster",
+            "Vorhersage"
+          ],
+          "durationMs": 5771920.0,
+          "creators": [
+            "Mutlu, Onur"
+          ],
+          "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9815f4cd-8448-4f5a-bbbf-59a7cb4c074c/763fb82d-6aa1-4044-908e-d33dc8940d30/presentation-10e86496-1e86-42e8-b5d6-a98d9f0b4a69.mp4",
+          "captionLocal": "transcripts/architektur/22.vtt",
+          "captionLang": "en-US"
+        }
+      ]
+    },
+    {
+      "id": "scala",
+      "kind": "external",
+      "title": "Funktionale Programmierung in Scala",
+      "subtitle": "EPFL · Martin Odersky · Coursera",
+      "lang": "en",
+      "why": "Funktionales Denken an der Quelle: Odersky hat Scala erfunden. Unveränderliche Werte, reine Funktionen, Typen - überträgt sich direkt auf deinen TypeScript-Code.",
+      "portalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+      "note": "Dieser Kurs liegt hinter dem Coursera-Login (Anmeldung nötig, Anschauen kostenlos ohne Zertifikat). Die Videos lassen sich nicht wie bei der ETH einbetten. Die Folien der EPFL sind dagegen frei abrufbar und hier direkt verlinkt. Die Tests hier prüfen die Konzepte der Woche - sie sind aus dem veröffentlichten Kursplan gebaut, nicht aus den Videoinhalten.",
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Funktionen und Auswertung",
+          "topics": [
+            "Programmierparadigmen",
+            "Auswertungsstrategie",
+            "Rekursion"
+          ],
+          "estMinutes": 95,
+          "durationMs": 5700000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week1-1-no-annot.pdf"
+        },
+        {
+          "nr": 2,
+          "title": "Funktionen höherer Ordnung",
+          "topics": [
+            "Currying",
+            "Endrekursion",
+            "Fixpunkt"
+          ],
+          "estMinutes": 90,
+          "durationMs": 5400000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week2-1-no-annot.pdf"
+        },
+        {
+          "nr": 3,
+          "title": "Daten und Abstraktion",
+          "topics": [
+            "Klassenhierarchie",
+            "Abstraktion"
+          ],
+          "estMinutes": 85,
+          "durationMs": 5100000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week3-1-no-annot.pdf"
+        },
+        {
+          "nr": 4,
+          "title": "Typen und Mustererkennung",
+          "topics": [
+            "Polymorphie",
+            "Subtyping",
+            "Pattern Matching"
+          ],
+          "estMinutes": 95,
+          "durationMs": 5700000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week4-1-no-annot.pdf"
+        },
+        {
+          "nr": 5,
+          "title": "Listen",
+          "topics": [
+            "Listenoperationen",
+            "Tupel",
+            "Beweise durch Umformen"
+          ],
+          "estMinutes": 90,
+          "durationMs": 5400000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week5-1-no-annot.pdf"
+        },
+        {
+          "nr": 6,
+          "title": "Sammlungen und For-Ausdrücke",
+          "topics": [
+            "Collections",
+            "for-Ausdruck",
+            "Maps"
+          ],
+          "estMinutes": 90,
+          "durationMs": 5400000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week6-1-no-annot.pdf"
+        },
+        {
+          "nr": 7,
+          "title": "Verzögerte Auswertung",
+          "topics": [
+            "Lazy Evaluation",
+            "Streams",
+            "unendliche Folgen"
+          ],
+          "estMinutes": 85,
+          "durationMs": 5100000,
+          "externalUrl": "https://www.coursera.org/learn/scala-functional-programming",
+          "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week7-1-no-annot.pdf"
+        }
+      ]
+    }
+  ]
+}
