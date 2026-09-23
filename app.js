@@ -1,13 +1,13 @@
-/* Academy - persoenliche Lernoberflaeche.
-   Videos werden direkt vom oeffentlichen ETH-Videoserver gestreamt, nichts wird kopiert.
-   Fortschritt liegt ausschliesslich lokal im Browser (localStorage). */
+/* Academy - persönliche Lernoberfläche.
+   Videos werden direkt vom öffentlichen ETH-Videoserver gestreamt, nichts wird kopiert.
+   Fortschritt liegt ausschließlich lokal im Browser (localStorage). */
 
 const STORE = "academy.v1";
 const DAILY_DEFAULT = 30;          // Minuten pro Tag
 const PASS_LESSON = 0.7;           // Test bestanden ab 70 %
-const PASS_EXAM = 0.75;            // Abschlusspruefung ab 75 %
-const EXAM_SIZE = 15;              // Fragen in der Abschlusspruefung
-const EXAM_UNLOCK = 0.6;           // Anteil bestandener Lektionstests, ab dem die Pruefung offen ist
+const PASS_EXAM = 0.75;            // Abschlussprüfung ab 75 %
+const EXAM_SIZE = 15;              // Fragen in der Abschlussprüfung
+const EXAM_UNLOCK = 0.6;           // Anteil bestandener Lektionstests, ab dem die Prüfung offen ist
 const WATCHED_AT = 0.92;           // ab diesem Anteil gilt ein Video als geschaut
 const SPEEDS = [1, 1.25, 1.5, 1.75, 2];
 const GOALS = [15, 20, 30, 45, 60];
@@ -26,6 +26,11 @@ function load(){
 }
 function save(){ localStorage.setItem(STORE, JSON.stringify(S)); }
 let S = load();
+window.addEventListener("storage", e => {
+  if (e.key !== STORE || e.storageArea !== localStorage) return;
+  S = load();
+  applyTheme(); chrome();                 // Laufende Videos und Tests ohne Neuaufbau erhalten.
+});
 
 const todayKey = () => new Date().toLocaleDateString("sv-SE");   // YYYY-MM-DD, lokale Zeit
 const key = (c,n) => `${c}/${n}`;
@@ -44,7 +49,7 @@ function fmtSpan(sec){                                  // 95 min -> "1 h 35 min
   const m = Math.round(sec/60);
   return m < 60 ? `${m} min` : `${Math.floor(m/60)} h ${m%60} min`;
 }
-const person = n => n.includes(",") ? n.split(",").map(s => s.trim()).reverse().join(" ") : n;  // "Komm, Dennis"
+const person = n => n.includes(",") ? n.split(",").map(s => s.trim()).reverse().join(" ") : n;  // Nachname, Vorname
 const course = id => DATA.courses.find(c => c.id === id);
 const lesson = (c,n) => course(c)?.lessons.find(l => l.nr === Number(n));
 const lessonMs = l => l.durationMs || (l.estMinutes||0)*60000;
@@ -87,20 +92,22 @@ function ring(frac, size, stroke, label = "", tone = ""){
         stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${(c*(1-frac)).toFixed(2)}" transform="rotate(-90 50 50)"/>` : ""}
     </svg>${label ? `<span class="ringlabel">${label}</span>` : ""}</span>`;
 }
-const bar = (frac, cls = "") =>
-  `<div class="bar ${cls} ${frac >= 1 ? "done" : ""}"><i style="width:${(Math.min(1, frac)*100).toFixed(1)}%"></i></div>`;
+function bar(frac, cls = ""){
+  const value = Math.max(0, Math.min(1, frac || 0))*100;
+  return `<div class="bar ${esc(cls)} ${value >= 100 ? "done" : ""}" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(value)}"><i style="width:${value.toFixed(1)}%"></i></div>`;
+}
 
 /* ---------- Lernzeit ---------- */
 function secondsToday(){ return S.days[todayKey()] || 0; }
 function addSeconds(sec){
-  if (!(sec > 0) || sec > 120) return;           // Ausreisser (Spruenge, Tab-Wechsel) ignorieren
+  if (!(sec > 0) || sec > 120) return;           // Ausreißer (Sprünge, Tab-Wechsel) ignorieren
   const k = todayKey();
   S.days[k] = (S.days[k] || 0) + sec;
 }
 function streakDays(){
   let n = 0;
   const d = new Date();
-  // Heute zaehlt nur, wenn schon gelernt wurde - sonst beim gestrigen Tag anfangen.
+  // Heute zählt nur, wenn schon gelernt wurde - sonst beim gestrigen Tag anfangen.
   if (!(S.days[todayKey()] > 60)) d.setDate(d.getDate() - 1);
   for(;;){
     const k = d.toLocaleDateString("sv-SE");
@@ -145,7 +152,7 @@ function firstUnwatched(preferCid){
   }
   return null;
 }
-/* Was als Naechstes dran ist: angefangene Lektion, offener Test dazu, naechste Lektion, Pruefung. */
+/* Was als Nächstes dran ist: angefangene Lektion, offener Test dazu, nächste Lektion, Prüfung. */
 function nextStep(){
   const [lastCid, lastNr] = (S.last || "").split("/");
   const last = lesson(lastCid, lastNr);
@@ -190,6 +197,8 @@ function mount(html, { title = "", narrow = false } = {}){
   const v = view();
   v.className = narrow ? "narrow" : "";
   v.innerHTML = html;
+  void v.offsetWidth;                    // Einblendung nur beim Neuaufbau erneut starten.
+  v.classList.add("enter");
   document.title = title ? `${title} · Academy` : "Academy";
   chrome();
 }
@@ -373,7 +382,7 @@ function syncMark(k){
   b.innerHTML = markLabel(w);
 }
 function wireMark(k){
-  // Nur den Knopf umschalten - ein Neuaufbau der Seite wuerde das laufende Video abbrechen.
+  // Nur den Knopf umschalten - ein Neuaufbau der Seite würde das laufende Video abbrechen.
   document.getElementById("markDone").onclick = () => {
     const cur = S.lessons[k] || {};
     cur.watched = !cur.watched;
@@ -391,8 +400,11 @@ function renderLesson(cid, nr){
   const ext = c.kind === "external";
   const meta = ext ? [`ca. ${fmtMin(lessonMs(l))}`, "Video extern"]
                    : [fmtMin(lessonMs(l)), ...(l.creators || []).map(person), c.lang === "de" ? "Deutsch" : "Englisch"];
-  const test = n ? `<a class="btn btn-primary" href="#/quiz/${cid}/${l.nr}">Test starten · ${n} Fragen ${icon("arrowRight")}</a>`
-                 : `<span class="muted">Für diese Lektion sind noch keine Fragen hinterlegt.</span>`;
+  const saved = S.lessons[k] || {};
+  if (!saved.watched && saved.pos > 5) meta.push(`fortsetzen bei ${fmtClock(saved.pos)}`);
+  const testBtn = (cls = "btn-primary") => n
+    ? `<a class="btn ${esc(cls)}" href="#/quiz/${esc(cid)}/${esc(l.nr)}">Test starten · ${n} Fragen ${icon("arrowRight")}</a>`
+    : `<span class="muted">Für diese Lektion sind noch keine Fragen hinterlegt.</span>`;
   const topics = (l.topics || []).map(t => `<span class="chip">${esc(t)}</span>`).join("");
 
   const body = ext ? `
@@ -405,10 +417,10 @@ function renderLesson(cid, nr){
         ${l.slidesUrl ? `<a class="btn btn-secondary" href="${esc(l.slidesUrl)}" target="_blank" rel="noopener">${icon("doc")} Folien (PDF)</a>` : ""}
       </div>
     </section>
-    <div class="actions">${markBtn(k)}${test.replace("btn-primary", "btn-secondary")}</div>`
+    <div class="actions">${markBtn(k)}${testBtn("btn-secondary")}</div>`
   : `
     <div class="player">
-      <video id="v" controls preload="metadata" playsinline>
+      <video id="v" controls controlslist="nodownload" preload="metadata" playsinline>
         <source src="${esc(l.video)}" type="video/mp4">
         ${l.captionLocal ? `<track default kind="subtitles" srclang="${esc((l.captionLang || c.lang || "de").slice(0, 2))}" label="Untertitel" src="${esc(l.captionLocal)}">` : ""}
       </video>
@@ -421,7 +433,7 @@ function renderLesson(cid, nr){
       <span class="spacer"></span>
       <span class="budget" id="budget"></span>
     </div>
-    <div class="actions">${markBtn(k)}${test}</div>
+    <div class="actions">${markBtn(k)}${testBtn()}</div>
     ${topics ? `<div class="topics"><h3>Themen</h3><div class="chips">${topics}</div></div>` : ""}`;
 
   mount(`
@@ -433,10 +445,9 @@ function renderLesson(cid, nr){
     <nav class="pager" aria-label="Lektionen">
       ${prev ? `<a class="pg" href="#/lesson/${cid}/${prev.nr}"><span>${icon("arrowLeft")} Lektion ${prev.nr}</span><b>${esc(prev.title)}</b></a>` : ""}
       ${next ? `<a class="pg next" href="#/lesson/${cid}/${next.nr}"><span>Lektion ${next.nr} ${icon("arrowRight")}</span><b>${esc(next.title)}</b></a>`
-             : `<a class="pg next" href="#/course/${cid}"><span>Kurs abschliessen ${icon("arrowRight")}</span><b>Zur Abschlussprüfung</b></a>`}
+             : `<a class="pg next" href="#/course/${cid}"><span>Zum Abschluss ${icon("arrowRight")}</span><b>Zur Abschlussprüfung</b></a>`}
     </nav>
-    ${ext ? "" : `<p class="source">Video wird direkt von <span class="mono">video.ethz.ch</span> gestreamt ·
-      <a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal</a></p>`}`,
+    ${ext ? "" : `<p class="source"><a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal ${icon("external")}</a></p>`}`,
     { title:l.title });
 
   wireMark(k);
@@ -473,8 +484,8 @@ function wirePlayer(k){
   };
   budget();
 
-  // Position nur sichern, wenn wirklich abgespielt wurde - sonst wuerde ein nicht
-  // geladenes Video den gespeicherten Stand auf 0 zuruecksetzen.
+  // Position nur sichern, wenn wirklich abgespielt wurde - sonst würde ein nicht
+  // geladenes Video den gespeicherten Stand auf 0 zurücksetzen.
   const savePos = () => {
     if (!played) return;
     const cur = S.lessons[k] || {};
@@ -485,7 +496,7 @@ function wirePlayer(k){
 
   const tick = setInterval(() => {
     if (v.paused || v.seeking || v.ended){ lastT = v.currentTime; return; }
-    // Lernzeit ist echte Zeit: bei 1,5x Tempo zaehlt eine Videominute 40 Sekunden.
+    // Lernzeit ist echte Zeit: bei 1,5x Tempo zählt eine Videominute 40 Sekunden.
     addSeconds((v.currentTime - lastT) / (v.playbackRate || 1));
     lastT = v.currentTime;
     const cur = S.lessons[k] || {};
@@ -624,7 +635,7 @@ function renderQuiz(cid, nr){
   });
 }
 
-/* Abschlusspruefung: zufaellige Mischung aus allen Lektionsfragen. */
+/* Abschlussprüfung: zufällige Mischung aus allen Lektionsfragen. */
 function renderExam(cid){
   const c = course(cid);
   if (!c) return go("#/");
@@ -670,6 +681,7 @@ function renderSettings(){
           <div class="seg" id="goals" role="group" aria-label="Tagesziel">${GOALS.map(g =>
             `<button type="button" data-goal="${g}" aria-pressed="${S.dailyMinutes === g}">${g}</button>`).join("")}</div>
           <input class="num" id="daily" type="number" min="5" max="240" step="5" value="${S.dailyMinutes}" aria-label="Eigenes Tagesziel in Minuten">
+          <span class="unit">min</span>
         </div>
       </div>
       <div class="setting">
