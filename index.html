@@ -3,23 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Academy</title>
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233452c8'/%3E%3Cpath d='M9.5 23 16 9l6.5 14M12.2 18h7.6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 </head>
 <body>
 <header class="topbar">
-  <button class="brand" data-nav="home">📚 Academy</button>
-  <div class="topbar-right">
-    <div class="streak" id="streak" title="Tage in Folge gelernt"></div>
-    <button class="ghost" data-nav="settings">Einstellungen</button>
+  <div class="topbar-inner">
+    <a class="brand" href="#/" aria-label="Academy, zur Übersicht">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="var(--accent)"/>
+        <path d="M9.5 23 16 9l6.5 14M12.2 18h7.6" fill="none" stroke="var(--on-accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Academy</span>
+    </a>
+    <nav class="status" id="status" aria-label="Status"></nav>
   </div>
 </header>
 
-<main id="view"></main>
+<main id="view" tabindex="-1"></main>
 
 <footer class="foot">
-  <span id="footNote"></span>
+  Videos werden direkt von <span class="mono">video.ethz.ch</span> gestreamt · Fortschritt liegt nur in diesem Browser
 </footer>
 
 <script src="app.js"></script>

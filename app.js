@@ -7,9 +7,13 @@ const DAILY_DEFAULT = 30;          // Minuten pro Tag
 const PASS_LESSON = 0.7;           // Test bestanden ab 70 %
 const PASS_EXAM = 0.75;            // Abschlusspruefung ab 75 %
 const EXAM_SIZE = 15;              // Fragen in der Abschlusspruefung
+const EXAM_UNLOCK = 0.6;           // Anteil bestandener Lektionstests, ab dem die Pruefung offen ist
+const WATCHED_AT = 0.92;           // ab diesem Anteil gilt ein Video als geschaut
+const SPEEDS = [1, 1.25, 1.5, 1.75, 2];
+const GOALS = [15, 20, 30, 45, 60];
 
 let DATA = null;
-const quizCache = {};
+const QUIZ = {};
 
 /* ---------- Speicher ---------- */
 const blank = () => ({ lessons:{}, quiz:{}, exam:{}, days:{}, last:null, dailyMinutes:DAILY_DEFAULT });
@@ -27,23 +31,71 @@ const todayKey = () => new Date().toLocaleDateString("sv-SE");   // YYYY-MM-DD, 
 const key = (c,n) => `${c}/${n}`;
 
 /* ---------- Helfer ---------- */
-const fmtMin = ms => `${Math.round(ms/60000)} min`;
-const fmtHrs = ms => `${(ms/3600000).toFixed(1)} h`;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = x => `${Math.round(x*100)} %`;
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const fmtMin = ms => `${Math.max(1, Math.round(ms/60000))} min`;
+const fmtHrs = ms => `${(ms/3600000).toFixed(1).replace(".", ",")} h`;
 function fmtClock(sec){
   sec = Math.max(0, Math.round(sec));
-  const m = Math.floor(sec/60), s = sec%60;
-  return `${m}:${String(s).padStart(2,"0")}`;
+  return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;
 }
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function fmtSpan(sec){                                  // 95 min -> "1 h 35 min"
+  const m = Math.round(sec/60);
+  return m < 60 ? `${m} min` : `${Math.floor(m/60)} h ${m%60} min`;
+}
+const person = n => n.includes(",") ? n.split(",").map(s => s.trim()).reverse().join(" ") : n;  // "Komm, Dennis"
 const course = id => DATA.courses.find(c => c.id === id);
 const lesson = (c,n) => course(c)?.lessons.find(l => l.nr === Number(n));
+const lessonMs = l => l.durationMs || (l.estMinutes||0)*60000;
+const quizOf = (cid, nr) => QUIZ[cid]?.[nr]?.questions || [];
+const langTag = c => c.kind === "external" ? `<span class="tag ext">Extern</span>`
+  : `<span class="tag ${c.lang}">${c.lang === "de" ? "Deutsch" : "Englisch"}</span>`;
+function shuffle(a){
+  a = a.slice();
+  for (let i = a.length-1; i > 0; i--){                // Fisher-Yates
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
+const ICONS = {
+  arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  arrowLeft:  '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  check:      '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  x:          '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  play:       '<path d="M8 5.6v12.8a.9.9 0 0 0 1.37.77l10.2-6.4a.9.9 0 0 0 0-1.54L9.37 4.83A.9.9 0 0 0 8 5.6z"/>',
+  star:       '<path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.6l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>',
+  flame:      '<path d="M12 2.5c2.2 3 5.5 6.2 5.5 11a5.5 5.5 0 0 1-11 0c0-2.4 1.1-4.1 2.3-5.4.1 1.6.8 2.7 1.9 3.2C10.3 8.4 11 5.2 12 2.5z"/>',
+  sliders:    '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  external:   '<path d="M14 4h6v6M20 4l-9 9M19 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 18.5v-12A1.5 1.5 0 0 1 5.5 5H10"/>',
+  info:       '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.8v.1"/>',
+  doc:        '<path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+  again:      '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4"/>',
+};
+const icon = (name, cls = "") => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+
+/* Fortschrittsring; frac 0..1, stroke in Einheiten der 100er-Viewbox. */
+function ring(frac, size, stroke, label = "", tone = ""){
+  frac = Math.max(0, Math.min(1, frac || 0));
+  const r = 50 - stroke/2, c = 2*Math.PI*r;
+  return `<span class="ringwrap" style="width:${size}px;height:${size}px">
+    <svg class="ring ${tone || (frac >= 1 ? "ok" : "")}" viewBox="0 0 100 100" width="${size}" height="${size}" aria-hidden="true">
+      <circle class="ring-track" cx="50" cy="50" r="${r}" stroke-width="${stroke}"/>
+      ${frac > 0 ? `<circle class="ring-val" cx="50" cy="50" r="${r}" stroke-width="${stroke}"
+        stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${(c*(1-frac)).toFixed(2)}" transform="rotate(-90 50 50)"/>` : ""}
+    </svg>${label ? `<span class="ringlabel">${label}</span>` : ""}</span>`;
+}
+const bar = (frac, cls = "") =>
+  `<div class="bar ${cls} ${frac >= 1 ? "done" : ""}"><i style="width:${(Math.min(1, frac)*100).toFixed(1)}%"></i></div>`;
+
+/* ---------- Lernzeit ---------- */
 function secondsToday(){ return S.days[todayKey()] || 0; }
 function addSeconds(sec){
-  if (sec <= 0 || sec > 120) return;           // Ausreisser (Spruenge, Tab-Wechsel) ignorieren
+  if (!(sec > 0) || sec > 120) return;           // Ausreisser (Spruenge, Tab-Wechsel) ignorieren
   const k = todayKey();
   S.days[k] = (S.days[k] || 0) + sec;
-  save();
 }
 function streakDays(){
   let n = 0;
@@ -58,381 +110,531 @@ function streakDays(){
   return n;
 }
 
-/* Fortschritt eines Kurses: geschaute Lektionen und bestandene Tests. */
+/* ---------- Fortschritt ---------- */
+function lessonState(cid, l){
+  const st = S.lessons[key(cid, l.nr)] || {}, qz = S.quiz[key(cid, l.nr)] || {};
+  const dur = lessonMs(l);
+  return {
+    watched: !!st.watched,
+    frac: st.watched ? 1 : (st.pos && dur ? Math.min(1, st.pos*1000/dur) : 0),
+    passed: !!qz.passed, best: qz.best || 0, attempts: qz.attempts || 0,
+  };
+}
 function courseProgress(c){
-  const total = c.lessons.length;
   let watched = 0, passed = 0, msDone = 0, msTotal = 0;
   for (const l of c.lessons){
-    const st = S.lessons[key(c.id, l.nr)] || {};
-    const dur = l.durationMs || (l.estMinutes||0)*60000;
-    msTotal += dur;
-    if (st.watched){ watched++; msDone += dur; }
-    else if (st.pos && dur) msDone += Math.min(st.pos*1000, dur);
-    if ((S.quiz[key(c.id, l.nr)] || {}).passed) passed++;
+    const s = lessonState(c.id, l), dur = lessonMs(l);
+    msTotal += dur; msDone += dur*s.frac;
+    if (s.watched) watched++;
+    if (s.passed) passed++;
   }
-  return { total, watched, passed, msDone, msTotal,
-           pct: msTotal ? msDone/msTotal : 0 };
+  return { total:c.lessons.length, watched, passed, msTotal, pct: msTotal ? msDone/msTotal : 0 };
 }
+const examNeed = c => Math.ceil(c.lessons.length * EXAM_UNLOCK);
+const examReady = c => courseProgress(c).passed >= examNeed(c);
 
-/* Naechste offene Lektion - erst angefangene, dann die erste unberuehrte. */
-function nextLesson(){
-  if (S.last){
-    const [cid, nr] = S.last.split("/");
-    const st = S.lessons[S.last] || {};
-    if (lesson(cid, nr) && !st.watched) return { cid, nr:Number(nr) };
-  }
-  for (const c of DATA.courses){
-    for (const l of c.lessons){
-      const st = S.lessons[key(c.id, l.nr)] || {};
-      if (!st.watched) return { cid:c.id, nr:l.nr };
+/* Erste ungeschaute Lektion, bevorzugt im zuletzt benutzten Kurs. */
+function firstUnwatched(preferCid){
+  for (const c of new Set([course(preferCid), ...DATA.courses].filter(Boolean))){
+    if (S.last?.startsWith(c.id + "/")){
+      const l = lesson(c.id, S.last.split("/")[1]);
+      if (l && !lessonState(c.id, l).watched) return { cid:c.id, l };
     }
+    const l = c.lessons.find(l => !lessonState(c.id, l).watched);
+    if (l) return { cid:c.id, l };
   }
   return null;
 }
-
-async function getQuiz(cid){
-  if (quizCache[cid]) return quizCache[cid];
-  try{
-    const r = await fetch(`data/quiz/${cid}.json`, {cache:"no-store"});
-    quizCache[cid] = r.ok ? await r.json() : {};
-  }catch{ quizCache[cid] = {}; }
-  return quizCache[cid];
+/* Was als Naechstes dran ist: angefangene Lektion, offener Test dazu, naechste Lektion, Pruefung. */
+function nextStep(){
+  const [lastCid, lastNr] = (S.last || "").split("/");
+  const last = lesson(lastCid, lastNr);
+  if (last){
+    const s = lessonState(lastCid, last);
+    if (!s.watched) return { kind:"lesson", cid:lastCid, l:last };
+    if (!s.passed && quizOf(lastCid, last.nr).length) return { kind:"quiz", cid:lastCid, l:last };
+  }
+  const nx = firstUnwatched(lastCid);
+  if (nx) return { kind:"lesson", ...nx };
+  for (const c of DATA.courses){
+    const l = c.lessons.find(l => !lessonState(c.id, l).passed && quizOf(c.id, l.nr).length);
+    if (l) return { kind:"quiz", cid:c.id, l };
+  }
+  const c = DATA.courses.find(c => examReady(c) && !(S.exam[c.id] || {}).passed);
+  return c ? { kind:"exam", cid:c.id } : null;
 }
 
 /* ---------- Navigation ---------- */
 const view = () => document.getElementById("view");
+const leaving = [];
+const onLeave = fn => leaving.push(fn);
 function go(hash){ location.hash = hash; }
 window.addEventListener("hashchange", route);
 
-document.addEventListener("click", e => {
-  const nav = e.target.closest("[data-nav]");
-  if (nav) go(nav.dataset.nav === "home" ? "#/" : `#/${nav.dataset.nav}`);
-});
-
 function route(){
-  stopTicker();
-  const p = (location.hash || "#/").slice(2).split("/").filter(Boolean);
-  if (!p.length) return renderHome();
-  if (p[0] === "settings") return renderSettings();
-  if (p[0] === "course") return renderCourse(p[1]);
-  if (p[0] === "lesson") return renderLesson(p[1], p[2]);
-  if (p[0] === "quiz")   return renderQuiz(p[1], p[2]);
-  if (p[0] === "exam")   return renderExam(p[1]);
-  renderHome();
+  if (!DATA) return;                                  // init() ruft route() auf, sobald die Daten da sind
+  for (const fn of leaving.splice(0)) fn();
+  const [page, a, b] = (location.hash || "#/").replace(/^#\/?/, "").split("/").filter(Boolean);
+  window.scrollTo(0, 0);
+  if (!page) renderHome();
+  else if (page === "settings") renderSettings();
+  else if (page === "course") renderCourse(a);
+  else if (page === "lesson") renderLesson(a, b);
+  else if (page === "quiz") renderQuiz(a, b);
+  else if (page === "exam") renderExam(a);
+  else return go("#/");
+  view().focus({ preventScroll:true });
 }
 
+function mount(html, { title = "", narrow = false } = {}){
+  const v = view();
+  v.className = narrow ? "narrow" : "";
+  v.innerHTML = html;
+  document.title = title ? `${title} · Academy` : "Academy";
+  chrome();
+}
+
+/* Kopfzeile: Serie, heutige Lernzeit, Einstellungen. */
 function chrome(){
-  const st = streakDays();
-  document.getElementById("streak").textContent = st ? `🔥 ${st} Tag${st>1?"e":""} in Folge` : "";
-  const left = Math.max(0, S.dailyMinutes*60 - secondsToday());
-  document.getElementById("footNote").innerHTML = left > 0
-    ? `Heute noch <b>${fmtClock(left)}</b> bis zum Tagesziel von ${S.dailyMinutes} min`
-    : `✅ Tagesziel von ${S.dailyMinutes} min erreicht - ${fmtClock(secondsToday())} gelernt`;
+  const st = streakDays(), done = secondsToday(), goal = S.dailyMinutes*60;
+  const here = location.hash.startsWith("#/settings") ? ' aria-current="page"' : "";
+  document.getElementById("status").innerHTML = `
+    ${st ? `<span class="pill streak" title="${plural(st, "Tag", "Tage")} in Folge gelernt">
+      ${icon("flame", "fill")}<b>${st}</b><span class="sr">Tage in Folge</span></span>` : ""}
+    <span class="pill" title="Heute ${fmtSpan(done)} von ${S.dailyMinutes} min gelernt">
+      ${ring(done/goal, 18, 16)}<span><b>${Math.floor(done/60)}</b><span class="unit"> / ${S.dailyMinutes} min</span></span></span>
+    <a class="iconbtn" href="#/settings" title="Einstellungen" aria-label="Einstellungen"${here}>${icon("sliders")}</a>`;
 }
 
 /* ---------- Startseite ---------- */
 function renderHome(){
-  const nx = nextLesson();
-  const left = Math.max(0, S.dailyMinutes*60 - secondsToday());
-  const done = left <= 0;
+  const lessons = DATA.courses.reduce((a, c) => a + c.lessons.length, 0);
+  const date = new Date().toLocaleDateString("de-CH", { weekday:"long", day:"numeric", month:"long" });
+  mount(`
+    <p class="eyebrow">${esc(date)}</p>
+    <h1>Deine Academy</h1>
+    <p class="lede">${plural(DATA.courses.length, "Kurs", "Kurse")} · ${lessons} Lektionen · ${S.dailyMinutes} Minuten am Tag</p>
+    ${todayCard()}
+    <h2>Kurse</h2>
+    <div class="courses">${DATA.courses.map(courseCard).join("")}</div>`);
+}
 
-  let html = `<h1>Deine Academy</h1>
-  <p class="sub">Drei Kurse, ${DATA.courses.reduce((a,c)=>a+c.lessons.length,0)} Lektionen, je ${S.dailyMinutes} Minuten am Tag.</p>`;
-
-  html += `<div class="today">
-    <div>
-      <h3>${done ? "Tagesziel erreicht 🎉" : "Deine 30 Minuten heute"}</h3>
-      <p>${ nx
-        ? `Weiter bei <b>${esc(course(nx.cid).title)}</b> · Lektion ${nx.nr}`
-        : "Alle Lektionen geschaut. Zeit für die Abschlussprüfungen." }
-        ${done ? "" : ` · noch ${fmtClock(left)}`}</p>
-    </div>
-    ${ nx ? `<button class="btn" data-nav="lesson/${nx.cid}/${nx.nr}">
-        ${ (S.lessons[key(nx.cid,nx.nr)]||{}).pos ? "Weiterschauen" : "Jetzt starten" } →</button>`
-          : `<button class="btn" data-nav="exam/${DATA.courses[0].id}">Zur Prüfung →</button>` }
-  </div>`;
-
-  html += `<div class="cards">`;
-  for (const c of DATA.courses){
-    const p = courseProgress(c);
-    const langTag = c.kind === "external"
-      ? `<span class="tag ext">extern</span>`
-      : `<span class="tag ${c.lang}">${c.lang === "de" ? "Deutsch" : "Englisch"}</span>`;
-    html += `<button class="card" data-nav="course/${c.id}">
-      <h3>${esc(c.title)}</h3>
-      <div class="meta">${esc(c.subtitle)}</div>
-      <div>${langTag}<span class="tag">${c.lessons.length} Lektionen</span><span class="tag">${fmtHrs(p.msTotal)}</span></div>
-      <div class="why">${esc(c.why)}</div>
-      <div class="bar ${p.pct>=1?"ok":""}"><i style="width:${(p.pct*100).toFixed(1)}%"></i></div>
-      <div class="barlabel"><span>${p.watched}/${p.total} geschaut · ${p.passed} Tests bestanden</span><span>${Math.round(p.pct*100)} %</span></div>
-    </button>`;
+function todayCard(){
+  const step = nextStep(), done = secondsToday(), goal = S.dailyMinutes*60;
+  let body;
+  if (!step){
+    body = `<p class="eyebrow">Alles erledigt</p>
+      <h3 class="today-title">Alle Lektionen, Tests und Prüfungen sind geschafft.</h3>
+      <p class="today-meta">Zeit für einen neuen Kurs.</p>`;
+  } else if (step.kind === "lesson"){
+    const c = course(step.cid), l = step.l, s = lessonState(c.id, l), started = s.frac > 0;
+    body = `<p class="eyebrow">${started ? "Weiter bei" : "Als Nächstes"} · ${esc(c.title)}</p>
+      <h3 class="today-title">${esc(l.title)}</h3>
+      <p class="today-meta">Lektion ${l.nr} von ${c.lessons.length} · ${started ? `noch ${fmtMin(lessonMs(l)*(1-s.frac))}` : fmtMin(lessonMs(l))}</p>
+      ${started ? bar(s.frac, "thin") : ""}
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="#/lesson/${c.id}/${l.nr}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Lektion starten"}</a>
+      </div>`;
+  } else if (step.kind === "quiz"){
+    const c = course(step.cid), l = step.l, s = lessonState(c.id, l), n = quizOf(c.id, l.nr).length;
+    const after = firstUnwatched(c.id);
+    body = `<p class="eyebrow">Test offen · ${esc(c.title)}</p>
+      <h3 class="today-title">${esc(l.title)}</h3>
+      <p class="today-meta">Lektion ${l.nr} ist geschaut. ${n} Fragen${s.attempts ? `, bisher ${pct(s.best)}` : ""}, bestanden ab ${pct(PASS_LESSON)}.</p>
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="#/quiz/${c.id}/${l.nr}">Test starten ${icon("arrowRight")}</a>
+        ${after ? `<a class="btn btn-ghost" href="#/lesson/${after.cid}/${after.l.nr}">Später, erst Lektion ${after.l.nr}</a>` : ""}
+      </div>`;
+  } else {
+    const c = course(step.cid);
+    body = `<p class="eyebrow">Abschlussprüfung · ${esc(c.title)}</p>
+      <h3 class="today-title">Genug Tests bestanden. Bereit für die Prüfung?</h3>
+      <p class="today-meta">${EXAM_SIZE} Fragen quer durch den Kurs, bestanden ab ${pct(PASS_EXAM)}.</p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="#/exam/${c.id}">Prüfung starten ${icon("arrowRight")}</a></div>`;
   }
-  html += `</div>`;
-  view().innerHTML = html;
-  chrome();
+  return `<section class="card today" aria-label="Heute">
+    <div>${body}</div>
+    <div class="today-side">
+      ${ring(done/goal, 108, 9, `<b>${Math.floor(done/60)}</b><span>von ${S.dailyMinutes} min</span>`)}
+      <p class="today-goal ${done >= goal ? "ok" : ""}">${done >= goal ? "Tagesziel erreicht" : `Heute noch ${Math.ceil((goal-done)/60)} min`}</p>
+      ${weekStrip()}
+    </div>
+  </section>`;
+}
+
+/* Die letzten sieben Tage als Punkte: leer, angefangen, Ziel erreicht. */
+function weekStrip(){
+  const d = new Date(), out = [];
+  d.setDate(d.getDate() - 6);
+  for (let i = 0; i < 7; i++){
+    const sec = S.days[d.toLocaleDateString("sv-SE")] || 0;
+    const cls = sec >= S.dailyMinutes*60 ? "full" : sec > 60 ? "part" : "";
+    const day = d.toLocaleDateString("de-CH", { weekday:"long", day:"numeric", month:"long" });
+    out.push(`<span class="d ${i === 6 ? "is-today" : ""}" title="${esc(day)}: ${fmtSpan(sec)}">
+      <i class="dot ${cls}"></i>${esc(d.toLocaleDateString("de-CH", { weekday:"short" }).slice(0, 2))}</span>`);
+    d.setDate(d.getDate() + 1);
+  }
+  return `<div class="week" aria-label="Lernzeit der letzten sieben Tage">${out.join("")}</div>`;
+}
+
+function courseCard(c){
+  const p = courseProgress(c);
+  return `<a class="card course-card" href="#/course/${c.id}">
+    <div class="tags">${langTag(c)}<span class="tag">${c.lessons.length} Lektionen</span><span class="tag">${fmtHrs(p.msTotal)}</span></div>
+    <h3>${esc(c.title)}</h3>
+    <p class="src">${esc(c.subtitle)}</p>
+    <p class="why">${esc(c.why)}</p>
+    <div class="progress">
+      ${bar(p.pct)}
+      <div class="barlabel"><span>${p.watched}/${p.total} geschaut · ${plural(p.passed, "Test", "Tests")} bestanden</span><span>${pct(p.pct)}</span></div>
+    </div>
+  </a>`;
 }
 
 /* ---------- Kursseite ---------- */
-async function renderCourse(cid){
+function renderCourse(cid){
   const c = course(cid);
   if (!c) return go("#/");
-  const q = await getQuiz(cid);
   const p = courseProgress(c);
-  const examState = S.exam[cid] || {};
-  const canExam = p.passed >= Math.ceil(c.lessons.length * 0.6);
-
-  let html = `<button class="crumb" data-nav="home">← Übersicht</button>
-    <h1>${esc(c.title)}</h1>
-    <p class="sub">${esc(c.subtitle)} · ${c.lessons.length} Lektionen · ${fmtHrs(p.msTotal)}</p>`;
-
-  if (c.note) html += `<div class="note">${c.note}</div>`;
-
-  html += `<div class="bar ${p.pct>=1?"ok":""}"><i style="width:${(p.pct*100).toFixed(1)}%"></i></div>
-    <div class="barlabel"><span>${p.watched} von ${p.total} geschaut · ${p.passed} Tests bestanden</span><span>${Math.round(p.pct*100)} %</span></div>`;
-
-  html += `<h2>Lektionen</h2><div class="lessons">`;
-  for (const l of c.lessons){
-    const st = S.lessons[key(cid,l.nr)] || {};
-    const qs = S.quiz[key(cid,l.nr)] || {};
-    const dur = l.durationMs || (l.estMinutes||0)*60000;
-    const frac = st.watched ? 1 : (st.pos && dur ? Math.min(1, st.pos*1000/dur) : 0);
-    const cls = qs.passed ? "passed" : (st.watched ? "done" : "");
-    const mark = qs.passed ? "★" : (st.watched ? "✓" : l.nr);
-    const hasQuiz = (q[l.nr]?.questions || []).length;
-    html += `<button class="lesson ${cls}" data-nav="lesson/${cid}/${l.nr}">
-      <span class="n">${mark}</span>
-      <span class="t"><b>${esc(l.title)}</b>
-        <span>${esc((l.topics||[]).join(" · ")) || "&nbsp;"}</span>
-        ${frac>0&&frac<1 ? `<span class="miniprog"><i style="width:${frac*100}%"></i></span>` : ""}
-      </span>
-      <span class="r">${fmtMin(dur)}<br>${
-        qs.passed ? `<span style="color:var(--accent2)">Test ${Math.round(qs.best*100)} %</span>`
-        : hasQuiz ? `${hasQuiz} Fragen` : "—"}</span>
-    </button>`;
-  }
-  html += `</div>`;
-
-  const examCount = Object.values(q).reduce((a,v)=>a+(v.questions||[]).length,0);
-  html += `<h2>Abschlussprüfung</h2>`;
-  if (!examCount){
-    html += `<div class="empty">Für diesen Kurs sind noch keine Fragen hinterlegt.</div>`;
-  } else {
-    html += `<div class="quiz">
-      <p style="margin:0 0 6px"><b>${Math.min(EXAM_SIZE, examCount)} Fragen</b> quer durch den Kurs, bestanden ab ${PASS_EXAM*100} %.</p>
-      <p style="margin:0; color:var(--dim); font-size:13.5px">
-        ${ canExam ? "Freigeschaltet." : `Freigeschaltet, sobald ${Math.ceil(c.lessons.length*0.6)} Lektionstests bestanden sind (aktuell ${p.passed}).` }
-        ${ examState.best != null ? ` Bisher bestes Ergebnis: <b>${Math.round(examState.best*100)} %</b>.` : "" }</p>
-      <div class="row">
-        <button class="btn" data-nav="exam/${cid}" ${canExam?"":"disabled"}>Prüfung starten</button>
-      </div></div>`;
-  }
-  view().innerHTML = html;
-  chrome();
+  const nx = firstUnwatched(cid);
+  const next = nx && nx.cid === cid ? nx.l : null;
+  const started = next && lessonState(cid, next).frac > 0;
+  mount(`
+    <a class="back" href="#/">${icon("arrowLeft")} Übersicht</a>
+    <header class="course-head">
+      <div>
+        <div class="tags">${langTag(c)}</div>
+        <h1>${esc(c.title)}</h1>
+        <p class="lede">${esc(c.subtitle)} · ${c.lessons.length} Lektionen · ${fmtHrs(p.msTotal)}</p>
+      </div>
+      ${next ? `<a class="btn btn-primary btn-lg" href="#/lesson/${cid}/${next.nr}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Starten"} · Lektion ${next.nr}</a>` : ""}
+    </header>
+    <p class="course-why">${esc(c.why)}</p>
+    ${c.note ? `<div class="callout">${icon("info")}<p>${esc(c.note)}</p></div>` : ""}
+    <div class="stats">
+      <div class="card stat"><div class="v">${pct(p.pct)}</div><div class="l">Fortschritt</div>${bar(p.pct)}</div>
+      <div class="card stat"><div class="v">${p.watched}<small>/${p.total}</small></div><div class="l">Lektionen geschaut</div></div>
+      <div class="card stat"><div class="v">${p.passed}<small>/${p.total}</small></div><div class="l">Tests bestanden</div></div>
+    </div>
+    <h2>Lektionen</h2>
+    <div class="card lesson-list">${c.lessons.map(l => lessonRow(c, l, next)).join("")}</div>
+    <h2>Abschlussprüfung</h2>
+    ${examCard(c, p)}`, { title:c.title });
 }
 
-/* ---------- Player ---------- */
-let ticker = null, lastT = 0;
-function stopTicker(){ if (ticker){ clearInterval(ticker); ticker = null; } }
+function lessonRow(c, l, next){
+  const s = lessonState(c.id, l), n = quizOf(c.id, l.nr).length;
+  const isNext = next && next.nr === l.nr;
+  const cls = [s.passed ? "passed" : s.watched ? "watched" : "", isNext ? "is-next" : ""].join(" ");
+  const mark = s.passed ? `${icon("star", "fill")}<span class="sr">Test bestanden</span>`
+             : s.watched ? `${icon("check")}<span class="sr">geschaut</span>` : l.nr;
+  const quiz = s.passed ? `<span class="score">Test ${pct(s.best)}</span>`
+             : s.attempts ? `<span class="retry">Test ${pct(s.best)}</span>`
+             : n ? `${n} Fragen` : "";
+  return `<a class="lrow ${cls}" href="#/lesson/${c.id}/${l.nr}">
+    <span class="lnum">${mark}</span>
+    <span class="lbody">
+      <span class="ltitle">${esc(l.title)}${isNext ? `<span class="tag next">${s.frac > 0 ? "Angefangen" : "Als Nächstes"}</span>` : ""}</span>
+      <span class="ltopics">${esc((l.topics || []).join(" · "))}</span>
+      ${s.frac > 0 && s.frac < 1 ? bar(s.frac, "thin") : ""}
+    </span>
+    <span class="lmeta">${fmtMin(lessonMs(l))}<br>${quiz}</span>
+  </a>`;
+}
 
-async function renderLesson(cid, nr){
+function examCard(c, p){
+  const n = Object.values(QUIZ[c.id] || {}).reduce((a, b) => a + (b.questions || []).length, 0);
+  if (!n) return `<div class="card empty">Für diesen Kurs sind noch keine Fragen hinterlegt.</div>`;
+  const need = examNeed(c), ready = p.passed >= need, ex = S.exam[c.id] || {};
+  const best = ex.best != null ? ` Bestes Ergebnis: <b>${pct(ex.best)}</b>${ex.passed ? ", bestanden" : ""}.` : "";
+  return `<section class="card exam">
+    <div>
+      <h3>${Math.min(EXAM_SIZE, n)} Fragen quer durch den Kurs</h3>
+      <p>Bestanden ab ${pct(PASS_EXAM)}. ${ready ? "Freigeschaltet." : `Wird freigeschaltet, sobald ${need} Lektionstests bestanden sind.`}${best}</p>
+      ${ready ? "" : `${bar(p.passed/need)}<div class="barlabel"><span>${p.passed} von ${need} Tests bestanden</span></div>`}
+    </div>
+    ${ready ? `<a class="btn btn-primary" href="#/exam/${c.id}">Prüfung starten ${icon("arrowRight")}</a>`
+            : `<button type="button" class="btn btn-secondary" disabled>Prüfung starten</button>`}
+  </section>`;
+}
+
+/* ---------- Lektion ---------- */
+const markLabel = w => w ? `${icon("check")} Geschaut` : "Als geschaut markieren";
+function markBtn(k){
+  const w = !!(S.lessons[k] || {}).watched;
+  return `<button type="button" class="btn btn-secondary ${w ? "is-on" : ""}" id="markDone" aria-pressed="${w}">${markLabel(w)}</button>`;
+}
+function syncMark(k){
+  const b = document.getElementById("markDone");
+  if (!b) return;
+  const w = !!(S.lessons[k] || {}).watched;
+  b.classList.toggle("is-on", w);
+  b.setAttribute("aria-pressed", String(w));
+  b.innerHTML = markLabel(w);
+}
+function wireMark(k){
+  // Nur den Knopf umschalten - ein Neuaufbau der Seite wuerde das laufende Video abbrechen.
+  document.getElementById("markDone").onclick = () => {
+    const cur = S.lessons[k] || {};
+    cur.watched = !cur.watched;
+    S.lessons[k] = cur; save(); syncMark(k);
+  };
+}
+
+function renderLesson(cid, nr){
   const c = course(cid), l = lesson(cid, nr);
-  if (!c || !l) return go("#/");
+  if (!c || !l) return go(c ? `#/course/${cid}` : "#/");
   const k = key(cid, l.nr);
   S.last = k; save();
-  const st = S.lessons[k] || {};
-  const q = await getQuiz(cid);
-  const nQ = (q[l.nr]?.questions || []).length;
+  const n = quizOf(cid, l.nr).length;
+  const prev = lesson(cid, l.nr - 1), next = lesson(cid, l.nr + 1);
+  const ext = c.kind === "external";
+  const meta = ext ? [`ca. ${fmtMin(lessonMs(l))}`, "Video extern"]
+                   : [fmtMin(lessonMs(l)), ...(l.creators || []).map(person), c.lang === "de" ? "Deutsch" : "Englisch"];
+  const test = n ? `<a class="btn btn-primary" href="#/quiz/${cid}/${l.nr}">Test starten · ${n} Fragen ${icon("arrowRight")}</a>`
+                 : `<span class="muted">Für diese Lektion sind noch keine Fragen hinterlegt.</span>`;
+  const topics = (l.topics || []).map(t => `<span class="chip">${esc(t)}</span>`).join("");
 
-  if (c.kind === "external"){
-    view().innerHTML = `<button class="crumb" data-nav="course/${cid}">← ${esc(c.title)}</button>
-      <h1>${esc(l.title)}</h1>
-      <p class="sub">Lektion ${l.nr} von ${c.lessons.length} · ca. ${l.estMinutes} min</p>
-      <div class="note">${c.note}</div>
-      <div class="quiz">
-        <p style="margin-top:0"><b>Worum es geht:</b> ${esc((l.topics||[]).join(" · "))}</p>
-        <div class="row">
-          <a class="btn" style="text-decoration:none" href="${l.externalUrl}" target="_blank" rel="noopener">Video bei EPFL öffnen ↗</a>
-          ${l.slidesUrl ? `<a class="btn sec" style="text-decoration:none" href="${l.slidesUrl}" target="_blank" rel="noopener">Folien (PDF) ↗</a>` : ""}
-        </div>
+  const body = ext ? `
+    <div class="callout">${icon("info")}<p>${esc(c.note)}</p></div>
+    <section class="card ext-card">
+      <h3>Worum es geht</h3>
+      <div class="chips">${topics}</div>
+      <div class="actions">
+        <a class="btn btn-primary" href="${esc(l.externalUrl)}" target="_blank" rel="noopener">Auf ${esc(new URL(l.externalUrl).hostname.replace(/^www\./, ""))} öffnen ${icon("external")}</a>
+        ${l.slidesUrl ? `<a class="btn btn-secondary" href="${esc(l.slidesUrl)}" target="_blank" rel="noopener">${icon("doc")} Folien (PDF)</a>` : ""}
       </div>
-      <div class="row">
-        <button class="btn sec" id="markDone">${st.watched ? "✓ Als geschaut markiert" : "Als geschaut markieren"}</button>
-        ${nQ ? `<button class="btn" data-nav="quiz/${cid}/${l.nr}">Test starten (${nQ} Fragen) →</button>` : ""}
-      </div>`;
-    document.getElementById("markDone").onclick = () => {
-      S.lessons[k] = Object.assign({}, st, { watched: !st.watched });
-      save(); renderLesson(cid, nr);
-    };
-    chrome();
-    return;
-  }
-
-  view().innerHTML = `<button class="crumb" data-nav="course/${cid}">← ${esc(c.title)}</button>
-    <h1>${esc(l.title)}</h1>
-    <p class="sub">Lektion ${l.nr} von ${c.lessons.length} · ${fmtMin(l.durationMs)} · ${esc((l.creators||[]).join(", "))}</p>
-    <div class="playerwrap">
+    </section>
+    <div class="actions">${markBtn(k)}${test.replace("btn-primary", "btn-secondary")}</div>`
+  : `
+    <div class="player">
       <video id="v" controls preload="metadata" playsinline>
-        <source src="${l.video}" type="video/mp4">
-        ${l.captionLocal ? `<track default kind="subtitles" srclang="${(l.captionLang||"de").slice(0,2)}"
-           label="Untertitel" src="${l.captionLocal}">` : ""}
+        <source src="${esc(l.video)}" type="video/mp4">
+        ${l.captionLocal ? `<track default kind="subtitles" srclang="${esc((l.captionLang || c.lang || "de").slice(0, 2))}" label="Untertitel" src="${esc(l.captionLocal)}">` : ""}
       </video>
     </div>
-    <div class="ctrls">
-      <label style="color:var(--dim);font-size:13px">Tempo
-        <select id="rate">
-          ${[1,1.25,1.5,1.75,2].map(r=>`<option value="${r}">${String(r).replace(".",",")}×</option>`).join("")}
-        </select></label>
-      <button class="btn sec" id="back10">← 10 s</button>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Tempo">${SPEEDS.map(r =>
+        `<button type="button" data-rate="${r}" aria-pressed="${r === (S.rate || 1)}">${String(r).replace(".", ",")}×</button>`).join("")}</div>
+      <button type="button" class="btn btn-secondary btn-sm" id="back10" title="10 Sekunden zurück">−10 s</button>
+      <button type="button" class="btn btn-secondary btn-sm" id="fwd10" title="10 Sekunden vor">+10 s</button>
       <span class="spacer"></span>
       <span class="budget" id="budget"></span>
     </div>
-    <div class="row">
-      <button class="btn sec" id="markDone">${st.watched ? "✓ Geschaut" : "Als geschaut markieren"}</button>
-      ${nQ ? `<button class="btn" data-nav="quiz/${cid}/${l.nr}">Test starten (${nQ} Fragen) →</button>`
-           : `<span style="color:var(--dim);font-size:13.5px">Für diese Lektion sind noch keine Fragen hinterlegt.</span>`}
-      ${l.nr < c.lessons.length ? `<button class="btn sec" data-nav="lesson/${cid}/${l.nr+1}">Nächste Lektion →</button>` : ""}
-    </div>
-    <p style="color:var(--dim);font-size:12.5px;margin-top:18px">
-      Video wird direkt von <code>video.ethz.ch</code> gestreamt · <a href="${c.portalUrl}" target="_blank" rel="noopener">Kurs im ETH-Portal ↗</a></p>`;
+    <div class="actions">${markBtn(k)}${test}</div>
+    ${topics ? `<div class="topics"><h3>Themen</h3><div class="chips">${topics}</div></div>` : ""}`;
 
+  mount(`
+    <a class="back" href="#/course/${cid}">${icon("arrowLeft")} ${esc(c.title)}</a>
+    <p class="eyebrow">Lektion ${l.nr} von ${c.lessons.length}</p>
+    <h1>${esc(l.title)}</h1>
+    <p class="lede">${meta.map(esc).join(" · ")}</p>
+    ${body}
+    <nav class="pager" aria-label="Lektionen">
+      ${prev ? `<a class="pg" href="#/lesson/${cid}/${prev.nr}"><span>${icon("arrowLeft")} Lektion ${prev.nr}</span><b>${esc(prev.title)}</b></a>` : ""}
+      ${next ? `<a class="pg next" href="#/lesson/${cid}/${next.nr}"><span>Lektion ${next.nr} ${icon("arrowRight")}</span><b>${esc(next.title)}</b></a>`
+             : `<a class="pg next" href="#/course/${cid}"><span>Kurs abschliessen ${icon("arrowRight")}</span><b>Zur Abschlussprüfung</b></a>`}
+    </nav>
+    ${ext ? "" : `<p class="source">Video wird direkt von <span class="mono">video.ethz.ch</span> gestreamt ·
+      <a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal</a></p>`}`,
+    { title:l.title });
+
+  wireMark(k);
+  if (!ext) wirePlayer(k);
+}
+
+function wirePlayer(k){
   const v = document.getElementById("v");
-  const rate = document.getElementById("rate");
-  rate.value = String(S.rate || 1);
-  v.playbackRate = Number(rate.value);
-  rate.onchange = () => { v.playbackRate = Number(rate.value); S.rate = Number(rate.value); save(); };
-  document.getElementById("back10").onclick = () => { v.currentTime = Math.max(0, v.currentTime - 10); };
+  const pos = (S.lessons[k] || {}).pos;
+  let played = false, lastT = 0;
+  v.playbackRate = S.rate || 1;
+  v.addEventListener("loadedmetadata", () => {
+    v.playbackRate = S.rate || 1;
+    if (pos && pos < v.duration - 5) v.currentTime = pos;
+  }, { once:true });
+  v.addEventListener("play", () => { played = true; });
 
-  if (st.pos) v.addEventListener("loadedmetadata", () => { v.currentTime = st.pos; }, {once:true});
-
-  document.getElementById("markDone").onclick = () => {
-    const cur = S.lessons[k] || {};
-    S.lessons[k] = Object.assign({}, cur, { watched: !cur.watched });
-    save(); renderLesson(cid, nr);
+  document.querySelector(".seg").onclick = e => {
+    const b = e.target.closest("[data-rate]");
+    if (!b) return;
+    S.rate = Number(b.dataset.rate); v.playbackRate = S.rate; save();
+    document.querySelectorAll("[data-rate]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   };
+  document.getElementById("back10").onclick = () => { v.currentTime = Math.max(0, v.currentTime - 10); };
+  document.getElementById("fwd10").onclick = () => { v.currentTime = Math.min(v.duration || 0, v.currentTime + 10); };
 
-  function budget(){
-    const left = S.dailyMinutes*60 - secondsToday();
+  const budget = () => {
     const el = document.getElementById("budget");
     if (!el) return;
-    el.className = "budget" + (left<=0 ? " over" : "");
-    el.innerHTML = left > 0
-      ? `Heute noch <b>${fmtClock(left)}</b>`
-      : `<b>Tagesziel erreicht</b> · ${fmtClock(secondsToday())}`;
-  }
+    const done = secondsToday(), left = S.dailyMinutes*60 - done;
+    el.className = "budget" + (left <= 0 ? " ok" : "");
+    el.innerHTML = ring(done/(S.dailyMinutes*60), 18, 16)
+      + (left > 0 ? `<span>Heute noch <b>${fmtClock(left)}</b></span>` : `<b>Tagesziel erreicht</b>`);
+  };
   budget();
 
-  lastT = v.currentTime;
-  ticker = setInterval(() => {
-    if (v.paused || v.seeking) { lastT = v.currentTime; return; }
-    addSeconds((v.currentTime - lastT));
+  // Position nur sichern, wenn wirklich abgespielt wurde - sonst wuerde ein nicht
+  // geladenes Video den gespeicherten Stand auf 0 zuruecksetzen.
+  const savePos = () => {
+    if (!played) return;
+    const cur = S.lessons[k] || {};
+    cur.pos = v.currentTime;
+    S.lessons[k] = cur; save();
+  };
+  v.addEventListener("pause", savePos);
+
+  const tick = setInterval(() => {
+    if (v.paused || v.seeking || v.ended){ lastT = v.currentTime; return; }
+    // Lernzeit ist echte Zeit: bei 1,5x Tempo zaehlt eine Videominute 40 Sekunden.
+    addSeconds((v.currentTime - lastT) / (v.playbackRate || 1));
     lastT = v.currentTime;
     const cur = S.lessons[k] || {};
     cur.pos = v.currentTime;
-    if (v.duration && v.currentTime / v.duration > 0.92) cur.watched = true;
+    const done = !cur.watched && v.duration && v.currentTime / v.duration > WATCHED_AT;
+    if (done) cur.watched = true;
     S.lessons[k] = cur; save();
+    if (done) syncMark(k);
     budget(); chrome();
   }, 1000);
-
-  chrome();
+  onLeave(() => { clearInterval(tick); savePos(); });
 }
 
 /* ---------- Test ---------- */
-function runQuiz({title, crumb, questions, onDone, passMark}){
-  let i = 0, right = 0, answered = false;
+function runQuiz({ eyebrow, title, back, deal, passMark, onDone, cont }){
+  const KEYS = "ABCDEFGH";
+  let qs = deal(), i = 0, answers = [];
+
+  function onKey(e){
+    if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest?.("input, textarea, select")) return;
+    if (i >= qs.length) return;
+    if (answers.length <= i){
+      const k = e.key.toUpperCase();
+      let n = "123456789".indexOf(k);
+      if (n < 0) n = KEYS.indexOf(k);
+      if (n >= 0 && n < qs[i].options.length){ e.preventDefault(); choose(n); }
+    } else if ((e.key === "Enter" && !e.target.closest?.("button, a")) || e.key === "ArrowRight"){
+      e.preventDefault(); advance();
+    }
+  }
+  document.addEventListener("keydown", onKey);
+  onLeave(() => document.removeEventListener("keydown", onKey));
+
+  const backLink = `<a class="back" href="#/${back.href}">${icon("arrowLeft")} ${esc(back.label)}</a>`;
 
   function draw(){
-    if (i >= questions.length) return finish();
-    const q = questions[i];
-    view().innerHTML = `<button class="crumb" data-nav="${crumb.href}">← ${esc(crumb.label)}</button>
+    if (i >= qs.length) return finish();
+    const q = qs[i], right = answers.filter(a => a.ok).length;
+    mount(`${backLink}
+      <p class="eyebrow">${esc(eyebrow)}</p>
       <h1>${esc(title)}</h1>
-      <div class="quiz">
-        <div class="qhead"><span>Frage ${i+1} von ${questions.length}</span><span>${right} richtig</span></div>
+      <div class="qhead"><span>Frage ${i+1} von ${qs.length}</span><span id="score">${right} richtig</span></div>
+      <div class="qprog" aria-hidden="true">${qs.map((_, n) =>
+        `<i class="${n < answers.length ? (answers[n].ok ? "ok" : "bad") : n === i ? "cur" : ""}"></i>`).join("")}</div>
+      <section class="card qcard">
         <p class="qtext">${esc(q.q)}</p>
-        <div class="opts" id="opts">
-          ${q.options.map((o,n)=>`<button class="opt" data-i="${n}">${esc(o)}</button>`).join("")}
+        <div class="opts" role="group" aria-label="Antworten">${q.options.map((o, n) =>
+          `<button type="button" class="opt" data-opt="${n}"><span class="k">${KEYS[n]}</span><span>${esc(o)}</span><span class="mark"></span></button>`).join("")}
         </div>
-        <div id="why"></div>
-      </div>`;
-    answered = false;
-    document.getElementById("opts").onclick = e => {
-      const b = e.target.closest(".opt");
-      if (!b || answered) return;
-      answered = true;
-      const pick = Number(b.dataset.i);
-      const ok = pick === q.answer;
-      if (ok) right++;
-      [...document.querySelectorAll(".opt")].forEach((el,n) => {
-        el.disabled = true;
-        if (n === q.answer) el.classList.add("right");
-        else if (n === pick) el.classList.add("wrong");
-      });
-      document.getElementById("why").innerHTML =
-        `<div class="why ${ok?"":"bad"}"><b>${ok?"Richtig.":"Nicht ganz."}</b> ${esc(q.why)}</div>
-         <div class="row"><button class="btn" id="next">${i+1<questions.length?"Weiter →":"Auswertung →"}</button></div>`;
-      document.getElementById("next").onclick = () => { i++; draw(); };
+        <div id="feedback" aria-live="polite"></div>
+      </section>
+      <div class="qfoot">
+        <span class="hint"><kbd>A</kbd>–<kbd>${KEYS[q.options.length-1]}</kbd> wählt, <kbd>Enter</kbd> geht weiter</span>
+        <span id="nextSlot"></span>
+      </div>`, { narrow:true, title });
+    window.scrollTo(0, 0);
+    document.querySelector(".opts").onclick = e => {
+      const b = e.target.closest("[data-opt]");
+      if (b) choose(Number(b.dataset.opt));
     };
-    chrome();
   }
 
-  function finish(){
-    const score = right / questions.length;
-    const ok = score >= passMark;
-    onDone(score);
-    view().innerHTML = `<button class="crumb" data-nav="${crumb.href}">← ${esc(crumb.label)}</button>
-      <div class="quiz result">
-        <div>${ok ? "Bestanden" : "Noch nicht bestanden"}</div>
-        <div class="big ${ok?"ok":"bad"}">${Math.round(score*100)} %</div>
-        <div style="color:var(--dim)">${right} von ${questions.length} richtig · nötig sind ${Math.round(passMark*100)} %</div>
-        <div class="row" style="justify-content:center">
-          <button class="btn sec" id="again">Nochmal versuchen</button>
-          <button class="btn" data-nav="${crumb.href}">Weiter →</button>
-        </div>
-      </div>`;
-    document.getElementById("again").onclick = () => { i = 0; right = 0; draw(); };
-    chrome();
+  function choose(n){
+    if (answers.length > i) return;
+    const q = qs[i], ok = n === q.answer;
+    answers.push({ pick:n, ok });
+    document.querySelectorAll("[data-opt]").forEach((el, m) => {
+      el.disabled = true;
+      if (m === q.answer){ el.classList.add("right"); el.querySelector(".mark").innerHTML = icon("check"); }
+      else if (m === n){ el.classList.add("wrong"); el.querySelector(".mark").innerHTML = icon("x"); }
+      else el.classList.add("dim");
+    });
+    document.querySelector(".qprog").children[i].className = ok ? "ok" : "bad";
+    document.getElementById("score").textContent = `${answers.filter(a => a.ok).length} richtig`;
+    document.getElementById("feedback").innerHTML =
+      `<div class="explain ${ok ? "ok" : "bad"}"><b>${ok ? "Richtig." : "Nicht ganz."}</b>${esc(q.why)}</div>`;
+    document.getElementById("nextSlot").innerHTML =
+      `<button type="button" class="btn btn-primary" id="next">${i+1 < qs.length ? "Weiter" : "Auswertung"} ${icon("arrowRight")}</button>`;
+    const nb = document.getElementById("next");
+    nb.onclick = advance;
+    nb.focus({ preventScroll:true });
+    nb.scrollIntoView({ block:"nearest", behavior:"smooth" });
   }
+
+  function advance(){ i++; draw(); }
+
+  function finish(){
+    const right = answers.filter(a => a.ok).length, score = right / qs.length, ok = score >= passMark;
+    onDone(score);
+    const missed = qs.map((q, n) => ({ q, a:answers[n] })).filter(x => !x.a.ok);
+    const c = cont(ok);
+    mount(`${backLink}
+      <section class="card result">
+        ${ring(score, 136, 8, `<b>${pct(score)}</b><span>${right} von ${qs.length}</span>`, ok ? "ok" : "warn")}
+        <h1>${ok ? "Bestanden" : "Noch nicht bestanden"}</h1>
+        <p class="lede">${ok ? "" : `Nötig sind ${pct(passMark)}. `}${missed.length ? "Was nicht gesessen hat, steht unten zum Nachlesen." : "Alles richtig."}</p>
+        <div class="actions center">
+          <button type="button" class="btn btn-secondary" id="again">${icon("again")} Nochmal</button>
+          ${c ? `<a class="btn btn-primary" href="${c.href}">${esc(c.label)} ${icon("arrowRight")}</a>` : ""}
+        </div>
+      </section>
+      ${missed.length ? `<h2>Zum Nachlesen</h2>
+      <div class="card">${missed.map(({ q, a }) => `<div class="review-item">
+        <p class="q">${esc(q.q)}</p>
+        <p class="a mine">${icon("x")}<span>${esc(q.options[a.pick])}</span></p>
+        <p class="a good">${icon("check")}<span>${esc(q.options[q.answer])}</span></p>
+        <p class="why">${esc(q.why)}</p>
+      </div>`).join("")}</div>` : ""}`, { narrow:true, title });
+    window.scrollTo(0, 0);
+    document.getElementById("again").onclick = () => { qs = deal(); i = 0; answers = []; draw(); };
+  }
+
   draw();
 }
 
-async function renderQuiz(cid, nr){
-  const c = course(cid), l = lesson(cid, nr);
-  const q = await getQuiz(cid);
-  const qs = q[nr]?.questions || [];
-  if (!c || !l || !qs.length) return go(`#/course/${cid}`);
+function renderQuiz(cid, nr){
+  const c = course(cid), l = lesson(cid, nr), qs = l ? quizOf(cid, l.nr) : [];
+  if (!c || !l || !qs.length) return go(c ? `#/course/${cid}` : "#/");
+  const next = lesson(cid, l.nr + 1);
   runQuiz({
-    title: `Test · ${l.title}`,
-    crumb: { href:`course/${cid}`, label:c.title },
-    questions: qs,
-    passMark: PASS_LESSON,
+    eyebrow: `Test · Lektion ${l.nr}`, title: l.title,
+    back: { href:`course/${cid}`, label:c.title },
+    deal: () => qs, passMark: PASS_LESSON,
+    cont: ok => !ok ? { href:`#/lesson/${cid}/${l.nr}`, label:"Zur Lektion" }
+              : next ? { href:`#/lesson/${cid}/${next.nr}`, label:"Nächste Lektion" }
+              : { href:`#/course/${cid}`, label:"Zum Kurs" },
     onDone: score => {
-      const k = key(cid, nr), prev = S.quiz[k] || {};
+      const k = key(cid, l.nr), prev = S.quiz[k] || {};
       S.quiz[k] = {
         best: Math.max(prev.best || 0, score),
         passed: (prev.passed || false) || score >= PASS_LESSON,
         attempts: (prev.attempts || 0) + 1,
       };
       save();
-    }
+    },
   });
 }
 
 /* Abschlusspruefung: zufaellige Mischung aus allen Lektionsfragen. */
-async function renderExam(cid){
+function renderExam(cid){
   const c = course(cid);
-  const q = await getQuiz(cid);
-  const pool = [];
-  for (const [n, blockk] of Object.entries(q))
-    for (const item of (blockk.questions || [])) pool.push({ ...item, from:n });
-  if (!c || !pool.length) return go(`#/course/${cid}`);
-  for (let i = pool.length-1; i > 0; i--){        // Fisher-Yates
-    const j = Math.floor(Math.random()*(i+1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
+  if (!c) return go("#/");
+  const pool = Object.values(QUIZ[cid] || {}).flatMap(b => b.questions || []);
+  if (!pool.length || !examReady(c)) return go(`#/course/${cid}`);
   runQuiz({
-    title: `Abschlussprüfung · ${c.title}`,
-    crumb: { href:`course/${cid}`, label:c.title },
-    questions: pool.slice(0, EXAM_SIZE),
-    passMark: PASS_EXAM,
+    eyebrow: "Abschlussprüfung", title: c.title,
+    back: { href:`course/${cid}`, label:c.title },
+    deal: () => shuffle(pool).slice(0, EXAM_SIZE), passMark: PASS_EXAM,
+    cont: () => ({ href:`#/course/${cid}`, label:"Zum Kurs" }),
     onDone: score => {
       const prev = S.exam[cid] || {};
       S.exam[cid] = {
@@ -441,51 +643,74 @@ async function renderExam(cid){
         attempts: (prev.attempts || 0) + 1,
       };
       save();
-    }
+    },
   });
 }
 
 /* ---------- Einstellungen ---------- */
-function renderSettings(){
-  const totalSec = Object.values(S.days).reduce((a,b)=>a+b,0);
-  const days = Object.keys(S.days).filter(d => S.days[d] > 60).length;
-  let rows = "";
-  for (const c of DATA.courses){
-    const p = courseProgress(c);
-    rows += `<tr><td>${esc(c.title)}</td><td>${p.watched}/${p.total} geschaut · ${p.passed} Tests</td></tr>`;
-  }
-  view().innerHTML = `<button class="crumb" data-nav="home">← Übersicht</button>
-    <h1>Einstellungen</h1>
-    <div class="quiz">
-      <label>Tagesziel in Minuten
-        <input id="daily" type="number" min="5" max="240" value="${S.dailyMinutes}"
-          style="width:80px;margin-left:10px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px">
-      </label>
-      <div class="row"><button class="btn" id="saveDaily">Speichern</button></div>
-    </div>
-    <h2>Dein Stand</h2>
-    <table class="stats">
-      <tr><td>Insgesamt gelernt</td><td>${fmtClock(totalSec)} min</td></tr>
-      <tr><td>Tage mit Lernzeit</td><td>${days}</td></tr>
-      <tr><td>Aktuelle Serie</td><td>${streakDays()} Tage</td></tr>
-      ${rows}
-    </table>
-    <h2>Fortschritt sichern</h2>
-    <p style="color:var(--dim);font-size:13.5px">Alles liegt nur in diesem Browser. Vor einem Rechnerwechsel exportieren.</p>
-    <div class="row">
-      <button class="btn sec" id="exp">Als Datei exportieren</button>
-      <button class="btn sec" id="imp">Datei einlesen</button>
-      <button class="btn sec" id="rst" style="color:var(--bad)">Alles zurücksetzen</button>
-    </div>
-    <input type="file" id="file" accept="application/json" hidden>`;
+function applyTheme(){
+  if (S.theme === "light" || S.theme === "dark") document.documentElement.dataset.theme = S.theme;
+  else delete document.documentElement.dataset.theme;
+}
 
-  document.getElementById("saveDaily").onclick = () => {
-    const v = Number(document.getElementById("daily").value);
-    if (v >= 5 && v <= 240){ S.dailyMinutes = v; save(); }
-    renderSettings();
+function renderSettings(){
+  const totalSec = Object.values(S.days).reduce((a, b) => a + b, 0);
+  const days = Object.values(S.days).filter(s => s > 60).length;
+  const all = DATA.courses.reduce((a, c) => a + c.lessons.length, 0);
+  const passed = DATA.courses.reduce((a, c) => a + courseProgress(c).passed, 0);
+  const theme = S.theme || "system";
+  mount(`
+    <a class="back" href="#/">${icon("arrowLeft")} Übersicht</a>
+    <h1>Einstellungen</h1>
+    <h2>Lernen</h2>
+    <section class="card settings">
+      <div class="setting">
+        <div><p class="t">Tagesziel</p><p class="d">Minuten Video pro Tag. Gezählt wird echte Zeit, auch bei schnellerem Tempo.</p></div>
+        <div class="ctl">
+          <div class="seg" id="goals" role="group" aria-label="Tagesziel">${GOALS.map(g =>
+            `<button type="button" data-goal="${g}" aria-pressed="${S.dailyMinutes === g}">${g}</button>`).join("")}</div>
+          <input class="num" id="daily" type="number" min="5" max="240" step="5" value="${S.dailyMinutes}" aria-label="Eigenes Tagesziel in Minuten">
+        </div>
+      </div>
+      <div class="setting">
+        <div><p class="t">Darstellung</p><p class="d">Hell, dunkel oder wie das System.</p></div>
+        <div class="ctl"><div class="seg" id="theme" role="group" aria-label="Darstellung">${[["system", "System"], ["light", "Hell"], ["dark", "Dunkel"]].map(([v, t]) =>
+          `<button type="button" data-theme-set="${v}" aria-pressed="${theme === v}">${t}</button>`).join("")}</div></div>
+      </div>
+    </section>
+
+    <h2>Dein Stand</h2>
+    <div class="statgrid">
+      <div class="card stat"><div class="v">${fmtSpan(totalSec)}</div><div class="l">insgesamt gelernt</div></div>
+      <div class="card stat"><div class="v">${days}</div><div class="l">${days === 1 ? "Lerntag" : "Lerntage"}</div></div>
+      <div class="card stat"><div class="v">${streakDays()}</div><div class="l">Tage in Folge</div></div>
+      <div class="card stat"><div class="v">${passed}<small>/${all}</small></div><div class="l">Tests bestanden</div></div>
+    </div>
+    <div class="card courses-table">${DATA.courses.map(c => {
+      const p = courseProgress(c);
+      return `<a class="ctrow" href="#/course/${c.id}"><span>${esc(c.title)}</span>
+        <span>${p.watched}/${p.total} geschaut · ${plural(p.passed, "Test", "Tests")} · ${pct(p.pct)}</span></a>`;
+    }).join("")}</div>
+
+    <h2>Fortschritt sichern</h2>
+    <p class="note">Alles liegt nur in diesem Browser. Vor einem Rechner- oder Browserwechsel als Datei sichern.</p>
+    <div class="actions flush">
+      <button type="button" class="btn btn-secondary" id="exp">Als Datei sichern</button>
+      <button type="button" class="btn btn-secondary" id="imp">Datei einlesen</button>
+      <button type="button" class="btn btn-ghost btn-danger" id="rst">Alles zurücksetzen</button>
+    </div>
+    <input type="file" id="file" accept="application/json,.json" hidden>`, { narrow:true, title:"Einstellungen" });
+
+  const setGoal = v => { if (v >= 5 && v <= 240){ S.dailyMinutes = Math.round(v); save(); } renderSettings(); };
+  document.getElementById("goals").onclick = e => { const b = e.target.closest("[data-goal]"); if (b) setGoal(Number(b.dataset.goal)); };
+  document.getElementById("daily").onchange = e => setGoal(Number(e.target.value));
+  document.getElementById("theme").onclick = e => {
+    const b = e.target.closest("[data-theme-set]");
+    if (!b) return;
+    S.theme = b.dataset.themeSet; save(); applyTheme(); renderSettings();
   };
   document.getElementById("exp").onclick = () => {
-    const b = new Blob([JSON.stringify(S,null,2)], {type:"application/json"});
+    const b = new Blob([JSON.stringify(S, null, 2)], { type:"application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(b);
     a.download = `academy-fortschritt-${todayKey()}.json`;
@@ -493,29 +718,37 @@ function renderSettings(){
   };
   document.getElementById("imp").onclick = () => document.getElementById("file").click();
   document.getElementById("file").onchange = async e => {
-    const f = e.target.files[0]; if (!f) return;
+    const f = e.target.files[0];
+    if (!f) return;
     try{
       S = Object.assign(blank(), JSON.parse(await f.text()));
-      save(); renderSettings();
+      save(); applyTheme(); renderSettings();
     }catch{ alert("Datei konnte nicht gelesen werden."); }
   };
   document.getElementById("rst").onclick = () => {
-    if (confirm("Wirklich den gesamten Fortschritt löschen?")){ S = blank(); save(); go("#/"); }
+    if (confirm("Wirklich den gesamten Fortschritt löschen?")){ S = blank(); save(); applyTheme(); go("#/"); }
   };
-  chrome();
 }
 
 /* ---------- Start ---------- */
 (async function init(){
+  applyTheme();
   try{
-    const r = await fetch("data/academy.json", {cache:"no-store"});
+    const r = await fetch("data/academy.json", { cache:"no-store" });
     if (!r.ok) throw new Error(r.status);
-    DATA = await r.json();
-  }catch(err){
-    view().innerHTML = `<div class="empty">
-      <b>Die Kursdaten konnten nicht geladen werden.</b><br><br>
-      Die Academy muss über einen lokalen Server laufen, nicht per Doppelklick.<br>
-      Im Terminal: <code>~/Projekte/academy/start.sh</code></div>`;
+    const data = await r.json();
+    await Promise.all(data.courses.map(async c => {
+      try{
+        const q = await fetch(`data/quiz/${c.id}.json`, { cache:"no-store" });
+        QUIZ[c.id] = q.ok ? await q.json() : {};
+      }catch{ QUIZ[c.id] = {}; }
+    }));
+    DATA = data;          // erst jetzt - route() rechnet damit, dass auch die Fragen schon da sind
+  }catch{
+    view().innerHTML = `<section class="card empty">
+      <p><b>Die Kursdaten konnten nicht geladen werden.</b></p>
+      <p>Die Academy muss über einen lokalen Server laufen, nicht per Doppelklick.
+      Im Terminal: <span class="mono">~/Projekte/academy/start.sh</span></p></section>`;
     return;
   }
   route();
