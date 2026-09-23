@@ -49,6 +49,20 @@ for c in data["courses"]:
             problems.append(line + " - zu einseitig, bitte mischen")
         else:
             warn.append(line)
+        # Auch die Zeichenlänge darf die richtige Antwort nicht verraten.
+        longest = 0
+        for b in quiz.values():
+            for q in b["questions"]:
+                a, lengths = q["answer"], [len(o) for o in q["options"]]
+                if isinstance(a, int) and 0 <= a < len(lengths):
+                    m = max(lengths)
+                    if lengths[a] == m and lengths.count(m) == 1: longest += 1
+        share = longest / tot
+        line = f"{c['id']}: richtige Antwort bei {share*100:.0f} % der Fragen die längste Option"
+        if share > 0.40:
+            problems.append(line + " - zu leicht zu erraten, bitte angleichen")
+        else:
+            warn.append(line)
 
 tot_q = 0
 for c in data["courses"]:

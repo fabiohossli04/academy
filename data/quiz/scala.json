@@ -4,10 +4,10 @@
    {
     "q": "Was kennzeichnet funktionale Programmierung im Kern?",
     "options": [
-     "Man arbeitet mit Werten und Funktionen ohne Seiteneffekte statt mit veränderlichem Zustand",
-     "Es gibt keine Funktionen mehr, nur Objekte",
-     "Es gibt keine Typen",
-     "Alles läuft parallel"
+     "Man berechnet mit reinen Funktionen neue Werte aus unveränderlichen Eingabewerten",
+     "Man organisiert Berechnungen als Methoden, die den gemeinsamen Objektzustand verändern",
+     "Man verzichtet auf Typen, damit dieselbe Variable nacheinander beliebige Werte annimmt",
+     "Man zerlegt Programme in Befehlsfolgen, deren Ergebnis von der Ausführungsreihenfolge abhängt"
     ],
     "answer": 0,
     "why": "Nicht 'Schritt für Schritt den Zustand ändern', sondern 'aus Werten neue Werte berechnen'. Das ist der eigentliche Wechsel im Denken."
@@ -15,21 +15,21 @@
    {
     "q": "Was bedeutet referenzielle Transparenz?",
     "options": [
-     "Variablen sind von aussen sichtbar",
-     "Referenzen werden automatisch aufgelöst",
-     "Ein Ausdruck lässt sich durch seinen Wert ersetzen, ohne dass sich das Programm anders verhält",
-     "Der Code ist gut lesbar"
+     "Ein Name verweist auf denselben Speicherort, wenn er in verschiedenen Funktionen verwendet wird",
+     "Ein Zugriff über eine Referenz erzeugt eine Kopie, sodass spätere Änderungen das Original nicht betreffen",
+     "Ein Ausdruck ist durch seinen Wert ersetzbar, ohne Ergebnis oder beobachtbares Verhalten zu ändern",
+     "Der Compiler ersetzt veränderliche Variablen vor der Ausführung durch feste Werte mit gleichem Namen"
     ],
     "answer": 2,
-    "why": "Wenn f(3) immer 7 ergibt, darf man überall 7 schreiben. Das macht Code lokal verstehbar - man muss nicht wissen, was vorher passiert ist."
+    "why": "Ergibt f(3) stets 7 und hat die Auswertung keine beobachtbaren Seiteneffekte, lässt sich f(3) durch 7 ersetzen, ohne Ergebnis oder beobachtbares Verhalten zu ändern. Gleiche Rückgabewerte allein reichen dafür nicht. Das erleichtert das lokale Verstehen des Codes."
    },
    {
     "q": "Was ist Endrekursion?",
     "options": [
-     "Rekursion über Listen",
-     "Der rekursive Aufruf ist die letzte Operation - der Aufrufrahmen wird nicht mehr gebraucht",
-     "Rekursion, die am Ende des Programms steht",
-     "Rekursion mit einem Abbruchkriterium"
+     "Die Funktion ruft sich selbst auf und addiert danach noch einen Wert zum Ergebnis",
+     "Der rekursive Aufruf liefert direkt das Ergebnis, ohne weitere Berechnungen im aufrufenden Rahmen",
+     "Der rekursive Aufruf ist auf eine feste Tiefe begrenzt, die beim Übersetzen bekannt ist",
+     "Der rekursive Aufruf steht am Ende des Quelltexts, auch wenn sein Ergebnis noch verarbeitet wird"
     ],
     "answer": 1,
     "why": "Weil nach dem Aufruf nichts mehr zu tun ist, kann der Compiler daraus eine Schleife machen. Ohne das würde tiefe Rekursion den Stapel sprengen."
@@ -37,10 +37,10 @@
    {
     "q": "Was bedeutet 'call by name' im Unterschied zu 'call by value'?",
     "options": [
-     "Der Name wird zur Laufzeit aufgelöst",
+     "Der Variablenname wird erst im Namensraum des Aufrufers aufgelöst",
      "Das Argument wird erst ausgewertet, wenn es tatsächlich gebraucht wird",
-     "Argumente werden kopiert",
-     "Argumente werden über ihren Namen übergeben"
+     "Das Argument wird vor dem Aufruf berechnet und als Wert übergeben",
+     "Der Aufrufer kann Argumente anhand ihrer Parameternamen beliebig anordnen"
     ],
     "answer": 1,
     "why": "Beim einen wird vorher gerechnet, beim anderen erst bei Bedarf. Der Unterschied wird sichtbar, wenn die Auswertung teuer ist oder gar nicht terminiert."
@@ -49,9 +49,9 @@
     "q": "Warum passt dieses Denken zu deinem TypeScript-Alltag?",
     "options": [
      "Weil Funktionen ohne Seiteneffekte leichter zu testen und sicherer nebenläufig sind",
-     "Weil TypeScript auf Scala aufbaut",
-     "Weil beide Sprachen dieselbe Laufzeit haben",
-     "Weil TypeScript Endrekursion optimiert"
+     "Weil TypeScript bei Funktionsaufrufen Kopien der übergebenen veränderlichen Objekte erstellt",
+     "Weil TypeScripts Typprüfung Funktionen mit Seiteneffekten als unzulässige Programme zurückweist",
+     "Weil eine const-Bindung das gebundene Objekt gegen Änderungen seiner Eigenschaften schützt"
     ],
     "answer": 0,
     "why": "Eine Funktion ohne versteckte Abhängigkeiten braucht keine aufwendige Testumgebung - Eingabe rein, Ergebnis prüfen. Das überträgt sich direkt."
@@ -63,10 +63,10 @@
    {
     "q": "Was ist eine Funktion höherer Ordnung?",
     "options": [
-     "Eine rekursive Funktion",
+     "Eine Funktion, die sich für kleinere Eingaben wieder selbst aufruft",
      "Eine Funktion, die Funktionen als Argument nimmt oder zurückgibt",
-     "Eine Funktion mit vielen Parametern",
-     "Eine besonders komplexe Funktion"
+     "Eine Funktion, die mehrere Zahlen zu einem Zahlenwert verknüpft",
+     "Eine Funktion mit besonders vielen verschachtelten Ausdrücken"
     ],
     "answer": 1,
     "why": "map, filter und reduce sind genau das. Sie trennen das Was vom Wie - die Schleifenmechanik verschwindet aus dem eigenen Code."
@@ -74,10 +74,10 @@
    {
     "q": "Was bedeutet Currying?",
     "options": [
-     "Funktionen werden zusammengefasst",
-     "Funktionen werden zwischengespeichert",
-     "Eine Funktion mit mehreren Parametern wird als Kette von Funktionen mit je einem Parameter geschrieben",
-     "Argumente werden automatisch umgewandelt"
+     "Zwei Funktionen werden zu einer Funktion verbunden, die das Ergebnis der ersten an die zweite übergibt",
+     "Die Ergebnisse einer Funktion werden pro Argument gespeichert und bei weiteren Aufrufen wiederverwendet",
+     "Eine Funktion mit mehreren Parametern wird zu einer Kette von Funktionen mit je einem Parameter",
+     "Eine Funktion mit mehreren Parametern erhält ein Tupel, das ihre Argumente gemeinsam enthält"
     ],
     "answer": 2,
     "why": "Aus f(a, b) wird f(a)(b). Der Nutzen: man kann den ersten Parameter fest einsetzen und bekommt eine neue, spezialisierte Funktion."
@@ -86,9 +86,9 @@
     "q": "Was ist eine partielle Anwendung?",
     "options": [
      "Man setzt einige Argumente fest und erhält eine Funktion, die die restlichen erwartet",
-     "Die Funktion wird abgebrochen",
-     "Die Funktion wird nur teilweise ausgeführt",
-     "Nur ein Teil des Ergebnisses wird verwendet"
+     "Man unterbricht die Ausführung nach einem Teil der Befehle und setzt sie später fort",
+     "Man schränkt den Definitionsbereich einer Funktion auf einen Teil der möglichen Eingaben ein",
+     "Man berechnet das vollständige Ergebnis und verwendet daraus einen ausgewählten Ausschnitt"
     ],
     "answer": 0,
     "why": "Aus einer allgemeinen Funktion wird ein massgeschneidertes Werkzeug - ohne eine neue zu schreiben. Sehr praktisch für Konfiguration."
@@ -96,9 +96,9 @@
    {
     "q": "Was ist ein Fixpunkt einer Funktion?",
     "options": [
-     "Der Punkt, an dem sie abbricht",
-     "Der Startwert der Rekursion",
-     "Ihr grösster Rückgabewert",
+     "Ein Wert x, für den f(x) null ergibt",
+     "Ein Wert x, mit dem eine Iteration beginnt",
+     "Ein Wert x, bei dem f(x) maximal wird",
      "Ein Wert x, für den f(x) wieder x ergibt"
     ],
     "answer": 3,
@@ -107,10 +107,10 @@
    {
     "q": "Was gewinnt man dadurch, Funktionen als Werte zu behandeln?",
     "options": [
-     "Automatische Parallelisierung",
-     "Weniger Speicherbedarf",
-     "Man kann Verhalten übergeben, kombinieren und wiederverwenden statt es zu duplizieren",
-     "Bessere Laufzeit"
+     "Man verteilt mit der Übergabe einer Funktion deren Ausführung auf mehrere Prozessorkerne",
+     "Man speichert mit der Übergabe einer Funktion deren berechnete Ergebnisse für spätere Aufrufe",
+     "Man übergibt, kombiniert und verwendet Verhalten mehrfach, ohne denselben Code zu duplizieren",
+     "Man erhält durch den Funktionstyp einen Beweis, dass die übergebene Berechnung terminiert"
     ],
     "answer": 2,
     "why": "Statt fünf fast gleicher Schleifen gibt es eine Funktion und fünf übergebene Verhaltensweisen. Genau das reduziert Wiederholung im Code."
@@ -122,10 +122,10 @@
    {
     "q": "Was ist der Unterschied zwischen einer Klasse und einem Trait?",
     "options": [
-     "Traits haben keine Methoden",
-     "Traits sind schneller",
-     "Ein Trait beschreibt eine Fähigkeit, die mehrere Klassen hinzunehmen können - Mehrfachvererbung ohne deren Probleme",
-     "Klassen sind immer abstrakt"
+     "Ein Trait kann Methodensignaturen festlegen, aber keine Implementierung der Methoden enthalten",
+     "Ein Trait ist ein gemeinsames Einzelobjekt, das die Instanzen einer Klasse über seinen Namen nutzen können",
+     "Ein Trait kann Fähigkeiten bündeln, die verschiedene Klassen neben ihrer Oberklasse übernehmen",
+     "Eine Klasse kann einen Trait übernehmen, muss dafür aber auf ihre bisherige Oberklasse verzichten"
     ],
     "answer": 2,
     "why": "Traits lassen sich kombinieren. Damit modelliert man Fähigkeiten getrennt von der Typhierarchie - ähnlich wie Interfaces mit Standardimplementierung."
@@ -133,10 +133,10 @@
    {
     "q": "Was bedeutet Datenabstraktion?",
     "options": [
-     "Daten werden generisch typisiert",
-     "Die Nutzung wird von der inneren Darstellung getrennt - die Darstellung kann sich ändern, ohne Nutzer zu brechen",
-     "Daten werden komprimiert",
-     "Daten werden verschlüsselt"
+     "Die konkrete Darstellung wird offengelegt, damit Nutzer direkt auf die gespeicherten Felder zugreifen können",
+     "Die Nutzung wird von der Darstellung getrennt, die sich ohne Änderungen am nutzenden Code ändern kann",
+     "Die gespeicherten Daten werden verdichtet, damit dieselbe Information weniger Speicher belegt",
+     "Die gespeicherten Werte werden verschlüsselt, damit berechtigte Nutzer ihren Inhalt lesen können"
     ],
     "answer": 1,
     "why": "Wer nur die Operationen kennt, merkt nichts, wenn intern umgebaut wird. Dieselbe Begründung wie für die ISA als Vertrag im Architekturkurs."
@@ -144,10 +144,10 @@
    {
     "q": "Warum bevorzugt man unveränderliche Objekte?",
     "options": [
-     "Weil sich ihr Zustand nicht hinter dem Rücken ändern kann - das macht Code verstehbar und nebenläufig sicher",
-     "Weil der Compiler es fordert",
-     "Sie sind schneller zu erzeugen",
-     "Sie brauchen weniger Speicher"
+     "Weil ihr Zustand feststeht, was das Verstehen erleichtert und konkurrierende Änderungen ausschliesst",
+     "Weil Scala veränderliche Felder als Typfehler zurückweist und solche Objekte nicht erzeugen lässt",
+     "Weil ihre Erzeugung ohne Speicherreservierung auskommt und dadurch weniger Rechenschritte benötigt",
+     "Weil unveränderliche Objekte auf dem Stapel liegen und keine Speicherbereinigung für ihre Daten benötigen"
     ],
     "answer": 0,
     "why": "Die häufigsten Fehler in nebenläufigem Code entstehen durch gemeinsam veränderten Zustand. Ohne Veränderbarkeit fällt diese ganze Fehlerklasse weg."
@@ -155,10 +155,10 @@
    {
     "q": "Was ist ein Begleitobjekt (companion object)?",
     "options": [
-     "Ein Objekt mit demselben Namen wie die Klasse, für alles, was keine einzelne Instanz betrifft",
-     "Eine Kopie der Klasse",
-     "Eine zweite Instanz",
-     "Ein Zeiger auf die Klasse"
+     "Ein Objekt, das den Namen der Klasse trägt und im selben Gültigkeitsbereich derselben Datei definiert ist",
+     "Ein Objekt, das den Zustand einer Klasseninstanz kopiert und zum späteren Vergleich mit dieser Instanz speichert",
+     "Ein Objekt, das beim Anlegen einer Klasseninstanz eine weitere Instanz derselben Klasse erzeugt und speichert",
+     "Ein Objekt, das die Oberklasse einer Instanz vertritt und deren Methoden an die aufrufende Klasse weiterleitet"
     ],
     "answer": 0,
     "why": "Dort landen Erzeugungsfunktionen und Konstanten. Es ersetzt die statischen Methoden anderer Sprachen - aber als echtes Objekt."
@@ -166,10 +166,10 @@
    {
     "q": "Was gewinnt man durch eine saubere Klassenhierarchie?",
     "options": [
-     "Weniger Speicherbedarf",
-     "Kürzeren Code",
-     "Bessere Laufzeit",
-     "Gemeinsames Verhalten wird einmal beschrieben, und der Compiler kann Fälle auf Vollständigkeit prüfen"
+     "Geerbte Felder benötigen keinen eigenen Speicher mehr, sodass zusätzliche Instanzen kostenlos werden",
+     "Überschriebene Methoden entfallen beim Übersetzen, sodass Aufrufe wieder die Implementierung des Obertyps verwenden",
+     "Methodenaufrufe in tiefen Hierarchien benötigen weniger Rechenschritte als Aufrufe ohne Vererbung",
+     "Gemeinsames Verhalten wird geteilt und geschlossene Hierarchien erlauben Vollständigkeitsprüfungen"
     ],
     "answer": 3,
     "why": "Eine geschlossene Hierarchie erlaubt dem Compiler zu warnen, wenn ein Fall fehlt. Das ist gelebte Sicherheit statt Disziplin."
@@ -182,9 +182,9 @@
     "q": "Was ist Pattern Matching?",
     "options": [
      "Eine Verzweigung, die gleichzeitig auf Struktur prüft und die Bestandteile herausholt",
-     "Ein Suchverfahren für Zeichenketten",
-     "Ein Vergleich zweier Objekte",
-     "Ein Typsystem-Merkmal"
+     "Eine Suche ersetzt gleich benannte Variablen im Quellcode durch einen gemeinsamen Wert",
+     "Ein Vergleich zweier Speicheradressen entscheidet, ob die zugehörigen Objekte denselben Inhalt besitzen",
+     "Eine Typumwandlung ergänzt am Objekt die Felder, die der gewünschte Typ benötigt"
     ],
     "answer": 0,
     "why": "Prüfen und Zerlegen in einem Schritt. Statt Typabfrage plus Zugriffe zu schreiben, beschreibt man die erwartete Form - deutlich weniger Fehlerquellen."
@@ -192,10 +192,10 @@
    {
     "q": "Was bedeutet parametrische Polymorphie?",
     "options": [
-     "Objekte ändern zur Laufzeit ihren Typ",
-     "Mehrere Methoden mit gleichem Namen",
+     "Ein Objekt wechselt zur Laufzeit seine Klasse und damit seine Methoden",
+     "Mehrere Methoden mit gleichem Namen werden je nach Argumenttypen ausgewählt",
      "Code funktioniert für beliebige Typen, ohne für jeden neu geschrieben zu werden",
-     "Eine Funktion kann verschiedene Namen haben"
+     "Untertypen überschreiben eine Methode und bestimmen so deren Verhalten"
     ],
     "answer": 2,
     "why": "Eine Liste ist eine Liste - unabhängig davon, was drinsteckt. Genau das leisten Generics in TypeScript auch."
@@ -203,10 +203,10 @@
    {
     "q": "Was besagt das Substitutionsprinzip bei Subtypen?",
     "options": [
-     "Subtypen dürfen keine neuen Methoden haben",
+     "Ein Untertyp muss die Methodenmenge des Obertyps unverändert übernehmen und darf sie nicht erweitern",
      "Wo ein Obertyp erwartet wird, muss ein Untertyp problemlos einsetzbar sein",
-     "Subtypen sind schneller",
-     "Subtypen müssen alle Methoden überschreiben"
+     "Wo ein Untertyp erwartet wird, muss jede Instanz des Obertyps problemlos einsetzbar sein",
+     "Ein Untertyp muss jede geerbte Methode durch eine eigene Implementierung ersetzen"
     ],
     "answer": 1,
     "why": "Wird das verletzt, bricht Code an Stellen, die ihn gar nicht kennen. Eine Regel, an die man sich erst erinnert, wenn sie schon verletzt wurde."
@@ -214,10 +214,10 @@
    {
     "q": "Warum gilt Pattern Matching als sicherer als eine Kette von Typabfragen?",
     "options": [
-     "Bei geschlossenen Hierarchien warnt der Compiler, wenn ein Fall fehlt",
-     "Es braucht keine Typen",
-     "Es ist schneller",
-     "Es ist kürzer"
+     "Wenn in einer geschlossenen Hierarchie ein Fall fehlt, warnt der Compiler",
+     "Wenn ein Fall fehlt, ergänzt der Compiler den Zweig mit einem Standardwert",
+     "Wenn kein Fall passt, setzt match die Ausführung ohne Rückgabewert fort",
+     "Wenn ein Zweig typkorrekt ist, ist auch seine fachliche Korrektheit bewiesen"
     ],
     "answer": 0,
     "why": "Aus einem stillen Laufzeitfehler wird eine Warnung beim Übersetzen. Das ist der ganze Sinn eines guten Typsystems."
@@ -225,10 +225,10 @@
    {
     "q": "Wie überträgt sich das auf TypeScript?",
     "options": [
-     "Gar nicht",
-     "Nur mit externen Bibliotheken",
-     "Über unterscheidbare Union-Typen mit einem Kennfeld, die der Compiler auf Vollständigkeit prüft",
-     "Nur über Klassen"
+     "Über any, das die zulässigen Objektformen mit ihren Kennfeldern im Typ festhält",
+     "Über as, das die behauptete Objektstruktur bei der Ausführung überprüft",
+     "Über Union-Typen mit Kennfeld und eine Vollständigkeitsprüfung mithilfe von never",
+     "Über Interfaces, deren Namen als Kennfelder in den Laufzeitobjekten stehen"
     ],
     "answer": 2,
     "why": "Ein Feld wie kind unterscheidet die Fälle, und der Compiler merkt, wenn einer fehlt. Dieselbe Idee, andere Schreibweise."
@@ -240,10 +240,10 @@
    {
     "q": "Wie ist eine funktionale Liste typischerweise aufgebaut?",
     "options": [
-     "Rekursiv: entweder leer oder ein Element vorn plus Restliste",
-     "Als Hashtabelle",
-     "Als doppelt verkettete Liste",
-     "Als Array fester Grösse"
+     "Als leere Liste oder als vorderes Element mit einer Restliste",
+     "Als Hashtabelle, die Werte über ihren Hash direkt auffindbar macht",
+     "Als Knotenfolge mit je einem Verweis auf Vorgänger und Nachfolger",
+     "Als zusammenhängender Speicherblock, dessen Länge beim Anlegen feststeht"
     ],
     "answer": 0,
     "why": "Aus dieser rekursiven Form folgt fast alles: Vornehinzufügen ist billig, Zugriff auf das n-te Element teuer."
@@ -251,10 +251,10 @@
    {
     "q": "Warum ist das Anfügen am Anfang billig, am Ende aber teuer?",
     "options": [
-     "Weil der Compiler es so optimiert",
-     "Beides ist gleich teuer",
-     "Wegen des Speicherlayouts",
-     "Vorn entsteht nur ein neues Element mit Verweis auf die alte Liste - hinten muss die ganze Liste durchlaufen werden"
+     "Vorn nutzt der Compiler schon vorbereitete Listenknoten; hinten löst jedes Anfügen eine Speicherbereinigung aus",
+     "Vorn und hinten genügt dieselbe Zeigeränderung; erst ein Einfügen in der Mitte verursacht zusätzlichen Aufwand",
+     "Vorn wird ein ungenutzter Platz im zusammenhängenden Speicher gefüllt; hinten wird der Speicherblock vergrössert",
+     "Vorn entsteht nur ein neuer Knoten mit Verweis auf die alte Liste; hinten muss die Liste durchlaufen und kopiert werden"
     ],
     "answer": 3,
     "why": "Die alte Liste bleibt unverändert und wird einfach weiterbenutzt. Dass Unveränderlichkeit oft günstig ist statt teuer, ist hier gut zu sehen."
@@ -262,21 +262,21 @@
    {
     "q": "Was ist der Unterschied zwischen map und filter?",
     "options": [
-     "filter verändert die Elemente",
-     "map ist schneller",
-     "Keiner",
-     "map wandelt jedes Element um, filter behält nur Elemente, die eine Bedingung erfüllen"
+     "map wählt Elemente nach einer Bedingung aus, filter berechnet für jedes Element einen neuen Wert",
+     "map sortiert Elemente mit einer Vergleichsfunktion, filter entfernt mehrfach vorkommende Werte",
+     "map liefert nur das erste passende Element, filter ersetzt jedes Element durch einen Wahrheitswert",
+     "map berechnet für jedes Element einen Wert, filter übernimmt nur passende Elemente unverändert"
     ],
     "answer": 3,
-    "why": "map behält die Länge und ändert den Inhalt, filter behält den Inhalt und ändert die Länge. Zusammen ersetzen sie die meisten Schleifen."
+    "why": "map erhält die Länge und berechnet pro Element einen Wert. filter übernimmt passende Elemente unverändert und kann die Liste verkürzen. Weder eine Inhaltsänderung bei map noch eine Verkürzung bei filter ist zwingend."
    },
    {
     "q": "Was macht eine Faltung (fold)?",
     "options": [
-     "Sie sortiert die Liste",
-     "Sie verkürzt die Liste",
+     "Sie sortiert die Liste, ohne eine Vergleichsfunktion zu benötigen",
+     "Sie behält die Elemente an geraden Positionen und verwirft die übrigen",
      "Sie verdichtet eine Liste schrittweise zu einem einzigen Wert",
-     "Sie teilt die Liste auf"
+     "Sie teilt die Liste ohne Verknüpfung in gleich grosse Blöcke"
     ],
     "answer": 2,
     "why": "Summe, Maximum, Verkettung - alles Faltungen mit anderer Verknüpfung. Die allgemeinste der drei Grundoperationen."
@@ -284,10 +284,10 @@
    {
     "q": "Was ist ein Beweis durch Umformen bei funktionalem Code?",
     "options": [
-     "Eine Prüfung durch den Compiler",
+     "Man leitet aus erfolgreicher Typprüfung ab, dass das Programm die fachliche Aufgabe erfüllt",
      "Man zeigt die Korrektheit, indem man Ausdrücke nach den Definitionen schrittweise umformt",
-     "Ein Vergleich zweier Implementierungen",
-     "Ein Test mit vielen Eingaben"
+     "Man folgert aus gleicher Laufzeit zweier Programme, dass ihre Ergebnisse übereinstimmen",
+     "Man wertet fehlerfreie Stichproben als Beweis für die Korrektheit auch bei ungeprüften Eingaben"
     ],
     "answer": 1,
     "why": "Das geht nur ohne Seiteneffekte - sonst hinge das Ergebnis vom Zeitpunkt ab. Hier zahlt sich referenzielle Transparenz ganz konkret aus."
@@ -299,10 +299,10 @@
    {
     "q": "Wofür steht ein for-Ausdruck in dieser Sprachfamilie?",
     "options": [
-     "Für eine lesbarere Schreibweise verketteter map-, flatMap- und filter-Aufrufe",
-     "Für parallele Ausführung",
-     "Für eine gewöhnliche Zählschleife",
-     "Für eine Endlosschleife"
+     "Für eine lesbarere Schreibweise von map, flatMap und Filtern mittels withFilter",
+     "Für die Verteilung der Berechnungsschritte auf gleichzeitig arbeitende Prozessorkerne",
+     "Für eine Zählschleife, deren Rumpf einen gemeinsamen veränderlichen Zähler hochsetzt",
+     "Für das Wiederholen eines Rumpfs, solange eine veränderliche Bedingung gilt"
     ],
     "answer": 0,
     "why": "Er sieht aus wie eine Schleife, ist aber eine Umformung von Ausdrücken. Deshalb funktioniert er auch mit Optionen und Zukunftswerten, nicht nur mit Listen."
@@ -310,9 +310,9 @@
    {
     "q": "Was unterscheidet eine Map von einer Liste?",
     "options": [
-     "Maps sind schneller",
-     "Listen haben keine Reihenfolge",
-     "Maps können nur Zahlen speichern",
+     "Eine Map ist nach Werten sortiert, eine Liste eine ungeordnete Menge",
+     "Eine Map nutzt feste Positionen, eine Liste frei gewählte Schlüssel",
+     "Eine Map behält doppelte Schlüssel, eine Liste entfernt doppelte Werte",
      "Eine Map ordnet Schlüsseln Werte zu, eine Liste ist eine Folge"
     ],
     "answer": 3,
@@ -321,21 +321,21 @@
    {
     "q": "Wozu dient ein Optionstyp?",
     "options": [
-     "Zur Konfiguration",
-     "Er macht im Typ sichtbar, dass ein Wert fehlen kann - statt still null zu liefern",
-     "Zum Speichern mehrerer Werte",
-     "Zur Fehlerbehandlung mit Ausnahmen"
+     "Er ersetzt fehlende Argumente eines Funktionsaufrufs durch hinterlegte Standardwerte",
+     "Er stellt einen vorhandenen Wert und dessen Fehlen als unterscheidbare Fälle im Typ dar",
+     "Er fasst mehrere gleichzeitig vorhandene Werte in einem Tupel zusammen",
+     "Er löst beim Fehlen eines Werts eine Ausnahme aus, die bis zum Aufrufer weitergereicht wird"
     ],
     "answer": 1,
-    "why": "Der Compiler zwingt dazu, den leeren Fall zu behandeln. Genau das verhindert die Fehlerklasse, die andernorts als teuerster Programmierfehler gilt."
+    "why": "Option macht mit Some und None sichtbar, ob ein Wert vorhanden ist oder fehlt. Pattern Matching mit beiden Fällen, fold oder getOrElse behandeln den fehlenden Fall sicher. get löst bei None dagegen eine Ausnahme aus. Der Compiler verhindert diesen Zugriff nicht."
    },
    {
     "q": "Was ist bei kombinatorischer Suche mit Sammlungen der übliche Aufbau?",
     "options": [
-     "Rekursiv alle Fälle aufzählen",
+     "Kandidaten erzeugen und ohne Prüfung als Lösungen ausgeben",
      "Kandidaten erzeugen, dann nach einer Bedingung herausfiltern",
-     "Erst sortieren, dann suchen",
-     "Mit einer Schleife durchzählen"
+     "Kandidaten sortieren und dadurch ungültige Fälle entfernen",
+     "Die Anzahl der Kandidaten als gesuchte Lösung liefern"
     ],
     "answer": 1,
     "why": "Erzeugen und Prüfen sauber trennen. Der Code liest sich dann wie die Aufgabenstellung selbst."
@@ -343,13 +343,13 @@
    {
     "q": "Warum sind diese Sammlungsoperationen gut parallelisierbar?",
     "options": [
-     "Weil sie keine Seiteneffekte haben und die Teilergebnisse unabhängig voneinander sind",
-     "Weil sie kurz sind",
-     "Weil sie sortiert arbeiten",
-     "Weil sie im Compiler eingebaut sind"
+     "Unabhängige reine Einzelberechnungen sind verteilbar, das Zusammenführen erfordert eine assoziative Verknüpfung",
+     "Eine feste Datenreihenfolge macht gleichzeitige Zugriffe auf veränderlichen Zustand konfliktfrei",
+     "Die kurze Schreibweise beseitigt die Abhängigkeiten der Aufrufe und macht eine Abstimmung der Kerne überflüssig",
+     "Eine kommutative Verknüpfung reicht zum Zusammenführen, auch wenn das Umklammern unterschiedliche Werte ergibt"
     ],
     "answer": 0,
-    "why": "Ohne gemeinsamen veränderlichen Zustand darf man die Arbeit beliebig aufteilen. Deshalb passt dieses Modell so gut zu mehreren Kernen."
+    "why": "Unabhängige reine Einzelberechnungen lassen sich auf mehrere Kerne verteilen. Werden ihre Teilergebnisse zusammengeführt, braucht es eine assoziative Verknüpfung, damit eine andere Klammerung dasselbe Ergebnis ergibt. Dabei sind eine erforderliche Elementreihenfolge und bei parallelem fold ein neutraler Startwert zu beachten."
    }
   ]
  },
@@ -358,9 +358,9 @@
    {
     "q": "Was bedeutet verzögerte Auswertung?",
     "options": [
-     "Die Auswertung wird auf später verschoben und dann verworfen",
-     "Der Compiler optimiert die Reihenfolge",
-     "Der Code läuft langsamer",
+     "Ein Ausdruck wird sofort berechnet, wenn seine Definition erreicht wird",
+     "Ein Ausdruck wird beim Übersetzen berechnet, wenn sein Typ bekannt ist",
+     "Ein Ausdruck wird sofort auf einem zusätzlichen Thread ausgeführt",
      "Ein Ausdruck wird erst ausgewertet, wenn sein Wert gebraucht wird"
     ],
     "answer": 3,
@@ -369,10 +369,10 @@
    {
     "q": "Was ist ein lazy val?",
     "options": [
-     "Ein veränderlicher Wert",
+     "Ein Wert, der auf Änderungen seiner Eingaben mit einer neuen Berechnung reagiert",
      "Ein Wert, der beim ersten Zugriff berechnet und danach aufbewahrt wird",
-     "Ein Wert ohne Typ",
-     "Ein Wert, der nie berechnet wird"
+     "Ein Wert, dessen Typ beim ersten Zugriff zur Laufzeit ermittelt wird",
+     "Ein Wert, dessen Ausdruck bei jedem Zugriff von Neuem berechnet wird"
     ],
     "answer": 1,
     "why": "Einmal rechnen, dann wiederverwenden. Genau das Muster hinter jedem Zwischenspeicher - hier direkt in der Sprache."
@@ -380,32 +380,32 @@
    {
     "q": "Wie kann eine unendliche Folge überhaupt funktionieren?",
     "options": [
-     "Nur die tatsächlich abgefragten Elemente werden berechnet",
-     "Sie wird im Voraus vollständig erzeugt",
-     "Der Speicher wird erweitert",
-     "Sie wird abgeschnitten"
+     "Benötigte Elemente samt ihren Abhängigkeiten entstehen schrittweise bei Bedarf",
+     "Alle Elemente werden vorab erzeugt und in komprimierter Form gespeichert",
+     "Die Laufzeit legt die gesamte Folge vorab im virtuellen Speicher ab",
+     "Der Compiler begrenzt die Folge auf eine feste Elementzahl für ihre Darstellung"
     ],
     "answer": 0,
-    "why": "Die Beschreibung ist unendlich, die Berechnung endlich. Man definiert 'alle Primzahlen' und nimmt sich die ersten zehn."
+    "why": "Ein endlicher Programmausdruck beschreibt die Folge. Der Zugriff wertet benötigte Elemente samt ihren Abhängigkeiten aus. Beim Filtern können darunter auch später verworfene Kandidaten sein. Ein endlicher Bedarf garantiert deshalb nicht, dass die Auswertung terminiert."
    },
    {
     "q": "Was ist der Vorteil gegenüber vorab berechneten Sammlungen?",
     "options": [
-     "Weniger Code",
-     "Schnellere Erzeugung aller Elemente",
-     "Man beschreibt das Ganze und zahlt nur für den benutzten Teil",
-     "Bessere Typsicherheit"
+     "Man verkürzt den Quelltext, weil die Verzögerung den Iterationscode aus dem Programm entfernt",
+     "Man spart bei benötigten Elementen auch die Berechnung der noch unbekannten Ausgangswerte",
+     "Man beschreibt die Sammlung und berechnet benötigte Elemente samt ihren Abhängigkeiten",
+     "Man beweist durch die Typprüfung die fachliche Korrektheit der später berechneten Werte"
     ],
     "answer": 2,
-    "why": "Beschreibung und Verbrauch werden entkoppelt. Genau dieses Muster steckt auch in Generatoren und Datenströmen anderer Sprachen."
+    "why": "Die Sammlung wird als Berechnung beschrieben und nach Bedarf ausgewertet. Aufwand entsteht für die benötigten Elemente und die Berechnungen, von denen sie abhängen, etwa für Vorgänger oder beim Filtern verworfene Kandidaten. Die Verzögerung macht diese notwendigen Vorarbeiten nicht kostenlos."
    },
    {
     "q": "Worauf muss man bei verzögerter Auswertung achten?",
     "options": [
-     "Auf den Speicherverbrauch der Typen",
-     "Auf die Reihenfolge der Definitionen",
-     "Der Zeitpunkt der Auswertung ist nicht mehr offensichtlich - mit Seiteneffekten wird das schnell unübersichtlich",
-     "Auf die Typen"
+     "Verzögerte Auswertung verhindert die Zwischenspeicherung von Ergebnissen, deshalb muss man diese selbst einbauen",
+     "Die Reihenfolge der Definitionen legt fest, wann ein verzögerter Ausdruck ausgewertet wird",
+     "Der Auswertungszeitpunkt hängt vom Bedarf ab, wodurch die Reihenfolge von Seiteneffekten unklar werden kann",
+     "Der Typ eines verzögerten Werts steht erst nach seiner ersten Auswertung fest und muss dann geprüft werden"
     ],
     "answer": 2,
     "why": "Verzögerung und Seiteneffekte vertragen sich schlecht: wann etwas passiert, ist dann kaum noch absehbar. Ohne Seiteneffekte ist die Frage dagegen belanglos."
