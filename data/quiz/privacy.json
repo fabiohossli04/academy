@@ -1,0 +1,179 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Was soll ein Server bei vollhomomorpher Verschlüsselung leisten?",
+    "options": [
+     "Mit dem Schlüssel des Nutzers entschlüsseln, verarbeiten und das Ergebnis neu verschlüsseln",
+     "Verschlüsselte Daten speichern und sie bei Bedarf unverändert an den Nutzer zurückgeben",
+     "Auf verschlüsselten Daten rechnen und ein verschlüsseltes Ergebnis liefern, ohne den Schlüssel",
+     "Aus mehreren Chiffretexten den gemeinsamen Schlüssel ableiten, um die Ergebnisse zu prüfen"
+    ],
+    "answer": 2,
+    "why": "Eval braucht keinen Schlüssel: Der Server wendet die Funktion auf Chiffretexte an und erhält einen Chiffretext des Ergebnisses. Entschlüsseln kann ihn nur, wer den Schlüssel hat."
+   },
+   {
+    "q": "Warum verlangt man von vollhomomorpher Verschlüsselung Kompaktheit?",
+    "options": [
+     "Sonst schiebt Eval die eigentliche Rechnung an die Entschlüsselung beim Client ab",
+     "Sonst wären die Chiffretexte zu kurz, um mehrere Bits gleichzeitig sicher zu verbergen",
+     "Sonst liesse sich der Schlüssel schon aus einem einzigen Chiffretext zurückrechnen",
+     "Sonst könnte der Server bloss Additionen und keine Multiplikationen durchführen"
+    ],
+    "answer": 0,
+    "why": "Gibt Eval einfach die Chiffretexte samt Funktionsbeschreibung zurück, rechnet am Ende der Client selbst. Kompaktheit verlangt, dass der Ergebnis-Chiffretext nicht mit der Grösse der Funktion wächst. Die Arbeit muss also wirklich beim Server passieren."
+   },
+   {
+    "q": "Warum verträgt sich Homomorphie nicht mit Nicht-Formbarkeit, also dem Schutz vor gezielt veränderten Chiffretexten?",
+    "options": [
+     "Weil homomorphe Verfahren den Schlüssel bei jeder Addition an den Server übertragen müssen",
+     "Weil Nicht-Formbarkeit bloss für Verfahren mit öffentlichem und privatem Schlüssel definiert ist",
+     "Weil das Rauschen in homomorphen Chiffretexten jede Veränderung sofort sichtbar machen würde",
+     "Weil man damit ohne Schlüssel aus einem Chiffretext einen zu einer anderen Nachricht erzeugt"
+    ],
+    "answer": 3,
+    "why": "Eval erzeugt aus einem Chiffretext einen Chiffretext zu einer Funktion der Nachricht. Genau diese Veränderbarkeit soll Nicht-Formbarkeit verhindern. Wo Chiffretexte unterwegs manipuliert werden könnten, will man deshalb gerade kein homomorphes Verfahren."
+   },
+   {
+    "q": "Im einfachen ganzzahligen Schema ist ein Chiffretext c = p·q + 2r + b. Warum sind die Operationen begrenzt?",
+    "options": [
+     "Der Schlüssel p schrumpft bei jeder Addition, bis er gerade wird und nicht mehr taugt",
+     "Das Rauschen wächst mit jeder Operation, beim Multiplizieren schnell, bis es p erreicht",
+     "Nach einer festen Anzahl von Schritten verlangt das Schema eine neu gewählte grosse Zahl q",
+     "Jede Multiplikation halbiert die Anzahl der Bits, die ein einzelner Chiffretext tragen kann"
+    ],
+    "answer": 1,
+    "why": "Beim Addieren addieren sich auch die kleinen Rauschterme, beim Multiplizieren entstehen ihre Produkte. Wird das Rauschen so gross wie p, liefert (c mod p) mod 2 nicht mehr das richtige Bit."
+   },
+   {
+    "q": "Wie lässt sich jede Funktion auf das zurückführen, was ein homomorphes Schema können muss?",
+    "options": [
+     "Als Folge von Additionen und Multiplikationen, über Bits entsprechen sie XOR und AND",
+     "Als Folge von Vergleichen und Sprüngen, wie sie ein gewöhnlicher Prozessor ausführt",
+     "Als Folge von Divisionen, weil sich daraus jede andere Rechenoperation zusammensetzt",
+     "Als Folge von Hash-Aufrufen, die jeden Zwischenwert der Rechnung zufällig verschleiern"
+    ],
+    "answer": 0,
+    "why": "Mit Addition und Multiplikation lässt sich jede Schaltung bauen. Wer beides auf Chiffretexten beherrscht, kann damit jede Funktion auswerten. Viele Verfahren können nur eines von beiden, ElGamal etwa nur multiplizieren."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Was ist die Idee des Bootstrappings?",
+    "options": [
+     "Der Client entschlüsselt zwischendurch und schickt dem Server einen frischen Chiffretext zurück",
+     "Der Server wählt nach einigen Operationen einen neuen Schlüssel und verschlüsselt damit neu",
+     "Der Server rundet das Rauschen nach jeder Multiplikation direkt im Chiffretext auf null ab",
+     "Der Server wertet die Entschlüsselung homomorph aus, auf einer Verschlüsselung des Schlüssels"
+    ],
+    "answer": 3,
+    "why": "Die Entschlüsselung ist selbst eine Funktion aus Additionen und Multiplikationen. Wertet der Server sie auf einer Verschlüsselung des Schlüssels aus, entsteht ein Chiffretext derselben Nachricht mit frischem, kleinem Rauschen, ganz ohne Rückfrage beim Client."
+   },
+   {
+    "q": "Welche Bedingung muss ein bloss teilweise homomorphes Schema fürs Bootstrapping erfüllen?",
+    "options": [
+     "Es muss ohne Rauschen auskommen, damit sich die Entschlüsselung exakt nachbilden lässt",
+     "Es muss mehr Operationen verkraften, als seine eigene Entschlüsselung braucht",
+     "Es muss öffentliche Schlüssel nutzen, damit der Server selbst entschlüsseln darf",
+     "Es muss Multiplikationen ohne Grenze erlauben, damit bloss Additionen Rauschen erzeugen"
+    ],
+    "answer": 1,
+    "why": "Nach dem Bootstrapping bleibt nur das Rauschen, das die Entschlüsselung selbst verursacht. Reicht das Budget danach noch für mindestens eine weitere Operation, kann man abwechselnd rechnen und auffrischen, beliebig lange."
+   },
+   {
+    "q": "Warum ist ein einfacher Hash H(m) kein gutes Commitment?",
+    "options": [
+     "Hashfunktionen sind nicht kollisionsresistent, darum lässt sich die Wahl später ändern",
+     "Der Hash ist länger als die Nachricht und verrät dadurch ihre ungefähre Grösse",
+     "Bei wenigen denkbaren Nachrichten rechnet der Empfänger H für jede aus und vergleicht",
+     "Ohne Schlüssel kann der Empfänger den Hash später selbst nicht mehr nachrechnen"
+    ],
+    "answer": 2,
+    "why": "Kollisionsresistenz sorgt dafür, dass man sich nicht umentscheiden kann, aber sie verbirgt nichts. Stehen nur ein paar Kandidaten zur Wahl, probiert der Empfänger sie durch. Erst angehängte Zufallsbits geben der Eingabe genug Entropie."
+   },
+   {
+    "q": "Warum taugt das One-Time-Pad nicht als Commitment, obwohl es perfekt verbirgt?",
+    "options": [
+     "Weil zu jedem Chiffretext ein Schlüssel passt, der ihn als andere Nachricht öffnet",
+     "Weil der Empfänger den Schlüssel aus dem Chiffretext berechnen und die Nachricht lesen kann",
+     "Weil es bloss für Nachrichten funktioniert, die länger sind als der verwendete Schlüssel",
+     "Weil zwei verschiedene Nachrichten mit demselben Schlüssel dieselbe Ausgabe ergeben"
+    ],
+    "answer": 0,
+    "why": "Beim One-Time-Pad passt zu einem Chiffretext jede Nachricht, jeweils mit einem anderen Schlüssel. Daher kommt die perfekte Geheimhaltung. Für ein Commitment heisst das aber: Man kann sich später auf jede Nachricht herausreden, es bindet nicht."
+   },
+   {
+    "q": "Welche Eigenschaft hat das Pedersen-Commitment g^m·h^r, die ein Hash-Commitment nicht bietet?",
+    "options": [
+     "Es kommt ohne jede Rechenannahme aus und bindet trotzdem mit perfekter Sicherheit",
+     "Das Produkt zweier Commitments ist ein Commitment auf die Summe der beiden Nachrichten",
+     "Es ist schneller zu berechnen, weil Potenzen in Gruppen billiger sind als Hashes",
+     "Es lässt sich ohne die Zufallszahl r öffnen, was beim Aufdecken Übertragung spart"
+    ],
+    "answer": 1,
+    "why": "g^m1·h^r1 mal g^m2·h^r2 ergibt g^(m1+m2)·h^(r1+r2). So kann man auf versteckten Werten linear rechnen und später etwa nur die Summe aufdecken. Dafür ist Pedersen deutlich langsamer als ein einzelner Hash-Aufruf."
+   }
+  ]
+ },
+ "3": {
+  "questions": [
+   {
+    "q": "Warum ist das Pedersen-Commitment perfekt verbergend?",
+    "options": [
+     "Den diskreten Logarithmus von h zur Basis g kann niemand effizient berechnen",
+     "Jede Nachricht passt mit genau einer Zufallszahl zum selben Commitment",
+     "Die Nachricht wird vor dem Potenzieren mit einer Hashfunktion verschleiert",
+     "Das Commitment enthält bloss einen kleinen, zufällig gewählten Teil der Nachricht"
+    ],
+    "answer": 1,
+    "why": "Jedes Gruppenelement lässt sich für jede Nachricht m als g^m·h^r schreiben, mit genau einem passenden r. Das Commitment verrät also informationstheoretisch nichts. Die Härte des diskreten Logarithmus braucht man erst für das Binden."
+   },
+   {
+    "q": "Was folgt, wenn jemand für dasselbe Pedersen-Commitment zwei Öffnungen mit verschiedenen Nachrichten kennt?",
+    "options": [
+     "Er kann die Zufallszahl jedes fremden Commitments derselben Gruppe ablesen",
+     "Er hat damit gezeigt, dass die verwendete Gruppe keine Primzahlordnung besitzt",
+     "Er kann daraus den privaten Schlüssel eines beliebigen RSA-Moduls ableiten",
+     "Er kann daraus den diskreten Logarithmus von h zur Basis g direkt ausrechnen"
+    ],
+    "answer": 3,
+    "why": "Aus g^m0·h^r0 = g^m1·h^r1 folgt m0 + x·r0 = m1 + x·r1 mod q und damit x = (m1 − m0)/(r0 − r1). Eine Kollision liefert also den diskreten Logarithmus. Darum bindet Pedersen, solange dieser schwer zu finden ist."
+   },
+   {
+    "q": "Wie ist eine Härte-Reduktion von «Pedersen bindet» auf «der diskrete Logarithmus ist schwer» aufgebaut?",
+    "options": [
+     "Man nimmt einen Angreifer auf die Bindung an und macht daraus einen Logarithmus-Löser",
+     "Man nimmt einen Löser für den Logarithmus an und baut daraus einen Angriff auf die Bindung",
+     "Man prüft viele kleine Gruppen durch und findet dort keine Kollision",
+     "Man beweist direkt, dass kein Algorithmus den Logarithmus effizient bestimmt"
+    ],
+    "answer": 0,
+    "why": "Die Aussage wird per Kontraposition gezeigt: Wer die Bindung bricht, bricht auch das als schwer angenommene Problem. Die Richtung entscheidet. Dass ein Logarithmus-Löser die Bindung bricht, wäre wertlos, denn das zeigt nichts über die Sicherheit."
+   },
+   {
+    "q": "Wann gilt eine Funktion F(k, x) als pseudozufällig?",
+    "options": [
+     "Wenn sie für dieselbe Eingabe bei jedem Aufruf eine neue, zufällig gewählte Ausgabe liefert",
+     "Wenn ihre Ausgaben gleichmässig verteilt sind, auch wenn der verwendete Schlüssel öffentlich ist",
+     "Wenn man sie ohne den Schlüssel nicht von einer echten Zufallsfunktion unterscheiden kann",
+     "Wenn sie sich mit dem Schlüssel schnell und ohne ihn in keiner vertretbaren Zeit berechnen lässt"
+    ],
+    "answer": 2,
+    "why": "Eine PRF ist deterministisch: gleicher Schlüssel und gleiche Eingabe, gleiche Ausgabe. Sicher ist sie, wenn ein effizienter Angreifer mit Orakelzugriff nicht merklich besser als zufällig raten kann, ob er mit ihr oder mit einer echten Zufallsfunktion spricht."
+   },
+   {
+    "q": "Was ermöglicht die PRF F(k, x) = H(x)^k, was eine Blockchiffre wie AES nicht bietet?",
+    "options": [
+     "Sie ist ganz ohne Zufallsorakel und ohne jede Rechenannahme beweisbar sicher",
+     "Sie ist schneller, weil Potenzen in Gruppen günstiger sind als eine Blockchiffre",
+     "Ein Server wendet seinen Schlüssel auf eine verschleierte Eingabe an, ohne sie zu erfahren",
+     "Sie liefert für ähnliche Eingaben ähnliche Ausgaben, was das Suchen erleichtert"
+    ],
+    "answer": 2,
+    "why": "Der Client schickt einen Hash seiner Eingabe, der Server potenziert mit seinem Schlüssel. Mit einer kleinen Verblendung lernt dabei keine Seite das Geheimnis der anderen, eine oblivious PRF. Bei AES müsste eine Seite ihren Teil preisgeben. Die Sicherheit beruht auf der DDH-Annahme im Random-Oracle-Modell."
+   }
+  ]
+ }
+}

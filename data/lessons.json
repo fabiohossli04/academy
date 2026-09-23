@@ -562,17 +562,88 @@
     "title": "Privacy Enhancing Technologies",
     "subtitle": "ETH Zürich · Florian Tramèr · HS 2026",
     "lang": "en",
-    "why": "",
+    "why": "Rechnen mit Daten, die niemand sehen soll: homomorphe Verschlüsselung, Commitments und bald Zero-Knowledge-Beweise und Differential Privacy. Danach weisst du, warum ein nackter Hash noch kein Geheimnis schützt.",
     "running": true,
-    "lessons": []
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Private Berechnungen und homomorphe Verschlüsselung",
+        "topics": [
+          "private Berechnung",
+          "Eval ohne Schlüssel",
+          "Kompaktheit",
+          "Rauschen"
+        ],
+        "clips": [
+          "e8560bee-5f3a-4938-a6f7-76825eeb07d6"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Bootstrapping und Commitment-Verfahren",
+        "topics": [
+          "Bootstrapping",
+          "Hiding und Binding",
+          "Ununterscheidbarkeit",
+          "Random-Oracle-Modell"
+        ],
+        "clips": [
+          "0c8c515a-573c-49d2-b3e3-f5a5fd158294"
+        ]
+      },
+      {
+        "nr": 3,
+        "title": "Pedersen-Commitments und pseudozufällige Funktionen",
+        "topics": [
+          "Härte-Reduktion",
+          "diskreter Logarithmus",
+          "PRF",
+          "DDH-Annahme"
+        ],
+        "clips": [
+          "9d39bde3-1be3-4c12-8bba-de1d77964cd9"
+        ]
+      }
+    ]
   },
   "software": {
     "portal": "/lectures/d-infk/2026/autumn/252-0232-00L",
     "title": "Software Engineering",
     "subtitle": "ETH Zürich · Marcel Lüthi · HS 2026",
     "lang": "en",
-    "why": "",
+    "why": "Wie Teams Software bauen, ohne im Chaos zu versinken: Prozessmodelle, Scrum, Anforderungen. Kurze Clips, pro Woche gebündelt, und direkt auf deine eigenen Projekte übertragbar.",
     "running": true,
-    "lessons": []
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Woche 2: Softwareprozesse vom Wasserfall bis Scrum",
+        "topics": [
+          "Code-and-Fix",
+          "Lebenszyklusmodell",
+          "Prozessmodell",
+          "Scrum"
+        ],
+        "clips": [
+          "c4ac769a-7e8c-4744-944c-35beb003efab",
+          "94fad4ab-05c9-450e-8773-0f9a8b8d8fa2",
+          "b425ea48-f582-4e22-abe0-6127e514c2a4"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Woche 3: Anforderungen erheben und prüfen",
+        "topics": [
+          "Projekterfolg",
+          "User Stories",
+          "Use Cases",
+          "Qualität von Anforderungen"
+        ],
+        "clips": [
+          "6bac448b-3bcc-487b-a4cd-76fee1e868f0",
+          "d77dd3c9-a406-40af-9819-ef71c9396ebd",
+          "c57201ae-4281-415d-a667-75b272940636"
+        ]
+      }
+    ]
   }
 }

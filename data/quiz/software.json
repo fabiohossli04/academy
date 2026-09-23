@@ -1,0 +1,120 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Warum reicht Code-and-Fix für grössere Projekte nicht mehr?",
+    "options": [
+     "Weil Compiler bei grossen Programmen die Fehlermeldungen nicht mehr vollständig anzeigen können",
+     "Weil ohne gemeinsame Struktur viele Beteiligte an derselben Codebasis den Überblick verlieren",
+     "Weil der Ansatz Tests ausschliesst und Fehler deshalb erst beim Kunden sichtbar werden können",
+     "Weil Code-and-Fix bloss mit Programmiersprachen ohne statisches Typsystem gut funktioniert"
+    ],
+    "answer": 1,
+    "why": "Schreiben, ausprobieren, nachbessern funktioniert allein gut. Arbeiten viele an einer Codebasis, fehlen Planung, Absprache und klare Schritte. Diese Erfahrung aus der Softwarekrise führte zu Prozessmodellen."
+   },
+   {
+    "q": "Was unterscheidet ein Lebenszyklusmodell von einem Prozessmodell?",
+    "options": [
+     "Das Lebenszyklusmodell beschreibt die Wartung, das Prozessmodell die Entwicklung davor",
+     "Das Lebenszyklusmodell gilt für agile Teams, das Prozessmodell für Wasserfall-Projekte",
+     "Das Lebenszyklusmodell regelt die Werkzeuge, das Prozessmodell die Aufteilung im Team",
+     "Das Lebenszyklusmodell legt Phasen und Reihenfolge fest, das Prozessmodell die Arbeit"
+    ],
+    "answer": 3,
+    "why": "Der Lebenszyklus sagt, welche Phasen es gibt, etwa planen, definieren, entwerfen, bauen, testen, warten, und wie sie zusammenhängen. Das Prozessmodell bestimmt, was in jeder Phase konkret passiert, zum Beispiel welches Dokument am Ende entsteht."
+   },
+   {
+    "q": "Was sah schon die ursprüngliche Beschreibung des Wasserfallmodells vor?",
+    "options": [
+     "Rückkopplungen zur vorherigen Phase, weil eine streng lineare Abfolge in der Praxis scheitert",
+     "Einen strikten Ablauf ohne Rückschritte, damit jede Phase genau einmal bezahlt werden muss",
+     "Kurze Iterationen von wenigen Wochen mit einem lauffähigen Zwischenstand am Ende",
+     "Den Verzicht auf Dokumente, damit sich Anforderungen jederzeit ändern lassen"
+    ],
+    "answer": 0,
+    "why": "Die Phasen folgen aufeinander, mit einem Dokument nach jedem Schritt. Schon früh wurden aber Schleifen zwischen benachbarten Phasen ergänzt: Fällt beim Entwurf ein Widerspruch in den Anforderungen auf, geht man einen Schritt zurück."
+   },
+   {
+    "q": "Was steht in Scrum beim Sprint Review im Mittelpunkt, was bei der Retrospektive?",
+    "options": [
+     "Im Review die Arbeitsweise des Teams, in der Retrospektive das Produkt mit den Stakeholdern",
+     "Im Review die Aufwandsschätzung, in der Retrospektive die offenen Einträge im Backlog",
+     "Im Review das Produkt mit den Stakeholdern, in der Retrospektive die Arbeitsweise des Teams",
+     "Im Review die Fehler im Code, in der Retrospektive die Termine der kommenden Releases"
+    ],
+    "answer": 2,
+    "why": "Das Review fragt, ob das Gebaute noch das Richtige ist und wohin es weitergeht. Die Retrospektive fragt, wie zusammengearbeitet wurde und was vor dem nächsten Sprint besser werden soll. Beides fliesst in die nächste Sprint-Planung."
+   },
+   {
+    "q": "Woraus entsteht in Scrum das Sprint Backlog?",
+    "options": [
+     "Aus den Fehlermeldungen, die seit dem letzten Release bei Support und Team eingegangen sind",
+     "Aus den Ergebnissen der Retrospektive, die das Team als neue Aufgaben festhält",
+     "Aus in der Sprint-Planung gewählten und verfeinerten Einträgen des Product Backlogs",
+     "Aus einem Plan, den das Team schon vor Projektbeginn festgelegt hat"
+    ],
+    "answer": 2,
+    "why": "Das Product Backlog sammelt mögliche Arbeit. In der Sprint-Planung wählt das Team ein Ziel und passende Einträge, zerlegt und präzisiert sie. Das ergibt das Sprint Backlog für die nächsten ein bis vier Wochen."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Wann gilt ein Softwareprojekt in der üblichen Einteilung als erfolgreich?",
+    "options": [
+     "Wenn es pünktlich, im Budget und mit dem versprochenen Umfang fertig wird",
+     "Wenn es fehlerfrei ausgeliefert wird, auch wenn Termin und Budget überschritten sind",
+     "Wenn die Kundschaft es rege nutzt, egal wie es um Kosten, Termin und Umfang steht",
+     "Wenn der Code eine hohe Testabdeckung erreicht und sauber dokumentiert ist"
+    ],
+    "answer": 0,
+    "why": "Erfolg heisst hier dreierlei: pünktlich, im Budget und mit dem vereinbarten Umfang. Viele Projekte verfehlen mindestens einen Punkt, und unklare Anforderungen gehören zu den häufigsten Gründen."
+   },
+   {
+    "q": "Warum werden Fehler in den Anforderungen teuer, wenn man sie spät findet?",
+    "options": [
+     "Weil Anforderungsdokumente nach ihrer Freigabe nicht mehr verändert werden dürfen",
+     "Weil dann Entwurf, Umsetzung, Tests und Auslieferung erneut anfallen, nicht bloss ein Text",
+     "Weil spät gefundene Fehler vertraglich zu deutlich höheren Strafzahlungen an die Kundschaft führen",
+     "Weil Testerinnen und Tester die Anforderungen erst nach dem Release lesen und bewerten dürfen"
+    ],
+    "answer": 1,
+    "why": "Alles Spätere baut auf den Anforderungen auf. Früh entdeckt, ändert man einen Absatz. Im Test oder im Betrieb muss man womöglich den Entwurf umbauen, neu implementieren, testen und erneut ausliefern."
+   },
+   {
+    "q": "Worin unterscheidet sich ein Use Case von einer User Story?",
+    "options": [
+     "Er ist kürzer und informeller, die User Story dagegen formal und mit sämtlichen Ausnahmen",
+     "Er beschreibt die interne Architektur, die User Story dagegen die Oberfläche der Anwendung",
+     "Er wird erst nach dem Release geschrieben, die User Story schon vor dem Projektstart",
+     "Er beschreibt alle Abläufe mit Ausnahmen und Bedingungen, die Story bloss Ziel und Nutzen"
+    ],
+    "answer": 3,
+    "why": "Beide halten gewünschtes Verhalten aus Sicht der Nutzenden fest. Die User Story ist leicht, mit Rolle, Ziel und Nutzen, und vor allem ein Anlass fürs Gespräch. Der Use Case ist ausführlich: Akteure, Ablauf, Eintritts- und Austrittsbedingungen, Ausnahmen."
+   },
+   {
+    "q": "Was macht eine Anforderung überprüfbar?",
+    "options": [
+     "Sie wurde von der Kundschaft unterschrieben und im Ticketsystem abgelegt",
+     "Sie ist so allgemein formuliert, dass spätere Änderungen sie nicht verletzen",
+     "Sie nennt genau die Technologie, mit der sie später umgesetzt werden soll",
+     "Man kann wiederholbare Tests schreiben, die zeigen, ob das System sie erfüllt"
+    ],
+    "answer": 3,
+    "why": "Überprüfbar heisst: Es gibt einen reproduzierbaren Test, der Erfüllung oder Nichterfüllung zeigt. Dafür muss die Anforderung auch eindeutig sein, sonst ist unklar, was genau geprüft werden soll."
+   },
+   {
+    "q": "Wozu dient ein Wegwerf-Prototyp bei der Validierung von Anforderungen?",
+    "options": [
+     "Die Kundschaft probiert ein billiges Modell aus und merkt früh, wo Missverständnisse liegen",
+     "Er wird später schrittweise ausgebaut und bildet die Grundlage für den eigentlichen Produktivcode",
+     "Er misst die Leistung der Zielplattform, bevor überhaupt Anforderungen erhoben werden können",
+     "Er ersetzt die Anforderungsdokumente, weil der Prototyp selbst als verbindliche Spezifikation gilt"
+    ],
+    "answer": 0,
+    "why": "Ein grober Prototyp, notfalls auf Papier, macht sichtbar, was das Team verstanden hat. Die Kundschaft erkennt daran schneller als in einem Dokument, wo Abläufe nicht passen. Danach wird er verworfen."
+   }
+  ]
+ }
+}

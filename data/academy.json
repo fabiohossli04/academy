@@ -1171,6 +1171,182 @@
           "slidesUrl": "https://www.epfl.ch/labs/lamp/wp-content/uploads/2019/01/week7-1-no-annot.pdf"
         }
       ]
+    },
+    {
+      "id": "privacy",
+      "kind": "stream",
+      "title": "Privacy Enhancing Technologies",
+      "subtitle": "ETH Zürich · Florian Tramèr · HS 2026",
+      "lang": "en",
+      "why": "Rechnen mit Daten, die niemand sehen soll: homomorphe Verschlüsselung, Commitments und bald Zero-Knowledge-Beweise und Differential Privacy. Danach weisst du, warum ein nackter Hash noch kein Geheimnis schützt.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-infk/2026/autumn/263-4658-00L",
+      "running": true,
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Private Berechnungen und homomorphe Verschlüsselung",
+          "topics": [
+            "private Berechnung",
+            "Eval ohne Schlüssel",
+            "Kompaktheit",
+            "Rauschen"
+          ],
+          "durationMs": 2780760.0,
+          "creators": [
+            "Tramèr, Florian"
+          ],
+          "clips": [
+            {
+              "opencastId": "e8560bee-5f3a-4938-a6f7-76825eeb07d6",
+              "title": "Privacy Enhancing Technologies",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/e8560bee-5f3a-4938-a6f7-76825eeb07d6/edb01a03-fbff-4c56-ba66-400d8216c318/presentation-6fba1382-9a3d-4db6-8bcf-5c6b9aa8300b.mp4",
+              "captionLocal": "transcripts/privacy/e8560bee-5f3a-4938-a6f7-76825eeb07d6.vtt",
+              "captionLang": "en-US",
+              "durationMs": 2780760.0
+            }
+          ]
+        },
+        {
+          "nr": 2,
+          "title": "Bootstrapping und Commitment-Verfahren",
+          "topics": [
+            "Bootstrapping",
+            "Hiding und Binding",
+            "Ununterscheidbarkeit",
+            "Random-Oracle-Modell"
+          ],
+          "durationMs": 5539720.0,
+          "creators": [
+            "Tramèr, Florian"
+          ],
+          "clips": [
+            {
+              "opencastId": "0c8c515a-573c-49d2-b3e3-f5a5fd158294",
+              "title": "Privacy Enhancing Technologies",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/0c8c515a-573c-49d2-b3e3-f5a5fd158294/37bc4f29-357c-40ab-b0e7-ad298282da0e/presentation-73b03535-cc7b-4077-bb89-496f724092ea.mp4",
+              "captionLocal": "transcripts/privacy/0c8c515a-573c-49d2-b3e3-f5a5fd158294.vtt",
+              "captionLang": "en-US",
+              "durationMs": 5539720.0
+            }
+          ]
+        },
+        {
+          "nr": 3,
+          "title": "Pedersen-Commitments und pseudozufällige Funktionen",
+          "topics": [
+            "Härte-Reduktion",
+            "diskreter Logarithmus",
+            "PRF",
+            "DDH-Annahme"
+          ],
+          "durationMs": 2707080.0,
+          "creators": [
+            "Tramèr, Florian"
+          ],
+          "clips": [
+            {
+              "opencastId": "9d39bde3-1be3-4c12-8bba-de1d77964cd9",
+              "title": "Privacy Enhancing Technologies",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9d39bde3-1be3-4c12-8bba-de1d77964cd9/a811a631-3142-480e-b4df-9726397d444a/presentation-11af7ce7-81a4-46ee-b210-34d41e2441de.mp4",
+              "captionLocal": "transcripts/privacy/9d39bde3-1be3-4c12-8bba-de1d77964cd9.vtt",
+              "captionLang": "en-US",
+              "durationMs": 2707080.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "software",
+      "kind": "stream",
+      "title": "Software Engineering",
+      "subtitle": "ETH Zürich · Marcel Lüthi · HS 2026",
+      "lang": "en",
+      "why": "Wie Teams Software bauen, ohne im Chaos zu versinken: Prozessmodelle, Scrum, Anforderungen. Kurze Clips, pro Woche gebündelt, und direkt auf deine eigenen Projekte übertragbar.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-infk/2026/autumn/252-0232-00L",
+      "running": true,
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Woche 2: Softwareprozesse vom Wasserfall bis Scrum",
+          "topics": [
+            "Code-and-Fix",
+            "Lebenszyklusmodell",
+            "Prozessmodell",
+            "Scrum"
+          ],
+          "durationMs": 691370.0,
+          "creators": [
+            "Lüthi, Marcel"
+          ],
+          "clips": [
+            {
+              "opencastId": "c4ac769a-7e8c-4744-944c-35beb003efab",
+              "title": "Week-2 Welcome",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c4ac769a-7e8c-4744-944c-35beb003efab/fc0a2200-8f92-47af-a707-7e8d0024da27/02-welcome.mp4",
+              "captionLocal": "transcripts/software/c4ac769a-7e8c-4744-944c-35beb003efab.vtt",
+              "captionLang": "en-US",
+              "durationMs": 129365.0
+            },
+            {
+              "opencastId": "94fad4ab-05c9-450e-8773-0f9a8b8d8fa2",
+              "title": "Week 2 - Software Life-cycle and Software Processes",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/94fad4ab-05c9-450e-8773-0f9a8b8d8fa2/4a5e3c52-118d-4716-8add-113de64ebe08/02-lifecycle.mp4",
+              "captionLocal": "transcripts/software/94fad4ab-05c9-450e-8773-0f9a8b8d8fa2.vtt",
+              "captionLang": "en-US",
+              "durationMs": 390080.0
+            },
+            {
+              "opencastId": "b425ea48-f582-4e22-abe0-6127e514c2a4",
+              "title": "Week 2 - Scrum",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b425ea48-f582-4e22-abe0-6127e514c2a4/aad9e8c5-77b0-49d7-9d4d-f5697c18640c/02-scrum.mp4",
+              "captionLocal": "transcripts/software/b425ea48-f582-4e22-abe0-6127e514c2a4.vtt",
+              "captionLang": "en-US",
+              "durationMs": 171925.0
+            }
+          ]
+        },
+        {
+          "nr": 2,
+          "title": "Woche 3: Anforderungen erheben und prüfen",
+          "topics": [
+            "Projekterfolg",
+            "User Stories",
+            "Use Cases",
+            "Qualität von Anforderungen"
+          ],
+          "durationMs": 1014692.0,
+          "creators": [
+            "Lüthi, Marcel"
+          ],
+          "clips": [
+            {
+              "opencastId": "6bac448b-3bcc-487b-a4cd-76fee1e868f0",
+              "title": "Week 3 - Use cases and user stories",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/6bac448b-3bcc-487b-a4cd-76fee1e868f0/c74422d0-7647-4304-ab23-4988b14c2029/03-requirements-use-case.mp4",
+              "captionLocal": "transcripts/software/6bac448b-3bcc-487b-a4cd-76fee1e868f0.vtt",
+              "captionLang": "en-US",
+              "durationMs": 353002.0
+            },
+            {
+              "opencastId": "d77dd3c9-a406-40af-9819-ef71c9396ebd",
+              "title": "Week 3 - Requirements intro",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/d77dd3c9-a406-40af-9819-ef71c9396ebd/60556be7-11e7-4ddf-b857-f243b6dd8f18/03-requiremetns-intro.mp4",
+              "captionLocal": "transcripts/software/d77dd3c9-a406-40af-9819-ef71c9396ebd.vtt",
+              "captionLang": "en-US",
+              "durationMs": 343120.0
+            },
+            {
+              "opencastId": "c57201ae-4281-415d-a667-75b272940636",
+              "title": "Week 3 - Requirements on requirements",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c57201ae-4281-415d-a667-75b272940636/9c4ea89f-746a-4bd8-bed1-6dbb5233dc62/03-requiremetns-quality.mp4",
+              "captionLocal": "transcripts/software/c57201ae-4281-415d-a667-75b272940636.vtt",
+              "captionLang": "en-US",
+              "durationMs": 318570.0
+            }
+          ]
+        }
+      ]
     }
   ]
 }
