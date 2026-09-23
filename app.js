@@ -53,9 +53,15 @@ const person = n => n.includes(",") ? n.split(",").map(s => s.trim()).reverse().
 const course = id => DATA.courses.find(c => c.id === id);
 const lesson = (c,n) => course(c)?.lessons.find(l => l.nr === Number(n));
 const lessonMs = l => l.durationMs || (l.estMinutes||0)*60000;
+// Einzige Brücke zum alten Datenformat; der Player arbeitet ausschließlich mit Clips.
+const clipsOf = l => l.clips?.length ? l.clips : [{
+  opencastId:l.opencastId, title:l.title, video:l.video, captionLocal:l.captionLocal,
+  captionLang:l.captionLang, durationMs:lessonMs(l),
+}];
 const quizOf = (cid, nr) => QUIZ[cid]?.[nr]?.questions || [];
 const langTag = c => c.kind === "external" ? `<span class="tag ext">Extern</span>`
-  : `<span class="tag ${c.lang}">${c.lang === "de" ? "Deutsch" : "Englisch"}</span>`;
+  : `<span class="tag ${esc(c.lang)}">${c.lang === "de" ? "Deutsch" : "Englisch"}</span>`;
+const runningTag = c => c.running ? `<span class="tag running">Läuft</span>` : "";
 function shuffle(a){
   a = a.slice();
   for (let i = a.length-1; i > 0; i--){                // Fisher-Yates
@@ -100,7 +106,7 @@ function bar(frac, cls = ""){
 /* ---------- Lernzeit ---------- */
 function secondsToday(){ return S.days[todayKey()] || 0; }
 function addSeconds(sec){
-  if (!(sec > 0) || sec > 120) return;           // Ausreißer (Sprünge, Tab-Wechsel) ignorieren
+  if (!(sec > 0) || sec > 90) return;            // Lange Segmente nach Ruhezustand/Sleep verwerfen.
   const k = todayKey();
   S.days[k] = (S.days[k] || 0) + sec;
 }
@@ -138,7 +144,7 @@ function courseProgress(c){
   return { total:c.lessons.length, watched, passed, msTotal, pct: msTotal ? msDone/msTotal : 0 };
 }
 const examNeed = c => Math.ceil(c.lessons.length * EXAM_UNLOCK);
-const examReady = c => courseProgress(c).passed >= examNeed(c);
+const examReady = c => !c.running && courseProgress(c).passed >= examNeed(c);
 
 /* Erste ungeschaute Lektion, bevorzugt im zuletzt benutzten Kurs. */
 function firstUnwatched(preferCid){
@@ -239,27 +245,27 @@ function todayCard(){
     const c = course(step.cid), l = step.l, s = lessonState(c.id, l), started = s.frac > 0;
     body = `<p class="eyebrow">${started ? "Weiter bei" : "Als Nächstes"} · ${esc(c.title)}</p>
       <h3 class="today-title">${esc(l.title)}</h3>
-      <p class="today-meta">Lektion ${l.nr} von ${c.lessons.length} · ${started ? `noch ${fmtMin(lessonMs(l)*(1-s.frac))}` : fmtMin(lessonMs(l))}</p>
+      <p class="today-meta">Lektion ${esc(l.nr)} von ${c.lessons.length} · ${started ? `noch ${fmtMin(lessonMs(l)*(1-s.frac))}` : fmtMin(lessonMs(l))}</p>
       ${started ? bar(s.frac, "thin") : ""}
       <div class="actions">
-        <a class="btn btn-primary btn-lg" href="#/lesson/${c.id}/${l.nr}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Lektion starten"}</a>
+        <a class="btn btn-primary btn-lg" href="#/lesson/${esc(c.id)}/${esc(l.nr)}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Lektion starten"}</a>
       </div>`;
   } else if (step.kind === "quiz"){
     const c = course(step.cid), l = step.l, s = lessonState(c.id, l), n = quizOf(c.id, l.nr).length;
     const after = firstUnwatched(c.id);
     body = `<p class="eyebrow">Test offen · ${esc(c.title)}</p>
       <h3 class="today-title">${esc(l.title)}</h3>
-      <p class="today-meta">Lektion ${l.nr} ist geschaut. ${n} Fragen${s.attempts ? `, bisher ${pct(s.best)}` : ""}, bestanden ab ${pct(PASS_LESSON)}.</p>
+      <p class="today-meta">Lektion ${esc(l.nr)} ist geschaut. ${n} Fragen${s.attempts ? `, bisher ${pct(s.best)}` : ""}, bestanden ab ${pct(PASS_LESSON)}.</p>
       <div class="actions">
-        <a class="btn btn-primary btn-lg" href="#/quiz/${c.id}/${l.nr}">Test starten ${icon("arrowRight")}</a>
-        ${after ? `<a class="btn btn-ghost" href="#/lesson/${after.cid}/${after.l.nr}">Später, erst Lektion ${after.l.nr}</a>` : ""}
+        <a class="btn btn-primary btn-lg" href="#/quiz/${esc(c.id)}/${esc(l.nr)}">Test starten ${icon("arrowRight")}</a>
+        ${after ? `<a class="btn btn-ghost" href="#/lesson/${esc(after.cid)}/${esc(after.l.nr)}">Später, erst Lektion ${esc(after.l.nr)}</a>` : ""}
       </div>`;
   } else {
     const c = course(step.cid);
     body = `<p class="eyebrow">Abschlussprüfung · ${esc(c.title)}</p>
       <h3 class="today-title">Genug Tests bestanden. Bereit für die Prüfung?</h3>
       <p class="today-meta">${EXAM_SIZE} Fragen quer durch den Kurs, bestanden ab ${pct(PASS_EXAM)}.</p>
-      <div class="actions"><a class="btn btn-primary btn-lg" href="#/exam/${c.id}">Prüfung starten ${icon("arrowRight")}</a></div>`;
+      <div class="actions"><a class="btn btn-primary btn-lg" href="#/exam/${esc(c.id)}">Prüfung starten ${icon("arrowRight")}</a></div>`;
   }
   return `<section class="card today" aria-label="Heute">
     <div>${body}</div>
@@ -288,8 +294,8 @@ function weekStrip(){
 
 function courseCard(c){
   const p = courseProgress(c);
-  return `<a class="card course-card" href="#/course/${c.id}">
-    <div class="tags">${langTag(c)}<span class="tag">${c.lessons.length} Lektionen</span><span class="tag">${fmtHrs(p.msTotal)}</span></div>
+  return `<a class="card course-card" href="#/course/${esc(c.id)}">
+    <div class="tags">${langTag(c)}${runningTag(c)}<span class="tag">${c.lessons.length} Lektionen</span><span class="tag">${fmtHrs(p.msTotal)}</span></div>
     <h3>${esc(c.title)}</h3>
     <p class="src">${esc(c.subtitle)}</p>
     <p class="why">${esc(c.why)}</p>
@@ -312,11 +318,11 @@ function renderCourse(cid){
     <a class="back" href="#/">${icon("arrowLeft")} Übersicht</a>
     <header class="course-head">
       <div>
-        <div class="tags">${langTag(c)}</div>
+        <div class="tags">${langTag(c)}${runningTag(c)}</div>
         <h1>${esc(c.title)}</h1>
         <p class="lede">${esc(c.subtitle)} · ${c.lessons.length} Lektionen · ${fmtHrs(p.msTotal)}</p>
       </div>
-      ${next ? `<a class="btn btn-primary btn-lg" href="#/lesson/${cid}/${next.nr}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Starten"} · Lektion ${next.nr}</a>` : ""}
+      ${next ? `<a class="btn btn-primary btn-lg" href="#/lesson/${esc(cid)}/${esc(next.nr)}">${icon("play", "fill")} ${started ? "Weiterschauen" : "Starten"} · Lektion ${esc(next.nr)}</a>` : ""}
     </header>
     <p class="course-why">${esc(c.why)}</p>
     ${c.note ? `<div class="callout">${icon("info")}<p>${esc(c.note)}</p></div>` : ""}
@@ -336,11 +342,11 @@ function lessonRow(c, l, next){
   const isNext = next && next.nr === l.nr;
   const cls = [s.passed ? "passed" : s.watched ? "watched" : "", isNext ? "is-next" : ""].join(" ");
   const mark = s.passed ? `${icon("star", "fill")}<span class="sr">Test bestanden</span>`
-             : s.watched ? `${icon("check")}<span class="sr">geschaut</span>` : l.nr;
+             : s.watched ? `${icon("check")}<span class="sr">geschaut</span>` : esc(l.nr);
   const quiz = s.passed ? `<span class="score">Test ${pct(s.best)}</span>`
              : s.attempts ? `<span class="retry">Test ${pct(s.best)}</span>`
              : n ? `${n} Fragen` : "";
-  return `<a class="lrow ${cls}" href="#/lesson/${c.id}/${l.nr}">
+  return `<a class="lrow ${cls}" href="#/lesson/${esc(c.id)}/${esc(l.nr)}">
     <span class="lnum">${mark}</span>
     <span class="lbody">
       <span class="ltitle">${esc(l.title)}${isNext ? `<span class="tag next">${s.frac > 0 ? "Angefangen" : "Als Nächstes"}</span>` : ""}</span>
@@ -352,6 +358,10 @@ function lessonRow(c, l, next){
 }
 
 function examCard(c, p){
+  if (c.running) return `<section class="card exam">
+    <div><h3>Abschlussprüfung</h3><p>Die Abschlussprüfung öffnet, wenn der Kurs abgeschlossen ist.</p></div>
+    <button type="button" class="btn btn-secondary" disabled>Prüfung starten</button>
+  </section>`;
   const n = Object.values(QUIZ[c.id] || {}).reduce((a, b) => a + (b.questions || []).length, 0);
   if (!n) return `<div class="card empty">Für diesen Kurs sind noch keine Fragen hinterlegt.</div>`;
   const need = examNeed(c), ready = p.passed >= need, ex = S.exam[c.id] || {};
@@ -362,7 +372,7 @@ function examCard(c, p){
       <p>Bestanden ab ${pct(PASS_EXAM)}. ${ready ? "Freigeschaltet." : `Wird freigeschaltet, sobald ${need} Lektionstests bestanden sind.`}${best}</p>
       ${ready ? "" : `${bar(p.passed/need)}<div class="barlabel"><span>${p.passed} von ${need} Tests bestanden</span></div>`}
     </div>
-    ${ready ? `<a class="btn btn-primary" href="#/exam/${c.id}">Prüfung starten ${icon("arrowRight")}</a>`
+    ${ready ? `<a class="btn btn-primary" href="#/exam/${esc(c.id)}">Prüfung starten ${icon("arrowRight")}</a>`
             : `<button type="button" class="btn btn-secondary" disabled>Prüfung starten</button>`}
   </section>`;
 }
@@ -398,6 +408,7 @@ function renderLesson(cid, nr){
   const n = quizOf(cid, l.nr).length;
   const prev = lesson(cid, l.nr - 1), next = lesson(cid, l.nr + 1);
   const ext = c.kind === "external";
+  const clips = ext ? [] : clipsOf(l);
   const meta = ext ? [`ca. ${fmtMin(lessonMs(l))}`, "Video extern"]
                    : [fmtMin(lessonMs(l)), ...(l.creators || []).map(person), c.lang === "de" ? "Deutsch" : "Englisch"];
   const saved = S.lessons[k] || {};
@@ -420,11 +431,15 @@ function renderLesson(cid, nr){
     <div class="actions">${markBtn(k)}${testBtn("btn-secondary")}</div>`
   : `
     <div class="player">
-      <video id="v" controls controlslist="nodownload" preload="metadata" playsinline>
-        <source src="${esc(l.video)}" type="video/mp4">
-        ${l.captionLocal ? `<track default kind="subtitles" srclang="${esc((l.captionLang || c.lang || "de").slice(0, 2))}" label="Untertitel" src="${esc(l.captionLocal)}">` : ""}
-      </video>
+      <video id="v" controls controlslist="nodownload" preload="metadata" playsinline></video>
     </div>
+    <p class="player-error" id="playerError" role="status" hidden>Das Video konnte nicht geladen werden.
+      <a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal öffnen ${icon("external")}</a></p>
+    ${clips.length > 1 ? `<ol class="card clip-list" aria-label="Clips dieser Lektion">${clips.map((clip, i) => `
+      <li><button type="button" class="clip-row" data-clip="${esc(i)}">
+        <span class="lnum">${esc(i+1)}</span><span class="clip-title">${esc(clip.title)}</span>
+        <span class="clip-meta"><span class="clip-state">Offen</span><span>${esc(fmtClock(clip.durationMs/1000))}</span></span>
+      </button></li>`).join("")}</ol>` : ""}
     <div class="toolbar">
       <div class="seg" role="group" aria-label="Tempo">${SPEEDS.map(r =>
         `<button type="button" data-rate="${r}" aria-pressed="${r === (S.rate || 1)}">${String(r).replace(".", ",")}×</button>`).join("")}</div>
@@ -437,42 +452,110 @@ function renderLesson(cid, nr){
     ${topics ? `<div class="topics"><h3>Themen</h3><div class="chips">${topics}</div></div>` : ""}`;
 
   mount(`
-    <a class="back" href="#/course/${cid}">${icon("arrowLeft")} ${esc(c.title)}</a>
-    <p class="eyebrow">Lektion ${l.nr} von ${c.lessons.length}</p>
+    <a class="back" href="#/course/${esc(cid)}">${icon("arrowLeft")} ${esc(c.title)}</a>
+    <p class="eyebrow">Lektion ${esc(l.nr)} von ${c.lessons.length}</p>
     <h1>${esc(l.title)}</h1>
     <p class="lede">${meta.map(esc).join(" · ")}</p>
     ${body}
     <nav class="pager" aria-label="Lektionen">
-      ${prev ? `<a class="pg" href="#/lesson/${cid}/${prev.nr}"><span>${icon("arrowLeft")} Lektion ${prev.nr}</span><b>${esc(prev.title)}</b></a>` : ""}
-      ${next ? `<a class="pg next" href="#/lesson/${cid}/${next.nr}"><span>Lektion ${next.nr} ${icon("arrowRight")}</span><b>${esc(next.title)}</b></a>`
-             : `<a class="pg next" href="#/course/${cid}"><span>Zum Abschluss ${icon("arrowRight")}</span><b>Zur Abschlussprüfung</b></a>`}
+      ${prev ? `<a class="pg" href="#/lesson/${esc(cid)}/${esc(prev.nr)}"><span>${icon("arrowLeft")} Lektion ${esc(prev.nr)}</span><b>${esc(prev.title)}</b></a>` : ""}
+      ${next ? `<a class="pg next" href="#/lesson/${esc(cid)}/${esc(next.nr)}"><span>Lektion ${esc(next.nr)} ${icon("arrowRight")}</span><b>${esc(next.title)}</b></a>`
+             : `<a class="pg next" href="#/course/${esc(cid)}"><span>${c.running ? "Zum Kurs" : "Zum Abschluss"} ${icon("arrowRight")}</span><b>${c.running ? "Zur Kursübersicht" : "Zur Abschlussprüfung"}</b></a>`}
     </nav>
     ${ext ? "" : `<p class="source"><a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal ${icon("external")}</a></p>`}`,
     { title:l.title });
 
   wireMark(k);
-  if (!ext) wirePlayer(k);
+  if (!ext) wirePlayer(k, clips, c.lang);
 }
 
-function wirePlayer(k){
+function wirePlayer(k, clips, lang){
   const v = document.getElementById("v");
-  const pos = (S.lessons[k] || {}).pos;
-  let played = false, lastT = 0;
-  v.playbackRate = S.rate || 1;
-  v.addEventListener("loadedmetadata", () => {
-    v.playbackRate = S.rate || 1;
-    if (pos && pos < v.duration - 5) v.currentTime = pos;
-  }, { once:true });
-  v.addEventListener("play", () => { played = true; });
+  const error = document.getElementById("playerError"), rows = [...document.querySelectorAll("[data-clip]")];
+  const durations = clips.map(clip => Math.max(0, Number(clip.durationMs) || 0)/1000), offsets = [];
+  const total = durations.reduce((sum, duration) => { offsets.push(sum); return sum + duration; }, 0);
+  const resume = Number((S.lessons[k] || {}).pos) || 0;
+  let active = -1, pendingTime = null, segmentStart = null, playing = false, alive = true;
+  let version = 0, metadata = null, autoplay = false;
+  const events = new AbortController();
+  const listen = (type, fn, capture = false) => v.addEventListener(type, fn, { signal:events.signal, capture });
+
+  // Videoposition und Lernzeit bleiben unabhängig: auch ein Sprung zählt nur verstrichene Uhrzeit.
+  const finishSegment = () => {
+    if (segmentStart === null) return;
+    addSeconds((performance.now() - segmentStart)/1000);
+    segmentStart = null;
+  };
+  const startSegment = () => {
+    if (alive && playing && pendingTime === null && !v.paused && !v.seeking && !v.ended && v.readyState >= 3)
+      segmentStart = performance.now();
+  };
+  const position = () => active < 0 ? resume
+    : offsets[active] + Math.min(durations[active], Math.max(0, pendingTime ?? v.currentTime));
+  const updateClips = () => {
+    const pos = position(), watched = (S.lessons[k] || {}).watched;
+    rows.forEach((row, i) => {
+      const current = i === active, done = watched || pos >= offsets[i] + durations[i]*WATCHED_AT;
+      row.classList.toggle("is-current", current);
+      row.classList.toggle("watched", !!done);
+      if (current) row.setAttribute("aria-current", "true");
+      else row.removeAttribute("aria-current");
+      row.querySelector(".clip-state").textContent = current ? "Aktuell" : done ? "Geschaut" : "Offen";
+    });
+  };
+  const savePos = (checkWatched = false, finished = false) => {
+    if (active < 0) return;
+    const cur = S.lessons[k] || {};
+    cur.pos = finished ? total : position();
+    if (finished || (checkWatched && total > 0 && cur.pos/total >= WATCHED_AT)) cur.watched = true;
+    S.lessons[k] = cur; save(); syncMark(k); updateClips();
+  };
+  const applyRate = () => { v.defaultPlaybackRate = v.playbackRate = S.rate || 1; };
+
+  // Ein Übergang für Auswahl, Fortsetzen, automatische Folge und absolute Sprünge.
+  function selectClip(i, localTime = 0, play = false){
+    finishSegment(); savePos();
+    playing = false;
+    v.pause();
+    if (metadata) v.removeEventListener("loadedmetadata", metadata);
+    const clip = clips[i], selected = ++version;
+    active = i; pendingTime = Math.max(0, Math.min(durations[i], localTime)); autoplay = play;
+    error.hidden = true;
+    v.innerHTML = `<source src="${esc(clip.video)}" type="video/mp4">
+      ${clip.captionLocal ? `<track default kind="subtitles" srclang="${esc((clip.captionLang || lang || "de").slice(0, 2))}" label="Untertitel" src="${esc(clip.captionLocal)}">` : ""}`;
+    metadata = () => {
+      if (!alive || selected !== version || v.readyState < 1 || pendingTime === null) return;
+      v.removeEventListener("loadedmetadata", metadata);
+      v.currentTime = Math.min(pendingTime, Number.isFinite(v.duration) ? v.duration : pendingTime);
+      pendingTime = null;
+      applyRate(); savePos();
+      if (autoplay) v.play().catch(e => {
+        if (alive && selected === version && e.name !== "AbortError" && e.name !== "NotAllowedError") showError();
+      });
+    };
+    v.addEventListener("loadedmetadata", metadata);
+    v.load();
+    savePos();
+  }
+  function seekTo(pos, play){
+    pos = Math.max(0, Math.min(total, pos));
+    let i = 0;
+    while (i < clips.length - 1 && pos >= offsets[i+1]) i++;
+    selectClip(i, pos - offsets[i], play);
+  }
 
   document.querySelector(".seg").onclick = e => {
     const b = e.target.closest("[data-rate]");
     if (!b) return;
-    S.rate = Number(b.dataset.rate); v.playbackRate = S.rate; save();
+    finishSegment();
+    S.rate = Number(b.dataset.rate); applyRate(); startSegment(); save();
     document.querySelectorAll("[data-rate]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   };
-  document.getElementById("back10").onclick = () => { v.currentTime = Math.max(0, v.currentTime - 10); };
-  document.getElementById("fwd10").onclick = () => { v.currentTime = Math.min(v.duration || 0, v.currentTime + 10); };
+  const wantsPlay = () => pendingTime !== null ? autoplay : !v.paused && !v.ended;
+  document.getElementById("back10").onclick = () => seekTo(position() - 10, wantsPlay());
+  document.getElementById("fwd10").onclick = () => seekTo(position() + 10, wantsPlay());
+  rows.forEach((row, i) => { row.onclick = () => selectClip(i, 0, wantsPlay()); });
+  document.getElementById("markDone").addEventListener("click", updateClips);
 
   const budget = () => {
     const el = document.getElementById("budget");
@@ -484,30 +567,36 @@ function wirePlayer(k){
   };
   budget();
 
-  // Position nur sichern, wenn wirklich abgespielt wurde - sonst würde ein nicht
-  // geladenes Video den gespeicherten Stand auf 0 zurücksetzen.
-  const savePos = () => {
-    if (!played) return;
-    const cur = S.lessons[k] || {};
-    cur.pos = v.currentTime;
-    S.lessons[k] = cur; save();
+  const stop = () => {
+    finishSegment(); playing = false; savePos(); budget(); chrome();
   };
-  v.addEventListener("pause", savePos);
+  function showError(){ stop(); error.hidden = false; }
+  listen("playing", () => { finishSegment(); playing = true; startSegment(); });
+  for (const type of ["pause", "seeking", "waiting", "emptied"]) listen(type, stop);
+  listen("seeked", () => savePos());
+  listen("ratechange", () => { finishSegment(); startSegment(); save(); });
+  listen("ended", () => {
+    stop();
+    if (active < clips.length - 1) selectClip(active + 1, 0, true);
+    else savePos(false, true);
+  });
+  // Bei <source> meldet der Browser den Ladefehler am Kind statt am Video.
+  listen("error", e => { if (e.target === v || e.target.tagName === "SOURCE") showError(); }, true);
 
   const tick = setInterval(() => {
-    if (v.paused || v.seeking || v.ended){ lastT = v.currentTime; return; }
-    // Lernzeit ist echte Zeit: bei 1,5x Tempo zählt eine Videominute 40 Sekunden.
-    addSeconds((v.currentTime - lastT) / (v.playbackRate || 1));
-    lastT = v.currentTime;
-    const cur = S.lessons[k] || {};
-    cur.pos = v.currentTime;
-    const done = !cur.watched && v.duration && v.currentTime / v.duration > WATCHED_AT;
-    if (done) cur.watched = true;
-    S.lessons[k] = cur; save();
-    if (done) syncMark(k);
+    if (!playing) return;
+    finishSegment(); startSegment(); savePos(true);
     budget(); chrome();
   }, 1000);
-  onLeave(() => { clearInterval(tick); savePos(); });
+  const pageHide = () => { stop(); v.pause(); };
+  window.addEventListener("pagehide", pageHide);
+  onLeave(() => {
+    clearInterval(tick); stop(); alive = false; events.abort();
+    if (metadata) v.removeEventListener("loadedmetadata", metadata);
+    window.removeEventListener("pagehide", pageHide);
+    v.pause();
+  });
+  seekTo(resume, false);
 }
 
 /* ---------- Test ---------- */
@@ -530,7 +619,7 @@ function runQuiz({ eyebrow, title, back, deal, passMark, onDone, cont }){
   document.addEventListener("keydown", onKey);
   onLeave(() => document.removeEventListener("keydown", onKey));
 
-  const backLink = `<a class="back" href="#/${back.href}">${icon("arrowLeft")} ${esc(back.label)}</a>`;
+  const backLink = `<a class="back" href="#/${esc(back.href)}">${icon("arrowLeft")} ${esc(back.label)}</a>`;
 
   function draw(){
     if (i >= qs.length) return finish();
@@ -595,7 +684,7 @@ function runQuiz({ eyebrow, title, back, deal, passMark, onDone, cont }){
         <p class="lede">${ok ? "" : `Nötig sind ${pct(passMark)}. `}${missed.length ? "Was nicht gesessen hat, steht unten zum Nachlesen." : "Alles richtig."}</p>
         <div class="actions center">
           <button type="button" class="btn btn-secondary" id="again">${icon("again")} Nochmal</button>
-          ${c ? `<a class="btn btn-primary" href="${c.href}">${esc(c.label)} ${icon("arrowRight")}</a>` : ""}
+          ${c ? `<a class="btn btn-primary" href="${esc(c.href)}">${esc(c.label)} ${icon("arrowRight")}</a>` : ""}
         </div>
       </section>
       ${missed.length ? `<h2>Zum Nachlesen</h2>
@@ -700,7 +789,7 @@ function renderSettings(){
     </div>
     <div class="card courses-table">${DATA.courses.map(c => {
       const p = courseProgress(c);
-      return `<a class="ctrow" href="#/course/${c.id}"><span>${esc(c.title)}</span>
+      return `<a class="ctrow" href="#/course/${esc(c.id)}"><span>${esc(c.title)}</span>
         <span>${p.watched}/${p.total} geschaut · ${plural(p.passed, "Test", "Tests")} · ${pct(p.pct)}</span></a>`;
     }).join("")}</div>
 
