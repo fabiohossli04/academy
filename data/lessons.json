@@ -1,0 +1,578 @@
+{
+  "theoinf": {
+    "portal": "/lectures/d-infk/2023/autumn/252-0057-00L",
+    "title": "Theoretische Informatik",
+    "subtitle": "ETH Zürich · Dennis Komm · HS 2023",
+    "lang": "de",
+    "why": "Die Denkwerkzeuge dahinter: Was ist überhaupt berechenbar, warum sind manche Probleme hart, und wann hört Optimieren auf zu helfen. Auf Deutsch.",
+    "running": false,
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Alphabete, Wörter und Sprachen",
+        "topics": [
+          "Alphabet",
+          "Wort",
+          "Sprache",
+          "Abzählen"
+        ],
+        "clips": [
+          "a8309fd4-ef52-49e3-8416-794ed24ed565"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Kolmogorov-Komplexität: Wie viel Information steckt drin?",
+        "topics": [
+          "Informationsgehalt",
+          "Kodierung"
+        ],
+        "clips": [
+          "aa9b0e2e-82fc-4f63-9ed1-cf6afe7a858a"
+        ]
+      },
+      {
+        "nr": 3,
+        "title": "Komprimierbarkeit und der Weg zu endlichen Automaten",
+        "topics": [
+          "Zufälligkeit",
+          "untere Schranken"
+        ],
+        "clips": [
+          "68ad7a1f-a715-4072-9c41-ffc40b26d03f"
+        ]
+      },
+      {
+        "nr": 4,
+        "title": "Endliche Automaten: Definition und Berechnung",
+        "topics": [
+          "Zustand",
+          "Übergangsfunktion",
+          "Konfiguration"
+        ],
+        "clips": [
+          "596dfc4b-178e-4634-9963-07053bb76e8b"
+        ]
+      },
+      {
+        "nr": 5,
+        "title": "Untere Schranken beweisen",
+        "topics": [
+          "Widerspruchsbeweis",
+          "Abzählargument"
+        ],
+        "clips": [
+          "f8072ff7-9263-4c2b-8c5a-5b47eea1beff"
+        ]
+      },
+      {
+        "nr": 6,
+        "title": "Nichtexistenzbeweise für endliche Automaten",
+        "topics": [
+          "Beweismethoden",
+          "Grenzen"
+        ],
+        "clips": [
+          "a3784ef6-f6ca-4a45-a414-9e04effd7624"
+        ]
+      },
+      {
+        "nr": 7,
+        "title": "Warum Automaten sich erinnern müssen",
+        "topics": [
+          "Zustandswiederholung",
+          "Schubfachprinzip",
+          "Pumping"
+        ],
+        "clips": [
+          "781e560a-b476-4eb1-b13b-b62921a668f5"
+        ]
+      },
+      {
+        "nr": 8,
+        "title": "Nichtdeterminismus und Potenzmengenkonstruktion",
+        "topics": [
+          "NEA",
+          "DEA",
+          "Äquivalenz"
+        ],
+        "clips": [
+          "463c2b74-ac97-4c7a-9e96-42e0f006682e"
+        ]
+      },
+      {
+        "nr": 9,
+        "title": "Die Turingmaschine",
+        "topics": [
+          "Church-Turing-These",
+          "Band",
+          "Berechenbarkeit"
+        ],
+        "clips": [
+          "a0c1e14b-dac6-466e-8d19-0d7f614033c9"
+        ]
+      },
+      {
+        "nr": 10,
+        "title": "Varianten der Turingmaschine",
+        "topics": [
+          "Mehrband",
+          "Robustheit",
+          "Simulation"
+        ],
+        "clips": [
+          "acd3ca12-ab59-478c-851e-1fec8c8e5c2c"
+        ]
+      },
+      {
+        "nr": 11,
+        "title": "Abzählbar und überabzählbar",
+        "topics": [
+          "Hilberts Hotel",
+          "Kardinalität",
+          "Diagonalisierung"
+        ],
+        "clips": [
+          "b8db2692-29a0-4bc2-9f18-b0ba109f6e76"
+        ]
+      },
+      {
+        "nr": 12,
+        "title": "Die Diagonalsprache und erste Reduktionen",
+        "topics": [
+          "Diagonalargument",
+          "Reduktion"
+        ],
+        "clips": [
+          "0a793bd1-ae7f-49ec-b070-1fa4c89c55b0"
+        ]
+      },
+      {
+        "nr": 13,
+        "title": "Universelle Sprache und Postsches Korrespondenzproblem",
+        "topics": [
+          "universelle TM",
+          "PKP"
+        ],
+        "clips": [
+          "c839474f-dfe5-49ab-8f51-907d5cc64c82"
+        ]
+      },
+      {
+        "nr": 14,
+        "title": "Unentscheidbarkeit von Programmeigenschaften",
+        "topics": [
+          "Satz von Rice",
+          "Halteproblem"
+        ],
+        "clips": [
+          "35d820fa-c313-4bc2-84d5-80e4f0e0d7ab"
+        ]
+      },
+      {
+        "nr": 15,
+        "title": "Reduktionen zwischen unentscheidbaren Sprachen",
+        "topics": [
+          "Reduktion",
+          "rekursiv aufzählbar"
+        ],
+        "clips": [
+          "8b71bd48-8f26-4999-a8ec-4b25e846be96"
+        ]
+      },
+      {
+        "nr": 16,
+        "title": "Überblick: die Landkarte der Unentscheidbarkeit",
+        "topics": [
+          "Klassifikation",
+          "Beweismuster"
+        ],
+        "clips": [
+          "67073250-cb15-4a5d-b290-68dfb908de93"
+        ]
+      },
+      {
+        "nr": 17,
+        "title": "Komplexitätsmaße: Zeit und Platz",
+        "topics": [
+          "Laufzeit",
+          "Speicherbedarf",
+          "Speedup"
+        ],
+        "clips": [
+          "ea9fffaa-206a-402e-83b3-316d33358157"
+        ]
+      },
+      {
+        "nr": 18,
+        "title": "Die Klassen P und NP",
+        "topics": [
+          "Verifikation",
+          "Zertifikat",
+          "Nichtdeterminismus"
+        ],
+        "clips": [
+          "ea0a338f-63e7-4ded-8125-67f4cf15cc5d"
+        ]
+      },
+      {
+        "nr": 19,
+        "title": "Beziehungen zwischen Zeit und Platz",
+        "topics": [
+          "Konfigurationsgraph",
+          "Hierarchie"
+        ],
+        "clips": [
+          "525b7c40-419e-4d08-879f-9986cf75e253"
+        ]
+      },
+      {
+        "nr": 20,
+        "title": "NP-Vollständigkeit",
+        "topics": [
+          "Reduktion",
+          "härteste Probleme"
+        ],
+        "clips": [
+          "ad7d5f75-57e9-4d32-927f-2243559ca6a6"
+        ]
+      },
+      {
+        "nr": 21,
+        "title": "Polynomielle Reduktionen in der Praxis",
+        "topics": [
+          "SAT",
+          "Clique",
+          "Problemtransfer"
+        ],
+        "clips": [
+          "fb485dcd-3b9d-4e61-ac91-2fb3ef025a53"
+        ]
+      },
+      {
+        "nr": 22,
+        "title": "Der Satz von Cook",
+        "topics": [
+          "SAT",
+          "Formel aus Berechnung"
+        ],
+        "clips": [
+          "8f6473b7-6209-4165-b056-d1a1506924d1"
+        ]
+      },
+      {
+        "nr": 23,
+        "title": "Optimierungsprobleme und Ableitungen",
+        "topics": [
+          "Optimierung",
+          "Verifikation",
+          "Grammatik"
+        ],
+        "clips": [
+          "f9b34e80-260c-4ea9-90db-5c090ac2b0f1"
+        ]
+      },
+      {
+        "nr": 24,
+        "title": "Reguläre und kontextfreie Grammatiken",
+        "topics": [
+          "Grammatik",
+          "Ableitungsbaum",
+          "Pumping-Lemma"
+        ],
+        "clips": [
+          "2318e5c7-5c32-4572-a45f-0d51a89c8b2e"
+        ]
+      }
+    ]
+  },
+  "architektur": {
+    "portal": "/lectures/d-itet/2025/spring/227-0003-10L",
+    "title": "Digital Design und Rechnerarchitektur",
+    "subtitle": "ETH Zürich · Onur Mutlu · FS 2025",
+    "lang": "en",
+    "why": "Caches, Speicher und Parallelität von unten. Danach verstehst du, was eine Trefferquote wirklich bedeutet - und warum Reihenfolge und Lokalität über Tempo entscheiden.",
+    "running": false,
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Warum Rechnerarchitektur zählt",
+        "topics": [
+          "Motivation",
+          "Zielkonflikte",
+          "Leistung"
+        ],
+        "clips": [
+          "896d7d9e-2daf-4b13-b0f2-94e37cf4f046"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Kombinatorische Logik",
+        "topics": [
+          "Boolesche Algebra",
+          "Wahrheitstabelle",
+          "Komparator"
+        ],
+        "clips": [
+          "feb57392-3491-48be-994f-d6f58ba6ab54"
+        ]
+      },
+      {
+        "nr": 3,
+        "title": "Sequenzielle Logik und Taktflanken",
+        "topics": [
+          "Flipflop",
+          "Takt",
+          "Zustandsautomat"
+        ],
+        "clips": [
+          "3479d0e1-beec-4372-8365-85fd5a4ccea3"
+        ]
+      },
+      {
+        "nr": 4,
+        "title": "Hardware beschreiben mit Verilog",
+        "topics": [
+          "HDL",
+          "Bitvektoren",
+          "Modul"
+        ],
+        "clips": [
+          "5170e011-da37-4037-b126-a4096a6f6df7"
+        ]
+      },
+      {
+        "nr": 5,
+        "title": "Zeitverhalten: Verzögerung, Setup und Hold",
+        "topics": [
+          "Laufzeit",
+          "Glitch",
+          "Taktgrenze"
+        ],
+        "clips": [
+          "3e2e9cf9-233c-4093-ad6b-4d4f4ee596ad"
+        ]
+      },
+      {
+        "nr": 6,
+        "title": "Rechenmodell und Befehlssatz",
+        "topics": [
+          "ISA",
+          "ALU",
+          "Ausführungseinheit"
+        ],
+        "clips": [
+          "9d7e14aa-9993-4934-8ea4-053834fc208d"
+        ]
+      },
+      {
+        "nr": 7,
+        "title": "Befehle, Sprünge und der Datenpfad",
+        "topics": [
+          "Sprung",
+          "Registerfile",
+          "Programmzähler"
+        ],
+        "clips": [
+          "14246a3e-acc4-40da-92cb-a6ad70cca2ef"
+        ]
+      },
+      {
+        "nr": 8,
+        "title": "Vom Zustandsautomaten zum Prozessor",
+        "topics": [
+          "Zustandsmaschine",
+          "Abstraktion"
+        ],
+        "clips": [
+          "42fc50b7-0f37-4255-aafb-281fdd8cfb14"
+        ]
+      },
+      {
+        "nr": 9,
+        "title": "Mikroarchitektur: den Datenpfad bauen",
+        "topics": [
+          "Single-Cycle",
+          "Datenpfad",
+          "Steuersignale"
+        ],
+        "clips": [
+          "f1502988-2fbf-4db3-8903-a6790129940c"
+        ]
+      },
+      {
+        "nr": 10,
+        "title": "Steuerwerk und der Einstieg ins Pipelining",
+        "topics": [
+          "Steuerwerk",
+          "Taktzyklus",
+          "Parallelität"
+        ],
+        "clips": [
+          "2dfd852e-1f46-4e85-956c-3b0741b528c4"
+        ]
+      },
+      {
+        "nr": 11,
+        "title": "Pipelining: Register, Konflikte, Forwarding",
+        "topics": [
+          "Pipeline",
+          "Hazard",
+          "Stall"
+        ],
+        "clips": [
+          "a74c6758-99ec-48e9-bd03-71ea4712a36b"
+        ]
+      },
+      {
+        "nr": 12,
+        "title": "Ausführung ausser der Reihe",
+        "topics": [
+          "Out-of-Order",
+          "Reservation Station",
+          "Tomasulo"
+        ],
+        "clips": [
+          "c19ee925-67d0-4c39-9ae5-5ee60155b275"
+        ]
+      },
+      {
+        "nr": 13,
+        "title": "Sprungvorhersage",
+        "topics": [
+          "Branch Prediction",
+          "Trefferquote",
+          "Strafzyklen"
+        ],
+        "clips": [
+          "0562cfcc-dc22-4c80-b875-eb4b559ac6e6"
+        ]
+      },
+      {
+        "nr": 14,
+        "title": "VLIW und Befehlsparallelität",
+        "topics": [
+          "VLIW",
+          "ILP",
+          "Compiler"
+        ],
+        "clips": [
+          "10a20bae-f26f-4662-adce-ca2297f3b196"
+        ]
+      },
+      {
+        "nr": 15,
+        "title": "Systolische Arrays und Spezialhardware",
+        "topics": [
+          "Beschleuniger",
+          "Datenfluss"
+        ],
+        "clips": [
+          "c93a13c1-06d6-41a1-9419-3e374efedbdd"
+        ]
+      },
+      {
+        "nr": 16,
+        "title": "Array- und Vektorprozessoren",
+        "topics": [
+          "Vektor",
+          "Datenparallelität"
+        ],
+        "clips": [
+          "a9022f08-c8e1-4f4d-9def-fc790b18167d"
+        ]
+      },
+      {
+        "nr": 17,
+        "title": "SIMD, SIMT und GPUs",
+        "topics": [
+          "SIMD",
+          "GPU",
+          "Threads"
+        ],
+        "clips": [
+          "648a16aa-ac35-465b-bc87-a5134c12a425"
+        ]
+      },
+      {
+        "nr": 18,
+        "title": "DRAM von innen",
+        "topics": [
+          "Bank",
+          "Zeile",
+          "Zugriffszeit"
+        ],
+        "clips": [
+          "b5af93b9-baf8-46e9-a3ee-3e9b482ef2b8"
+        ]
+      },
+      {
+        "nr": 19,
+        "title": "Caches: das Grundprinzip",
+        "topics": [
+          "Lokalität",
+          "Trefferquote",
+          "Cache-Zeile"
+        ],
+        "clips": [
+          "ed444ac4-2866-40fb-8529-1af7f657259b"
+        ]
+      },
+      {
+        "nr": 20,
+        "title": "Assoziativität und Fehlzugriffe",
+        "topics": [
+          "Assoziativität",
+          "Verdrängung",
+          "Miss-Rate"
+        ],
+        "clips": [
+          "7de974b7-f4d8-42a2-8ed3-9a3b8b5c0473"
+        ]
+      },
+      {
+        "nr": 21,
+        "title": "Virtueller Speicher",
+        "topics": [
+          "Seitentabelle",
+          "Adressübersetzung",
+          "TLB"
+        ],
+        "clips": [
+          "a9f9c3ed-df32-472c-9687-20cdebddcf6c"
+        ]
+      },
+      {
+        "nr": 22,
+        "title": "Vorausladen: Prefetching",
+        "topics": [
+          "Prefetch",
+          "Zugriffsmuster",
+          "Vorhersage"
+        ],
+        "clips": [
+          "9815f4cd-8448-4f5a-bbbf-59a7cb4c074c"
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "portal": "/lectures/d-infk/2026/autumn/263-4658-00L",
+    "title": "Privacy Enhancing Technologies",
+    "subtitle": "ETH Zürich · Florian Tramèr · HS 2026",
+    "lang": "en",
+    "why": "",
+    "running": true,
+    "lessons": []
+  },
+  "software": {
+    "portal": "/lectures/d-infk/2026/autumn/252-0232-00L",
+    "title": "Software Engineering",
+    "subtitle": "ETH Zürich · Marcel Lüthi · HS 2026",
+    "lang": "en",
+    "why": "",
+    "running": true,
+    "lessons": []
+  }
+}

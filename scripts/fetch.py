@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Zieht Kurs-Metadaten (Video- und Untertitel-URLs) aus dem oeffentlichen ETH-Videoportal.
-Laedt KEINE Videos herunter - die werden spaeter direkt vom ETH-Server gestreamt."""
+"""Zieht Metadaten aus dem öffentlichen ETH-Videoportal, niemals Videos.
+Die Kursliste und Portal-Pfade stehen ausschließlich in data/lessons.json."""
 import json, subprocess, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -15,15 +15,18 @@ Q = '''{ r: realmByPath(path: "%s") { blocks { ... on SeriesBlock { series {
   } } } } } } }'''
 
 def gql(query):
-    p = subprocess.run(["curl","-s","-X","POST",GQL,"-H","Content-Type: application/json",
+    p = subprocess.run(["curl", "-fsS", "--connect-timeout", "15", "--max-time", "90",
+                        "--retry", "2", "-X", "POST", GQL, "-H", "Content-Type: application/json",
                         "-d",json.dumps({"query":query})], capture_output=True, text=True)
-    if not p.stdout.strip().startswith("{"):
-        raise SystemExit(f"GraphQL-Fehler: {p.stdout[:300]}")
-    return json.loads(p.stdout)
+    if p.returncode:
+        raise ValueError(f"GraphQL-Abruf fehlgeschlagen (curl {p.returncode})")
+    data = json.loads(p.stdout)
+    if data.get("errors") or not data.get("data"):
+        raise ValueError("GraphQL-Abfrage fehlgeschlagen")
+    return data
 
 def best_track(tracks):
-    """Hoechste Aufloesung, die nicht groesser als 1280x720 ist - spart Bandbreite,
-    bleibt aber lesbar fuer Folien."""
+    """Bisherige Auswahl: höchste Auflösung bis 720p, sonst kleinste darüber."""
     vids = [t for t in tracks if t.get("mimetype") == "video/mp4" and t.get("resolution")]
     if not vids:
         return tracks[0]["uri"] if tracks else None
@@ -32,7 +35,7 @@ def best_track(tracks):
         return (0, -abs(h - 720)) if h <= 720 else (1, h)
     return sorted(vids, key=key)[0]["uri"]
 
-def pull(path, course_id, title_de, lang):
+def pull(path, course_id, title, lang):
     d = gql(Q % path)["data"]["r"]
     if not d:
         raise SystemExit(f"Realm nicht gefunden: {path}")
@@ -44,10 +47,11 @@ def pull(path, course_id, title_de, lang):
     for e in s["entries"]:
         ad = e.get("authorizedData")
         if not ad or not ad.get("tracks"):
-            continue  # nicht oeffentlich abspielbar
+            continue  # nicht öffentlich abspielbar; kuratierte IDs fehlen dann beim Bauen
         caps = ad.get("captions") or []
         lessons.append({
             "opencastId": e["opencastId"],
+            "title": e["title"],
             "created": e["created"],
             "durationMs": (e.get("syncedData") or {}).get("duration") or 0,
             "creators": e.get("creators") or [],
@@ -56,32 +60,31 @@ def pull(path, course_id, title_de, lang):
             "captionLang": caps[0]["lang"] if caps else None,
         })
     lessons.sort(key=lambda x: x["created"])
-    for i, l in enumerate(lessons, 1):
-        l["nr"] = i
     return {
         "id": course_id,
-        "title": title_de,
+        "title": title,
         "sourceTitle": s["title"],
         "lang": lang,
         "portalUrl": f"https://video.ethz.ch{path}",
         "lessons": lessons,
     }
 
-COURSES = [
-    ("/lectures/d-infk/2023/autumn/252-0057-00L", "theoinf",
-     "Theoretische Informatik", "de"),
-    ("/lectures/d-itet/2025/spring/227-0003-10L", "architektur",
-     "Digital Design und Rechnerarchitektur", "en"),
-]
-
-if __name__ == "__main__":
+def main():
+    courses = json.loads((ROOT / "data" / "lessons.json").read_text(encoding="utf-8"))
     out = []
-    for path, cid, title, lang in COURSES:
-        c = pull(path, cid, title, lang)
+    for cid, meta in courses.items():
+        c = pull(meta["portal"], cid, meta["title"], meta["lang"])
         hrs = sum(l["durationMs"] for l in c["lessons"]) / 3600000
         caps = sum(1 for l in c["lessons"] if l["caption"])
-        print(f"{c['title']}: {len(c['lessons'])} Lektionen, {hrs:.1f} h, {caps} mit Untertitel")
+        print(f"{c['title']}: {len(c['lessons'])} Aufnahmen, {hrs:.1f} h, {caps} mit Untertitel")
         out.append(c)
     dest = ROOT / "data" / "courses-raw.json"
-    dest.write_text(json.dumps(out, indent=2, ensure_ascii=False))
+    dest.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
     print("geschrieben:", dest)
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, ValueError, KeyError, TypeError) as err:
+        print(f"✗ Metadaten konnten nicht abgerufen werden: {err}")
+        sys.exit(1)
