@@ -147,7 +147,8 @@ h2{
 .tag.de{ background: var(--ok-soft); color: var(--ok); }
 .tag.en{ background: var(--accent-soft); color: var(--accent); }
 .tag.ext{ background: var(--warn-soft); color: var(--warn); }
-.tag.running{ background: var(--ok-soft); color: var(--ok); }
+.tag.running{ gap: 5px; background: transparent; color: var(--ok); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ok) 45%, transparent); }
+.tag.running::before{ content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .tag.next{ background: var(--accent); color: var(--on-accent); margin-left: 8px; vertical-align: 1px; }
 
 .chips{ display: flex; flex-wrap: wrap; gap: 8px; }
