@@ -1,0 +1,1595 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Eine reelle Folge erfüllt a₀ = 4, a₁ = −1 und aₙ₊₂ = aₙ₊₁ + aₙ. Welchen Wert hat a₄?",
+    "options": [
+     "3",
+     "7",
+     "5",
+     "2"
+    ],
+    "answer": 2,
+    "why": "Die nächsten Glieder sind a₂ = 3, a₃ = 2 und a₄ = 5. Bei jedem Schritt werden die beiden vorherigen Glieder addiert; die Differenz bleibt nicht konstant."
+   },
+   {
+    "q": "Die reellen Folgen u und v erfüllen beide die Fibonacci-Rekursion. u beginnt mit (2, 5), v mit (−1, 3). Welche Anfangswerte hat die Folge 3u − 2v?",
+    "options": [
+     "(8, 9)",
+     "(4, 9)",
+     "(4, 21)",
+     "(8, 21)"
+    ],
+    "answer": 0,
+    "why": "Die Verknüpfung erfolgt gliedweise: 3·2 − 2·(−1) = 8 und 3·5 − 2·3 = 9. Auch die neue Folge erfüllt dieselbe Rekursion, weil sich Addition und Skalierung mit ihr vertragen."
+   },
+   {
+    "q": "Für q ∈ ℝ mit q ≠ 0 sei aₙ = 3qⁿ. Welche Gleichung an q sorgt dafür, dass aₙ₊₂ = aₙ₊₁ + aₙ für n ≥ 0 gilt?",
+    "options": [
+     "q² = q − 1",
+     "q² = 3q + 1",
+     "q² = 2q + 3",
+     "q² = q + 1"
+    ],
+    "answer": 3,
+    "why": "Einsetzen ergibt 3qⁿ⁺² = 3qⁿ⁺¹ + 3qⁿ. Nach Division durch 3qⁿ bleibt q² = q + 1; der Startfaktor 3 fällt weg."
+   },
+   {
+    "q": "In welcher Belegung ist die Aussage A ⇒ B falsch?",
+    "options": [
+     "A wahr, B falsch",
+     "A falsch, B wahr",
+     "A wahr, B wahr",
+     "A falsch, B falsch"
+    ],
+    "answer": 0,
+    "why": "Ein Gegenfall zur Implikation braucht eine erfüllte Voraussetzung und eine verletzte Folgerung. Ist A falsch, zählt die Implikation als wahr; eine kausale Verbindung wird nicht verlangt."
+   },
+   {
+    "q": "Welche Aussage hat dieselbe Wahrheitstafel wie A ⇔ B?",
+    "options": [
+     "(A ∧ ¬B) ∨ (¬A ∧ B)",
+     "(A ∧ B) ∨ (¬A ∧ B)",
+     "(A ∧ B) ∨ (¬A ∧ ¬B)",
+     "(A ∧ B) ∨ (A ∧ ¬B)"
+    ],
+    "answer": 2,
+    "why": "Die Äquivalenz trifft bei übereinstimmenden Wahrheitswerten zu: beide wahr oder beide falsch. Die Kombination der beiden gemischten Fälle würde dagegen das ausschliessende Oder beschreiben."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Welche Bedingung beschreibt die Negation von A ⇒ B?",
+    "options": [
+     "A ∧ ¬B",
+     "A ∨ ¬B",
+     "¬A ∧ B",
+     "¬A ∨ B"
+    ],
+    "answer": 0,
+    "why": "Zum Widerlegen muss A zutreffen und B scheitern. ¬A ∨ B ist die ursprüngliche Implikation und gerade nicht deren Negation."
+   },
+   {
+    "q": "Über ℝ seien P: ∀x ∃y: y = x + 4 und Q: ∃y ∀x: y = x + 4. Welche Bewertung stimmt?",
+    "options": [
+     "P ist wahr, Q ist falsch",
+     "P ist falsch, Q ist wahr",
+     "P und Q sind beide falsch",
+     "P und Q sind beide wahr"
+    ],
+    "answer": 0,
+    "why": "Bei P darf y vom gewählten x abhängen. Q verlangt einen gemeinsamen Wert, obwohl x = 0 den Wert y = 4 und x = 1 den Wert y = 5 erzwingt."
+   },
+   {
+    "q": "Auf welcher der angegebenen Mengen D gilt ∃!x ∈ D: x² = 16?",
+    "options": [
+     "D = {−4, 4}",
+     "D = ℝ",
+     "D = [0, ∞)",
+     "D = (−5, 5)"
+    ],
+    "answer": 2,
+    "why": "Unter den nichtnegativen Zahlen kommt genau x = 4 infrage. Die drei anderen Mengen enthalten sowohl −4 als auch 4 und liefern damit zwei Lösungen."
+   },
+   {
+    "q": "X = {2, 7, 9} und Y = {a, b}. Welche Angabe beschreibt X × Y korrekt?",
+    "options": [
+     "Sechs Paare, darunter (7, b)",
+     "Sechs Paare, darunter (b, 7)",
+     "Neun Paare, darunter (b, 7)",
+     "Fünf Paare, darunter (7, b)"
+    ],
+    "answer": 0,
+    "why": "Drei Möglichkeiten für die erste und zwei für die zweite Stelle ergeben 3·2 = 6 Paare. (b, 7) vertauscht die Rollen der beiden Mengen."
+   },
+   {
+    "q": "Welche Beziehung zwischen ∅ und {∅} ist richtig?",
+    "options": [
+     "∅ = {∅}",
+     "{∅} ⊆ ∅",
+     "∅ ∈ ∅",
+     "∅ ∈ {∅}"
+    ],
+    "answer": 3,
+    "why": "Die äussere Mengenklammer in {∅} umfasst ein Element, nämlich die leere Menge. ∅ selbst hat kein Element; die beiden Mengen sind deshalb verschieden."
+   }
+  ]
+ },
+ "3": {
+  "questions": [
+   {
+    "q": "Für ganze n ≥ 1 sei Mₙ = [−n, n] ⊆ ℝ. Was ist der Durchschnitt sämtlicher Mₙ?",
+    "options": [
+     "{0}",
+     "[−1, 1]",
+     "∅",
+     "ℝ"
+    ],
+    "answer": 1,
+    "why": "M₁ liegt in sämtlichen späteren Intervallen und begrenzt damit den Durchschnitt. Die Vereinigung wäre ℝ; sie ist eine andere Mengenoperation."
+   },
+   {
+    "q": "R soll genau jene Mengen X enthalten, für die X ∉ X gilt. Welche Prüfung zeigt, dass R selbst keine Menge sein kann?",
+    "options": [
+     "R ∈ R gilt genau dann, wenn R ∈ R gilt",
+     "R = ∅ gilt genau dann, wenn R = ∅ gilt",
+     "R ∈ R gilt genau dann, wenn R ∉ R gilt",
+     "R ∉ R gilt genau dann, wenn R ∉ R gilt"
+    ],
+    "answer": 2,
+    "why": "Einsetzen von R in die eigene Zugehörigkeitsregel verknüpft eine Aussage mit ihrer Negation. Der Fehler liegt in der uneingeschränkten Mengenbildung, nicht in der Wahl eines Wahrheitswerts."
+   },
+   {
+    "q": "Es seien f: ℝ → ℝ, f(x) = (x − 5)² + 2, und g: ℝ → [2, ∞), g(x) = (x − 5)² + 2. Als Abbildungen einschliesslich ihrer Zielbereiche betrachtet: Was gilt?",
+    "options": [
+     "f und g unterscheiden sich durch ihre Zielbereiche",
+     "f und g unterscheiden sich im Wert bei x = −2",
+     "f und g stimmen in sämtlichen Abbildungsdaten überein",
+     "f und g unterscheiden sich durch ihre Eingabemengen"
+    ],
+    "answer": 0,
+    "why": "Die verwendete Definition zählt den Zielbereich zu den Daten einer Abbildung. Gleiche Formeln und gleiche Eingaben reichen daher hier nicht für Gleichheit."
+   },
+   {
+    "q": "Die Funktion h: ℝ → ℝ ist durch h(x) = (x − 3)² gegeben. Auf welcher angegebenen Menge ist ihre Einschränkung injektiv?",
+    "options": [
+     "ℝ",
+     "[1, 5]",
+     "[2, 4]",
+     "[3, ∞)"
+    ],
+    "answer": 3,
+    "why": "Rechts vom Scheitel unterscheiden sich die Quadrate verschiedener Abstände zu 3. In den anderen Mengen liegen 2 und 4, die beide den Wert 1 liefern."
+   },
+   {
+    "q": "f bildet X nach Y ab, g bildet Y nach Z ab. Welche Aussage über diese Abbildungen gilt allgemein?",
+    "options": [
+     "Ist f injektiv, dann ist g∘f injektiv",
+     "Ist g∘f injektiv, dann ist g injektiv",
+     "Ist g∘f injektiv, dann ist f injektiv",
+     "Ist g injektiv, dann ist g∘f injektiv"
+    ],
+    "answer": 2,
+    "why": "Gleiche f-Werte führen zu gleichen Werten der Verkettung; deren Injektivität erzwingt gleiche Eingaben. g muss dagegen ausserhalb von f(X) keine Eingaben unterscheiden."
+   }
+  ]
+ },
+ "4": {
+  "questions": [
+   {
+    "q": "Für f(x) = 2x − 1 und g(x) = x + 4 auf ℝ: Welche Formel gehört zu g∘f?",
+    "options": [
+     "x ↦ 2x + 7",
+     "x ↦ 3x + 7",
+     "x ↦ 3x + 3",
+     "x ↦ 2x + 3"
+    ],
+    "answer": 3,
+    "why": "Zuerst liefert f den Wert 2x − 1, danach addiert g die Zahl 4. Die Formel 2x + 7 entsteht bei der umgekehrten Reihenfolge."
+   },
+   {
+    "q": "f und g sind bijektive Abbildungen von ℝ nach ℝ. Welche Formel für die Umkehrung ihrer Verkettung gilt allgemein?",
+    "options": [
+     "(g∘f)⁻¹ = f∘g⁻¹",
+     "(g∘f)⁻¹ = f⁻¹∘g⁻¹",
+     "(g∘f)⁻¹ = f⁻¹∘g",
+     "(g∘f)⁻¹ = g⁻¹∘f⁻¹"
+    ],
+    "answer": 1,
+    "why": "Beim Rückweg wird zuerst der letzte Schritt g rückgängig gemacht und danach f. Das Umkehren der einzelnen Funktionen ohne Reihenfolgenwechsel genügt nicht."
+   },
+   {
+    "q": "Für f: ℝ → ℝ, f(x) = x² + 2, sei B = {6, 11}. Was ist das Urbild f⁻¹(B)?",
+    "options": [
+     "{2, 3}",
+     "{38, 123}",
+     "{−2, 2}",
+     "{−3, −2, 2, 3}"
+    ],
+    "answer": 3,
+    "why": "Die Gleichungen x² + 2 = 6 und x² + 2 = 11 liefern x = ±2 beziehungsweise x = ±3. Das Urbild ist trotz fehlender Injektivität definiert und umfasst auch die negativen Lösungen."
+   },
+   {
+    "q": "Welche Familie ist eine Partition von X = {2, 4, 6, 8}?",
+    "options": [
+     "{{2, 4, 6, 8}, ∅}",
+     "{{2, 4}, {4, 6, 8}}",
+     "{{2, 6}, {8}}",
+     "{{2, 6}, {4, 8}}"
+    ],
+    "answer": 3,
+    "why": "Die beiden Blöcke sind nichtleer, überschneiden sich nicht und decken X ab. Die Alternativen verletzen jeweils Überschneidungsfreiheit, Vollständigkeit oder die Bedingung nichtleerer Blöcke."
+   },
+   {
+    "q": "In 𝔽₃ wird modulo 3 gerechnet. Welche Lösung hat 2x + 1 = 0?",
+    "options": [
+     "x = 2",
+     "x = 0",
+     "Keine Lösung",
+     "x = 1"
+    ],
+    "answer": 3,
+    "why": "Für x = 1 ergibt sich 2·1 + 1 = 3, also 0 in 𝔽₃. Das reelle Ergebnis −1/2 ist hier nicht als reelle Zahl zu verwenden; gerechnet wird im angegebenen Körper."
+   }
+  ]
+ },
+ "5": {
+  "questions": [
+   {
+    "q": "Die Koeffizientenmatrix des reellen Systems 3x − 2y = 8, 5x + 4y = −6 heisst A. Welcher Wert steht an der Stelle a₂₁?",
+    "options": [
+     "−2",
+     "4",
+     "5",
+     "−6"
+    ],
+    "answer": 2,
+    "why": "Der erste Index wählt Zeile 2, der zweite Spalte 1; dort steht der Koeffizient 5 von x. Die Zahl −6 gehört zur rechten Seite und nicht zu A."
+   },
+   {
+    "q": "Die erweiterte reelle Matrix [2, 1 | 5; 6, 4 | 17] hat zwei Zeilen. Was ergibt Z₂ → Z₂ − 3Z₁? Semikolons trennen die Zeilen.",
+    "options": [
+     "[2, 1 | 5; 0, 1 | 2]",
+     "[2, 1 | 5; 4, 3 | 12]",
+     "[2, 1 | 5; 0, 7 | 2]",
+     "[2, 1 | 5; 0, 1 | 17]"
+    ],
+    "answer": 0,
+    "why": "Für die zweite Zeile werden 6 − 6, 4 − 3 und 17 − 15 berechnet. Auch die rechte Seite muss dieselbe Zeilenoperation durchlaufen."
+   },
+   {
+    "q": "Über ℝ wird Z₁ durch Z₁ + 4Z₂ ersetzt; Z₂ bleibt stehen. Welche Operation macht diesen Schritt rückgängig?",
+    "options": [
+     "Z₁ → Z₁ − 4Z₂",
+     "Z₁ → Z₁ + 4Z₂",
+     "Z₂ → Z₂ − 4Z₁",
+     "Z₁ → (1/4)Z₁"
+    ],
+    "answer": 0,
+    "why": "Die unveränderte zweite Zeile kann wieder vierfach abgezogen werden. Das Skalieren der neuen ersten Zeile würde ihren ursprünglichen Anteil ebenfalls verändern."
+   },
+   {
+    "q": "Welche Umformung einer erweiterten reellen Matrix kann die Lösungsmenge verändern?",
+    "options": [
+     "Zwei Zeilen miteinander vertauschen",
+     "Eine Zeile durch die Nullzeile ersetzen",
+     "Eine Zeile mit dem Faktor −3 skalieren",
+     "Zu Zeile 2 das Doppelte von Zeile 1 addieren"
+    ],
+    "answer": 1,
+    "why": "Das Ersetzen durch null kann eine Bedingung löschen, etwa x = 7 in 0 = 0 verwandeln. Die drei elementaren Operationstypen sind dagegen umkehrbar."
+   },
+   {
+    "q": "Das reelle System x + y = 6, 2x + 3y = 15 wird durch Z₂ → Z₂ − 2Z₁ umgeformt. Welche Beschreibung der Lösungsmenge stimmt?",
+    "options": [
+     "Sie wird zur leeren Menge",
+     "Sie wird zu {(0, 3)}",
+     "Sie wird zu {(3, 0)}",
+     "Sie bleibt {(3, 3)}"
+    ],
+    "answer": 3,
+    "why": "Nach dem Schritt lautet die zweite Gleichung y = 3, und die erste liefert x = 3. Die Zeilenoperation bewahrt die ursprünglichen Lösungen."
+   }
+  ]
+ },
+ "6": {
+  "questions": [
+   {
+    "q": "Welche reelle Matrix steht bereits in reduzierter Zeilenstufenform? Semikolons trennen die Zeilen.",
+    "options": [
+     "[1, 7, 0; 0, 1, −4; 0, 0, 0]",
+     "[1, 0, 7; 0, 0, 0; 0, 1, −4]",
+     "[2, 0, 7; 0, 1, −4; 0, 0, 0]",
+     "[1, 0, 7; 0, 1, −4; 0, 0, 0]"
+    ],
+    "answer": 3,
+    "why": "Die Pivots müssen 1 sein, nach unten rechts wandern und ihre Spalten sonst frei von Nichtnullwerten halten. Die falschen Matrizen verletzen nacheinander das Freiräumen, die Normierung oder die Lage der Nullzeile."
+   },
+   {
+    "q": "Ein reelles LGS besitzt die erweiterte Matrix [1, 0, 3 | 4; 0, 1, −2 | 1; 0, 0, 0 | 0]. Welche Darstellung umfasst genau seine Lösungen? Semikolons trennen die Zeilen.",
+    "options": [
+     "(x, y, z) = (4 − 3t, 1 + 2t, t), t ∈ ℝ",
+     "(x, y, z) = (4 + 3t, 1 + 2t, t), t ∈ ℝ",
+     "(x, y, z) = (4 + 3t, 1 − 2t, t), t ∈ ℝ",
+     "(x, y, z) = (4 − 3t, 1 − 2t, t), t ∈ ℝ"
+    ],
+    "answer": 0,
+    "why": "Mit z = t ergeben die beiden Gleichungen x = 4 − 3t und y = 1 + 2t. Beim Umstellen wechselt das Vorzeichen des jeweiligen z-Terms."
+   },
+   {
+    "q": "Bei Gauss entsteht in einer erweiterten Matrix über ℝ die Zeile [0, 0, 0 | 5]. Was bedeutet sie?",
+    "options": [
+     "Das System hat keine Lösung",
+     "Das System hat drei freie Variablen",
+     "Das System hat genau eine Lösung",
+     "Das System hat den Nullvektor als Lösung"
+    ],
+    "answer": 0,
+    "why": "Die Zeile verlangt 0 = 5 und ist unerfüllbar. Eine Nullzeile mit rechter Seite 0 hätte dagegen keine zusätzliche Bedingung geliefert."
+   },
+   {
+    "q": "Welche Variable ist im reellen System [1, 2, 0 | 7; 0, 0, 1 | −4] frei wählbar? Semikolons trennen die Zeilen.",
+    "options": [
+     "x₁",
+     "x₃",
+     "x₂",
+     "Keine"
+    ],
+    "answer": 2,
+    "why": "Die Pivots stehen in Spalte 1 und 3. x₂ kann als Parameter gewählt werden; dann sind x₁ = 7 − 2x₂ und x₃ = −4 festgelegt."
+   },
+   {
+    "q": "Welche Lösung liefert Gauss für 2x + y = 9 und 4x + 3y = 23 über ℝ?",
+    "options": [
+     "(x, y) = (3, 3)",
+     "(x, y) = (5, 2)",
+     "(x, y) = (2, 5)",
+     "(x, y) = (1, 7)"
+    ],
+    "answer": 2,
+    "why": "Die zweite Gleichung minus zweimal die erste ergibt y = 5. Einsetzen liefert x = 2; das Paar (3, 3) erfüllt zwar die erste, aber nicht die zweite Gleichung."
+   }
+  ]
+ },
+ "7": {
+  "questions": [
+   {
+    "q": "Welche der folgenden Teilmengen von ℝ² ist ein Untervektorraum?",
+    "options": [
+     "{(x, y): 2x − y = 3}",
+     "{(x, y): 2x − y = 0}",
+     "{(x, y): x·y = 0}",
+     "{(x, y): x ≥ 0}"
+    ],
+    "answer": 1,
+    "why": "Die homogene Gleichung 2x − y = 0 bleibt bei Addition und Skalierung erfüllt. Die Vereinigung der Koordinatenachsen x·y = 0 scheitert etwa an (1, 0) + (0, 1)."
+   },
+   {
+    "q": "K sei ein Körper, V ein K-Vektorraum und v ∈ V. Für einen Skalar a ≠ 0 gilt a·v = 0. Was folgt zwingend?",
+    "options": [
+     "a = 1",
+     "v = 0",
+     "v ≠ 0",
+     "V = {0}"
+    ],
+    "answer": 1,
+    "why": "Multiplikation mit a⁻¹ ergibt v = a⁻¹·0 = 0. Daraus folgt weder ein bestimmter Wert für a noch, dass der gesamte Raum trivial ist."
+   },
+   {
+    "q": "U ⊆ V ist unter Addition und Skalarmultiplikation abgeschlossen. Welche weitere Bedingung ist notwendig und hinreichend, damit U ein Untervektorraum ist?",
+    "options": [
+     "U ist endlich",
+     "U ist nichtleer",
+     "U stimmt mit V überein",
+     "U enthält einen Nichtnullvektor"
+    ],
+    "answer": 1,
+    "why": "Ohne Nichtleerheit würde auch die leere Menge die beiden Abschlussbedingungen formal erfüllen. Aus einem Element u ∈ U folgt durch 0·u bereits 0 ∈ U."
+   },
+   {
+    "q": "A ist eine reelle 2×3-Matrix und b ∈ ℝ². Wann ist L_b = {x ∈ ℝ³: A·x = b} ein Untervektorraum von ℝ³?",
+    "options": [
+     "Genau bei b ≠ 0",
+     "Genau bei b = 0",
+     "Genau bei A ≠ 0",
+     "Genau bei A = 0"
+    ],
+    "answer": 1,
+    "why": "Der Nullvektor erfüllt A·0 = b ausschliesslich für b = 0. In diesem homogenen Fall bleiben Addition und Skalierung innerhalb der Lösungsmenge, unabhängig von der konkreten Matrix A."
+   },
+   {
+    "q": "In ℝ² seien v = (3, −2) und w = (−1, 4). Welcher Vektor ist 2v − 3w?",
+    "options": [
+     "(3, 8)",
+     "(9, 8)",
+     "(9, −16)",
+     "(3, −16)"
+    ],
+    "answer": 2,
+    "why": "Komponentenweise erhält man 6 − (−3) = 9 und −4 − 12 = −16. Das Minus vor 3w betrifft beide Komponenten."
+   }
+  ]
+ },
+ "8": {
+  "questions": [
+   {
+    "q": "Im Raum der reellen Folgen wird gliedweise addiert. Welche Folge ist das neutrale Element dieser Addition?",
+    "options": [
+     "(0, 0, 0, 0, …)",
+     "(0, 1, 0, 1, …)",
+     "(1, 0, 0, 0, …)",
+     "(1, 1, 1, 1, …)"
+    ],
+    "answer": 0,
+    "why": "Das neutrale Element muss jedes einzelne Folgenglied unverändert lassen. Schon eine einzige von null verschiedene Stelle würde diese Eigenschaft verletzen."
+   },
+   {
+    "q": "Welche Bedingung definiert einen Untervektorraum der reellen Folgen? Die jeweilige Rekursion soll für n ≥ 0 gelten.",
+    "options": [
+     "aₙ₊₂ = 2aₙ₊₁ − aₙ + 1",
+     "aₙ₊₂ = 2aₙ₊₁ − aₙ + 3",
+     "aₙ₊₂ = 2aₙ₊₁ − aₙ − 2",
+     "aₙ₊₂ = 2aₙ₊₁ − aₙ"
+    ],
+    "answer": 3,
+    "why": "Die homogene Rekursion bleibt bei gliedweiser Addition und Skalierung erhalten. In den drei anderen Fällen scheitert bereits die Nullfolge am konstanten Zusatz."
+   },
+   {
+    "q": "Für S = {p, q, r} seien f und g reelle Funktionen mit f(q) = −1 und g(q) = 4. Welchen Wert hat h = f − 2g an der Stelle q?",
+    "options": [
+     "h(q) = 9",
+     "h(q) = 7",
+     "h(q) = −9",
+     "h(q) = −6"
+    ],
+    "answer": 2,
+    "why": "Im Funktionenraum werden die Operationen punktweise ausgeführt: h(q) = −1 − 2·4 = −9. Werte an p oder r spielen dafür keine Rolle."
+   },
+   {
+    "q": "In ℝ³ seien U = {(x, y, z): x + y = 0} und W = {(x, y, z): y + z = 0}. Welche Menge ist U ∩ W?",
+    "options": [
+     "{(t, −t, −t): t ∈ ℝ}",
+     "{(t, 0, −t): t ∈ ℝ}",
+     "{(t, t, t): t ∈ ℝ}",
+     "{(t, −t, t): t ∈ ℝ}"
+    ],
+    "answer": 3,
+    "why": "Aus x + y = 0 und y + z = 0 folgt x = z = −y. Für den Durchschnitt müssen beide Bedingungen gleichzeitig gelten; eine einzelne reicht nicht."
+   },
+   {
+    "q": "S ⊆ V liegt in einem Untervektorraum U von V. Welche Inklusion ist damit garantiert?",
+    "options": [
+     "Sp(S) = V",
+     "U ⊆ Sp(S)",
+     "Sp(S) = S",
+     "Sp(S) ⊆ U"
+    ],
+    "answer": 3,
+    "why": "Beim Bilden von Sp(S) werden die Untervektorräume geschnitten, die S enthalten; U gehört zu dieser Familie. Eine umgekehrte Inklusion ist nicht erzwungen, da U grösser sein darf."
+   }
+  ]
+ },
+ "9": {
+  "questions": [
+   {
+    "q": "In ℝ² seien u = (2, 1) und v = (1, −1). Welche Koeffizienten stellen (7, 2) als a·u + b·v dar?",
+    "options": [
+     "a = 2, b = 3",
+     "a = 3, b = 1",
+     "a = 3, b = 2",
+     "a = 1, b = 3"
+    ],
+    "answer": 1,
+    "why": "Die Komponenten ergeben 2a + b = 7 und a − b = 2, also a = 3 und b = 1. Ein blosses Vertauschen der Koeffizienten verändert beide Komponenten."
+   },
+   {
+    "q": "u = (1, 2, −1) und v = (2, −1, 3) liegen in ℝ³. Welcher angegebene Vektor gehört zu Sp(u, v)?",
+    "options": [
+     "(−4, 3, 1)",
+     "(4, 3, 1)",
+     "(4, 3, −1)",
+     "(4, −3, 1)"
+    ],
+    "answer": 1,
+    "why": "2u + v ergibt (4, 3, 1). Bei den anderen Kandidaten widerspricht die dritte Komponente den Koeffizienten, die durch die ersten beiden Komponenten festgelegt werden."
+   },
+   {
+    "q": "Welche geometrische Beschreibung von Sp({(3, −6)}) in ℝ² stimmt?",
+    "options": [
+     "Die Gerade y = −2x + 3",
+     "Die Halbgerade y = −2x mit x ≥ 0",
+     "Die Gerade y = −2x",
+     "Die gesamte Ebene ℝ²"
+    ],
+    "answer": 2,
+    "why": "Reelle Vielfache von (3, −6) durchlaufen die vollständige Gerade durch den Ursprung. Negative Faktoren gehören ebenso dazu; eine Halbgerade genügt deshalb nicht."
+   },
+   {
+    "q": "Es sei P₂ = {a + bx + cx²: a, b, c ∈ ℝ}. Welche Liste erzeugt P₂?",
+    "options": [
+     "1 + x, x², 2(1 + x)",
+     "1, 2, x + x²",
+     "1, x + x², x + x² + 2",
+     "1, x, x² + 2"
+    ],
+    "answer": 3,
+    "why": "Aus x² + 2 und 1 lässt sich x² gewinnen; damit sind sämtliche drei Koeffizienten frei wählbar. Die anderen Listen koppeln Koeffizienten, sodass x oder 1 nicht einzeln erzeugbar ist."
+   },
+   {
+    "q": "eₙ sei die reelle Folge mit einer 1 an Stelle n und Nullen sonst, wobei n ≥ 0. Welche Folge gehört zu Sp({e₀, e₁, e₂, …})?",
+    "options": [
+     "(1, 2, 3, 4, 5, …)",
+     "(1, 0, 1, 0, 1, …)",
+     "(5, 5, 5, 5, 5, …)",
+     "(0, 0, 5, 0, 0, …)"
+    ],
+    "answer": 3,
+    "why": "5e₂ hat genau den angegebenen endlichen Träger. Linearkombinationen verwenden nur endlich viele Summanden; eine unendliche Reihe ist durch den algebraischen Span nicht zugelassen."
+   }
+  ]
+ },
+ "10": {
+  "questions": [
+   {
+    "q": "In ℝ² seien u = (1, 2), v = (3, −1) und w = (5, 3). Welche Gleichung belegt eine lineare Abhängigkeit?",
+    "options": [
+     "2u + v − w = 0",
+     "2u − v − w = 0",
+     "u + v − 2w = 0",
+     "u + 2v − w = 0"
+    ],
+    "answer": 0,
+    "why": "2u + v = (5, 3) = w liefert eine Nullkombination mit von null verschiedenen Koeffizienten. Die übrigen Ausdrücke ergeben keinen Nullvektor."
+   },
+   {
+    "q": "Welche Liste ist in ℝ[x] linear unabhängig?",
+    "options": [
+     "1, x, 1 + x",
+     "1 + x, 1 − x, x²",
+     "1 + x, 2 + 2x, x²",
+     "x, x², 3x²"
+    ],
+    "answer": 1,
+    "why": "Bei 1 + x, 1 − x, x² erzwingt der Koeffizientenvergleich zuerst den Faktor von x² gleich null und dann a + b = a − b = 0. In den anderen Listen ist ein Polynom schon eine Kombination der übrigen."
+   },
+   {
+    "q": "Wie wird lineare Unabhängigkeit einer unendlichen Familie geprüft?",
+    "options": [
+     "Durch Nullkombinationen aus endlich vielen Familiengliedern",
+     "Durch Unabhängigkeit sämtlicher Paare von Familiengliedern",
+     "Durch die Konvergenz einer Reihe aus sämtlichen Familiengliedern",
+     "Durch unterschiedliche Werte sämtlicher Familienglieder"
+    ],
+    "answer": 0,
+    "why": "Eine Abhängigkeit wird bereits durch eine endliche Nullkombination mit nichttrivialen Koeffizienten belegt. Paarweise Unabhängigkeit schliesst Beziehungen mit drei oder mehr Vektoren nicht aus."
+   },
+   {
+    "q": "Eᵢⱼ bezeichnet die 2×2-Matrix mit 1 an Stelle (i, j) und 0 sonst. Welcher Koeffizient gehört zu E₁₂ in der Darstellung der reellen Matrix A = [4, −2; 3, 7]? Semikolons trennen die Zeilen.",
+    "options": [
+     "7",
+     "3",
+     "−2",
+     "4"
+    ],
+    "answer": 2,
+    "why": "E₁₂ beeinflusst genau den Eintrag oben rechts. Die vertauschten Indizes 2, 1 würden stattdessen den Koeffizienten 3 auswählen."
+   },
+   {
+    "q": "Die Vektoren (1, 0), (0, 1), (5, 2) werden als Liste in ℝ² betrachtet. Welche Aussage trifft zu?",
+    "options": [
+     "Die Liste ist abhängig, obwohl jedes Paar unabhängig ist",
+     "Die Liste ist abhängig, weil bereits ein Paar abhängig ist",
+     "Die Liste ist abhängig, weil einer der Vektoren null ist",
+     "Die Liste ist unabhängig, weil jedes Paar unabhängig ist"
+    ],
+    "answer": 0,
+    "why": "Der dritte Vektor ist das Fünffache des ersten plus das Doppelte des zweiten. Dennoch sind keine zwei der drei Vektoren Vielfache voneinander; der Paarvergleich reicht also nicht."
+   }
+  ]
+ },
+ "11": {
+  "questions": [
+   {
+    "q": "Eine Liste erzeugt einen Vektorraum V. Welche zusätzliche Eigenschaft macht sie zu einer Basis?",
+    "options": [
+     "Abgeschlossenheit der Liste unter Addition",
+     "Nichtleere Menge der Vektoren der Liste",
+     "Lineare Unabhängigkeit der Liste",
+     "Verschiedenheit der Vektoren der Liste"
+    ],
+    "answer": 2,
+    "why": "Erzeugung liefert die Existenz von Darstellungen, Unabhängigkeit deren Eindeutigkeit. Verschiedene Vektoren können trotzdem eine nichttriviale lineare Beziehung besitzen."
+   },
+   {
+    "q": "In ℝ² seien u = (1, 1), v = (2, −1) und w = (3, 0). Was geschieht, wenn w aus der erzeugenden Liste (u, v, w) gestrichen wird?",
+    "options": [
+     "Der Span bleibt gleich, die Restliste ist unabhängig",
+     "Der Span wird kleiner, die Restliste ist abhängig",
+     "Der Span wird kleiner, die Restliste ist unabhängig",
+     "Der Span bleibt gleich, die Restliste ist abhängig"
+    ],
+    "answer": 0,
+    "why": "Wegen w = u + v wird kein erzeugbarer Vektor verloren. u und v sind keine Vielfachen voneinander, sodass die Restliste unabhängig ist."
+   },
+   {
+    "q": "B = (v₁, v₂, v₃) ist eine Basis eines reellen Raums, w = 2v₁ + v₃. Welche der angegebenen Listen ist wieder eine Basis?",
+    "options": [
+     "(w, 2w, v₂)",
+     "(w, v₂, v₃)",
+     "(v₁, v₂, v₁ + v₂)",
+     "(v₁, w, v₃)"
+    ],
+    "answer": 1,
+    "why": "Aus w und v₃ lässt sich v₁ = (w − v₃)/2 zurückgewinnen. Ersetzt man stattdessen v₂, fehlt dessen Richtung; die anderen Vorschläge enthalten unmittelbar eine Abhängigkeit."
+   },
+   {
+    "q": "Ein Vektorraum V besitzt eine Basis mit vier Vektoren. Welche Grösse hat eine andere Basis desselben Raums?",
+    "options": [
+     "Genau vier Vektoren",
+     "Genau fünf Vektoren",
+     "Genau drei Vektoren",
+     "Unendlich viele Vektoren"
+    ],
+    "answer": 0,
+    "why": "Der Basissatz sichert die gleiche Anzahl von Basisvektoren. Eine grössere erzeugende Liste ist möglich, aber wegen ihrer Abhängigkeit keine Basis."
+   },
+   {
+    "q": "B = (v₁, …, vₙ) erzeugt V. Ein Vektor besitzt zwei verschiedene Koeffizientenlisten bezüglich B. Was folgt?",
+    "options": [
+     "V ist unendlich-dimensional",
+     "V wird von B nicht erzeugt",
+     "B ist linear unabhängig",
+     "B ist linear abhängig"
+    ],
+    "answer": 3,
+    "why": "Subtraktion der beiden Darstellungen ergibt eine Nullkombination mit mindestens einem nichtverschwindenden Koeffizienten. Fehlende Eindeutigkeit widerspricht der Unabhängigkeit, nicht der Erzeugung."
+   }
+  ]
+ },
+ "12": {
+  "questions": [
+   {
+    "q": "ℂ³ wird einmal mit komplexen und einmal mit reellen Skalaren betrachtet. Welche Dimensionsangabe stimmt?",
+    "options": [
+     "dim_ℂ ℂ³ = 3 und dim_ℝ ℂ³ = 6",
+     "dim_ℂ ℂ³ = 6 und dim_ℝ ℂ³ = 6",
+     "dim_ℂ ℂ³ = 3 und dim_ℝ ℂ³ = 3",
+     "dim_ℂ ℂ³ = 6 und dim_ℝ ℂ³ = 3"
+    ],
+    "answer": 0,
+    "why": "Über ℂ genügen die drei Standardvektoren. Über ℝ werden zusätzlich ihre Vielfachen mit i benötigt, um Real- und Imaginärteil an jeder Stelle unabhängig zu wählen."
+   },
+   {
+    "q": "Welche Dimension hat der Raum der 2×4-Matrizen über ℝ?",
+    "options": [
+     "8",
+     "6",
+     "2",
+     "4"
+    ],
+    "answer": 0,
+    "why": "Die acht Einträge können unabhängig gewählt werden; die acht zugehörigen Eintragsmatrizen bilden eine Basis. Zeilen- und Spaltenzahl werden multipliziert, nicht addiert."
+   },
+   {
+    "q": "V hat Dimension 5 über einem Körper K. Eine Liste enthält drei linear unabhängige Vektoren aus V. Wie viele Vektoren müssen für eine Basis von V ergänzt werden?",
+    "options": [
+     "Zwei Vektoren",
+     "Drei Vektoren",
+     "Ein Vektor",
+     "Fünf Vektoren"
+    ],
+    "answer": 0,
+    "why": "Basisergänzung erhält die vorhandenen unabhängigen Vektoren. Bis zur Basislänge 5 fehlen 5 − 3 = 2; die Ergänzungen müssen passend gewählt werden."
+   },
+   {
+    "q": "V hat Dimension 4 über K, und vier Vektoren erzeugen V. Welche Folgerung stimmt?",
+    "options": [
+     "Mindestens einer dieser Vektoren ist null",
+     "Diese vier Vektoren sind linear abhängig",
+     "Drei dieser Vektoren erzeugen bereits V",
+     "Diese vier Vektoren bilden eine Basis"
+    ],
+    "answer": 3,
+    "why": "Bei genau dim V Vektoren reicht Erzeugung für die Basiseigenschaft. Eine Abhängigkeit würde das Entfernen eines Vektors erlauben und damit eine zu kurze erzeugende Liste liefern."
+   },
+   {
+    "q": "S enthält genau fünf Elemente, und ℝ^S bezeichnet sämtliche Funktionen S → ℝ mit punktweisen Operationen. Welche Dimension hat dieser Raum?",
+    "options": [
+     "25",
+     "4",
+     "6",
+     "5"
+    ],
+    "answer": 3,
+    "why": "Ein Funktionswert kann an jeder der fünf Stellen frei gewählt werden. Die fünf Funktionen, die an jeweils einer Stelle 1 und sonst 0 sind, bilden eine Basis; die Anzahl möglicher Funktionen ist keine Dimensionsangabe."
+   }
+  ]
+ },
+ "13": {
+  "questions": [
+   {
+    "q": "U ist ein Untervektorraum von V, wobei dim U = dim V = 5 gilt. Welche Folgerung ist richtig?",
+    "options": [
+     "U ⊊ V",
+     "U = ∅",
+     "U = V",
+     "U = {0}"
+    ],
+    "answer": 2,
+    "why": "Eine Basis von U hat bereits die vollständige Basislänge von V und erzeugt daher V. Die Voraussetzung endlicher Dimension ist für diesen Schluss wesentlich."
+   },
+   {
+    "q": "Über ℝ wird A = [1, 3; 2, 6] durch Z₂ → Z₂ − 2Z₁ zu B = [1, 3; 0, 0]. Welche Aussage über die beiden Räume stimmt? Semikolons trennen die Zeilen.",
+    "options": [
+     "Die Zeilenräume sind verschieden, die Spaltenräume gleich",
+     "Die Zeilenräume und die Spaltenräume sind jeweils gleich",
+     "Die Zeilenräume sind gleich, die Spaltenräume verschieden",
+     "Die Zeilenräume und die Spaltenräume sind jeweils verschieden"
+    ],
+    "answer": 2,
+    "why": "Beide Zeilenräume werden von (1, 3) erzeugt. Die Spaltenräume sind hingegen die Geraden durch (1, 2) beziehungsweise (1, 0); Zeilenoperationen bewahren sie nicht als Mengen."
+   },
+   {
+    "q": "Eine reelle Matrix wird auf [1, 2, 0, 4; 0, 0, 1, −3; 0, 0, 0, 0] reduziert. Wie gross ist ihr Zeilenrang? Semikolons trennen die Zeilen.",
+    "options": [
+     "4",
+     "1",
+     "3",
+     "2"
+    ],
+    "answer": 3,
+    "why": "Die beiden Nichtnullzeilen der reduzierten Form sind unabhängig und erzeugen den Zeilenraum. Die Zahl der Spalten oder sämtlicher Zeilen ist dafür nicht massgeblich."
+   },
+   {
+    "q": "Sechs Vektoren liegen in ℝ⁴. Welche Aussage gilt unabhängig von ihrer Wahl?",
+    "options": [
+     "Die Liste ist linear abhängig",
+     "Die Liste ist linear unabhängig",
+     "Die Liste enthält den Nullvektor",
+     "Die Liste erzeugt ganz ℝ⁴"
+    ],
+    "answer": 0,
+    "why": "Mehr als vier Vektoren können in einem vierdimensionalen Raum nicht unabhängig sein. Abhängigkeit erzwingt jedoch weder einen Nullvektor in der Liste noch die Erzeugung des ganzen Raums."
+   },
+   {
+    "q": "Welche Liste ist eine Basis des Zeilenraums von A = [1, 2, −1; 2, 5, −4; 3, 7, −5] über ℝ? Semikolons trennen die Zeilen.",
+    "options": [
+     "((1, 0, 3), (0, 1, 2))",
+     "((1, 0, 7), (0, 1, 6))",
+     "((1, 0, 3), (0, 1, −2))",
+     "((1, 0, −3), (0, 1, −2))"
+    ],
+    "answer": 2,
+    "why": "Gauss liefert die Nichtnullzeilen (1, 0, 3) und (0, 1, −2). Die dritte ursprüngliche Zeile ist die Summe der ersten beiden und liefert keine weitere Richtung."
+   }
+  ]
+ },
+ "14": {
+  "questions": [
+   {
+    "q": "A = [2, −1, 4; 5, 3, 0] ist eine reelle 2×3-Matrix. Wie lautet Aᵀ? Semikolons trennen die Zeilen.",
+    "options": [
+     "[4, 0; −1, 3; 2, 5]",
+     "[5, 2; 3, −1; 0, 4]",
+     "[2, 5; −1, 3; 4, 0]",
+     "[2, −1; 4, 5; 3, 0]"
+    ],
+    "answer": 2,
+    "why": "Die ursprünglichen Spalten werden in derselben Reihenfolge zu Zeilen. Transponieren ändert also die Form auf 3×2, ohne die Reihenfolge innerhalb einer Spalte umzukehren."
+   },
+   {
+    "q": "U und W sind Teilräume eines endlich-dimensionalen Raums. Es gilt dim U = 3, dim W = 4 und dim(U ∩ W) = 2. Wie gross ist dim(U + W)?",
+    "options": [
+     "5",
+     "9",
+     "2",
+     "7"
+    ],
+    "answer": 0,
+    "why": "Die Dimensionsformel ergibt 3 + 4 − 2 = 5. Ohne Abzug würde der gemeinsame Anteil doppelt gezählt."
+   },
+   {
+    "q": "U und W sind Teilräume eines reellen Vektorraums mit U ∩ W = {0}. Für v ∈ U + W sind v = u₁ + w₁ = u₂ + w₂ mit uᵢ ∈ U und wᵢ ∈ W gegeben. Was folgt?",
+    "options": [
+     "u₁ = −u₂ und w₁ = −w₂",
+     "u₁ = u₂ und w₁ = w₂",
+     "u₁ = w₁ und u₂ = w₂",
+     "u₁ = u₂ = w₁ = w₂ = 0"
+    ],
+    "answer": 1,
+    "why": "Aus der Gleichheit folgt u₁ − u₂ = w₂ − w₁, also liegt dieser Vektor im Schnitt. Er muss null sein; das macht die Zerlegung eindeutig, ohne v selbst auf null einzuschränken."
+   },
+   {
+    "q": "B = [1, 5, 0, 7; 0, 0, 1, −4; 0, 0, 0, 0] steht in reduzierter Zeilenstufenform über ℝ. Welche Auswahl ihrer Spalten ist eine Basis von SR(B)? Semikolons trennen die Zeilen.",
+    "options": [
+     "Spalte 1 und Spalte 2",
+     "Spalte 4 allein",
+     "Spalte 2 und Spalte 4 und Spalte 3",
+     "Spalte 1 und Spalte 3"
+    ],
+    "answer": 3,
+    "why": "Die Pivotspalten 1 und 3 sind unabhängig und erzeugen die übrigen Spalten. Spalte 2 ist ein Vielfaches von Spalte 1; drei Spalten wären hier redundant."
+   },
+   {
+    "q": "In ℝ³ seien U = Sp((1, 2, 1), (0, 1, 3)) und W = Sp((2, 4, 2), (1, 0, 1)). Welche Dimensionsangabe stimmt?",
+    "options": [
+     "dim(U ∩ W) = 1, dim(U + W) = 2",
+     "dim(U ∩ W) = 1, dim(U + W) = 3",
+     "dim(U ∩ W) = 2, dim(U + W) = 2",
+     "dim(U ∩ W) = 0, dim(U + W) = 4"
+    ],
+    "answer": 1,
+    "why": "Gemeinsam ist die Gerade Sp((1, 2, 1)); beide Teilräume haben Dimension 2. Damit hat ihre Summe Dimension 2 + 2 − 1 = 3."
+   }
+  ]
+ },
+ "15": {
+  "questions": [
+   {
+    "q": "Welche Abbildung ℝ² → ℝ² ist linear?",
+    "options": [
+     "(x, y) ↦ (2x − y, 3y)",
+     "(x, y) ↦ (xy, 3y)",
+     "(x, y) ↦ (2x − y + 1, 3y)",
+     "(x, y) ↦ (x² − y, 3y)"
+    ],
+    "answer": 0,
+    "why": "Im ersten Fall sind beide Komponenten homogene lineare Ausdrücke. Der konstante Zusatz verletzt T(0) = 0, während Produkt und Quadrat die Linearitätsregeln verletzen."
+   },
+   {
+    "q": "Für h: ℝ → ℝ, h(t) = t³, gilt h(0) = 0. Welche Prüfung zeigt trotzdem, dass h nicht linear ist?",
+    "options": [
+     "h(2·1) = 8, aber 2h(1) = 2",
+     "h(−1) = −1 und −h(1) = −1",
+     "h(0 + 0) = 0 und h(0) + h(0) = 0",
+     "h(1 + 0) = 1 und h(1) + h(0) = 1"
+    ],
+    "answer": 0,
+    "why": "Schon ein Gegenbeispiel zur Homogenität widerlegt Linearität. Übereinstimmung an null oder beim Vorzeichenwechsel reicht nicht aus, um Linearität nachzuweisen."
+   },
+   {
+    "q": "B = (v₁, v₂) ist eine Basis von V über ℝ. Wie viele lineare Abbildungen T: V → ℝ² erfüllen T(v₁) = T(v₂) = (2, −3)?",
+    "options": [
+     "Keine",
+     "Unendlich viele",
+     "Genau zwei",
+     "Genau eine"
+    ],
+    "answer": 3,
+    "why": "Die Bilder der Basisvektoren dürfen beliebig vorgegeben werden; lineare Fortsetzung bestimmt T eindeutig. Dass die Bilder übereinstimmen, verhindert nicht die Existenz, sondern kann Injektivität verhindern."
+   },
+   {
+    "q": "T: V → ℝ² ist ℝ-linear, T(v₁) = (2, −1) und T(v₂) = (1, 4). Was ist T(3v₁ − 2v₂)?",
+    "options": [
+     "(8, 5)",
+     "(8, −11)",
+     "(4, −11)",
+     "(4, 5)"
+    ],
+    "answer": 2,
+    "why": "Linearität liefert 3(2, −1) − 2(1, 4) = (4, −11). Das Minuszeichen muss auch auf die zweite Komponente des zweiten Bildvektors wirken."
+   },
+   {
+    "q": "Für reelle Folgen sei S(a₀, a₁, a₂, …) = (a₁, a₂, a₃, …). Welche Gleichung gilt für beliebige reelle Folgen a und b?",
+    "options": [
+     "S(a + b) = a + S(b)",
+     "S(a + b) = S(a) + S(b)",
+     "S(a + b) = S(a) − S(b)",
+     "S(a + b) = S(a) + b"
+    ],
+    "answer": 1,
+    "why": "An Stelle n haben beide Seiten der richtigen Gleichung den Wert aₙ₊₁ + bₙ₊₁. Beide Folgen werden verschoben; eine unveränderte Folge auf der rechten Seite wäre im Allgemeinen falsch."
+   }
+  ]
+ },
+ "16": {
+  "questions": [
+   {
+    "q": "T: ℝ³ → ℝ² sei durch T(x, y, z) = (x − 2y, y + z) definiert. Welche Menge ist ker T?",
+    "options": [
+     "Sp((2, 1, 1))",
+     "Sp((1, 2, −1))",
+     "Sp((2, 1, −1))",
+     "Sp((1, −2, 1))"
+    ],
+    "answer": 2,
+    "why": "Die Gleichungen x − 2y = 0 und y + z = 0 ergeben (x, y, z) = t(2, 1, −1). Da der Kern Nichtnullvektoren enthält, ist T nicht injektiv."
+   },
+   {
+    "q": "T: V → W ist linear, dim V = 7 und dim ker T = 4. Welche Dimension hat Im T?",
+    "options": [
+     "4",
+     "3",
+     "7",
+     "11"
+    ],
+    "answer": 1,
+    "why": "Der Rangsatz zerlegt die Dimension des Definitionsraums in Kern- und Bilddimension. Hier bleiben 7 − 4 = 3 Bildrichtungen; die Dimension von W ist damit nicht festgelegt."
+   },
+   {
+    "q": "Eine lineare Abbildung T: ℝ³ → ℝ² erfüllt T(e₁) = (1, 3), T(e₂) = (−2, 4), T(e₃) = (0, 5). Welche Matrix A liefert T(x) = A·x? Semikolons trennen die Zeilen.",
+    "options": [
+     "[1, 3; −2, 4; 0, 5]",
+     "[1, −2, 0; 3, 4, 5]",
+     "[3, 4, 5; 1, −2, 0]",
+     "[0, −2, 1; 5, 4, 3]"
+    ],
+    "answer": 1,
+    "why": "Die Bilder der Standardvektoren werden in ihrer Reihenfolge als Spalten eingesetzt. Sie als Zeilen einzutragen würde schon eine Matrix der falschen Grösse ergeben."
+   },
+   {
+    "q": "T: ℝ³ → ℝ² sei T(x, y, z) = (x + 2z, y), M = Sp((3, 0)). Welche Menge ist T⁻¹(M)?",
+    "options": [
+     "Die Ebene x = 0 in ℝ³",
+     "Die Ebene y = 0 in ℝ³",
+     "Die Gerade x = y = 0 in ℝ³",
+     "Die Ebene z = 0 in ℝ³"
+    ],
+    "answer": 1,
+    "why": "Ein Bild gehört zu M, wenn seine zweite Komponente null ist. Daher muss y = 0 gelten, während x und z frei wählbar bleiben; eine Gerade wäre zu klein."
+   },
+   {
+    "q": "T: V → W ist eine bijektive reelle lineare Abbildung. Welche Regel gilt allgemein für T⁻¹ und a ∈ ℝ, w₁, w₂ ∈ W?",
+    "options": [
+     "T⁻¹(aw₁ + w₂) = T⁻¹(w₁) + aT⁻¹(w₂)",
+     "T⁻¹(aw₁ + w₂) = T⁻¹(w₁) − aT⁻¹(w₂)",
+     "T⁻¹(aw₁ + w₂) = aT⁻¹(w₁) − T⁻¹(w₂)",
+     "T⁻¹(aw₁ + w₂) = aT⁻¹(w₁) + T⁻¹(w₂)"
+    ],
+    "answer": 3,
+    "why": "Die Umkehrabbildung eines linearen Isomorphismus ist ebenfalls linear. Der Faktor a bleibt beim ersten Summanden; Vertauschen oder Vorzeichenwechsel ist nicht begründet."
+   }
+  ]
+ },
+ "17": {
+  "questions": [
+   {
+    "q": "T: V → W ist linear und injektiv, wobei dim V = dim W = 4 über demselben Körper gilt. Welche Folgerung stimmt?",
+    "options": [
+     "T ist nicht surjektiv und damit kein Isomorphismus",
+     "T ist auch surjektiv und damit ein Isomorphismus",
+     "T hat einen eindimensionalen Kern und ist surjektiv",
+     "T hat einen vierdimensionalen Kern und ist surjektiv"
+    ],
+    "answer": 1,
+    "why": "Injektivität bedeutet Kerndimension 0, also hat das Bild nach dem Rangsatz Dimension 4. Ein vierdimensionaler Teilraum von W ist bereits W."
+   },
+   {
+    "q": "Für eine lineare Abbildung T: ℝ⁵ → ℝ³: Welche kleinste Kerndimension ist möglich?",
+    "options": [
+     "3",
+     "0",
+     "2",
+     "1"
+    ],
+    "answer": 2,
+    "why": "Das Bild hat höchstens Dimension 3, sodass im Kern mindestens 5 − 3 = 2 Dimensionen bleiben. Die Projektion auf die ersten drei Koordinaten erreicht diese Grenze."
+   },
+   {
+    "q": "B = ((1, 1), (1, −2)) ist eine geordnete Basis von ℝ². Welche B-Koordinaten hat v = (5, −1)?",
+    "options": [
+     "(2, 3)",
+     "(5, −1)",
+     "(3, 2)",
+     "(1, 4)"
+    ],
+    "answer": 2,
+    "why": "3(1, 1) + 2(1, −2) = (5, −1). Die Einträge des ursprünglichen Vektors sind seine Standardkoordinaten und müssen nicht mit den B-Koordinaten übereinstimmen."
+   },
+   {
+    "q": "Φ_B ordnet Vektoren eines reellen Raums ihre Koordinaten in einer festen Basis B zu. Gegeben sind Φ_B(v) = (1, −1, 2) und Φ_B(w) = (0, 2, 1). Was ist Φ_B(2v − 3w)?",
+    "options": [
+     "(2, 4, 7)",
+     "(2, −8, 1)",
+     "(2, −8, 7)",
+     "(2, 4, 1)"
+    ],
+    "answer": 1,
+    "why": "Die Koordinatenabbildung ist linear, also wird komponentenweise 2(1, −1, 2) − 3(0, 2, 1) gerechnet. Ein Basiswechsel während der Rechnung wäre eine andere Operation."
+   },
+   {
+    "q": "T: V → W ist ein Isomorphismus reeller Vektorräume, B = (v₁, v₂, v₃) eine Basis von V. Welche Liste bildet eine Basis von W?",
+    "options": [
+     "(T(v₁), T(v₂), T(v₁ + v₂))",
+     "(T(v₁), T(v₂), T(v₃))",
+     "(T(v₂), T(v₃), T(v₂ − v₃))",
+     "(T(v₁), T(v₁), T(v₃))"
+    ],
+    "answer": 1,
+    "why": "Ein Isomorphismus transportiert sowohl Erzeugung als auch lineare Unabhängigkeit. In den falschen Listen wird ein Bild wiederholt oder aus zwei anderen linear zusammengesetzt."
+   }
+  ]
+ },
+ "18": {
+  "questions": [
+   {
+    "q": "T: ℝ² → ℝ² ist durch T(x, y) = (x + 2y, 3x − y) gegeben. Im Definitionsraum gilt B = ((1, 1), (1, 0)), im Zielraum die Standardbasis. Wie lautet die Darstellungsmatrix? Semikolons trennen die Zeilen.",
+    "options": [
+     "[1, 2; 3, −1]",
+     "[3, 1; 2, 3]",
+     "[1, 3; 3, 2]",
+     "[3, 2; 1, 3]"
+    ],
+    "answer": 1,
+    "why": "Die Bilder der B-Vektoren sind (3, 2) und (1, 3); sie bilden die Spalten. Die Matrix [1, 2; 3, −1] würde dagegen Standardkoordinaten im Definitionsraum voraussetzen."
+   },
+   {
+    "q": "Über ℝ seien A = [1, 2, −1; 0, 3, 2] und B = [2, 1; −1, 0; 4, 2]. Was ist AB? Semikolons trennen die Zeilen.",
+    "options": [
+     "[4, 1; −5, −4]",
+     "[0, 1; 3, 2]",
+     "[−4, −1; 5, 4]",
+     "[−4, 5; −1, 4]"
+    ],
+    "answer": 2,
+    "why": "Zeile mal Spalte liefert oben links 2 − 2 − 4 = −4 und unten links −3 + 8 = 5; die zweite Spalte ergibt −1 und 4. Ein blosses Transponieren vertauscht die beiden Nebendiagonaleinträge."
+   },
+   {
+    "q": "T: ℝ³ → ℝ² hat Matrix A, S: ℝ² → ℝ⁴ hat Matrix B, jeweils in Standardbasen. Welche Matrix stellt S∘T dar?",
+    "options": [
+     "BA mit Grösse 3×4",
+     "AB mit Grösse 4×3",
+     "AB mit Grösse 3×4",
+     "BA mit Grösse 4×3"
+    ],
+    "answer": 3,
+    "why": "T wird zuerst ausgeführt, daher steht A rechts im Produkt B·A. Die inneren Grössen 2 stimmen überein; das Ergebnis führt drei Eingabekoordinaten in vier Ausgabekoordinaten über."
+   },
+   {
+    "q": "In festen Basen haben reelle lineare Abbildungen S und T die Matrizen A = [1, 2; 0, −1] und B = [3, −2; 4, 1]. Welche Matrix gehört zu S − 2T? Semikolons trennen die Zeilen.",
+    "options": [
+     "[−5, 6; −8, −3]",
+     "[7, −2; 8, 1]",
+     "[−5, −2; −8, 1]",
+     "[−2, 4; −4, −2]"
+    ],
+    "answer": 0,
+    "why": "Die Zuordnung zur Darstellungsmatrix respektiert Addition und Skalierung: A − 2B. Das ist eine eintragsweise Rechnung und kein Matrixprodukt."
+   },
+   {
+    "q": "A ist eine 3×2-Matrix und B eine 2×5-Matrix über ℝ. Welche Aussage über die Produkte ist richtig?",
+    "options": [
+     "AB und BA sind beide definiert",
+     "Weder AB noch BA ist definiert",
+     "BA ist definiert, AB ist nicht definiert",
+     "AB ist definiert, BA ist nicht definiert"
+    ],
+    "answer": 3,
+    "why": "Bei AB passen die inneren Grössen 2 zusammen. Für BA müssten 5 und 3 übereinstimmen; die äusseren Grössen allein entscheiden nicht über die Ausführbarkeit."
+   }
+  ]
+ },
+ "19": {
+  "questions": [
+   {
+    "q": "Über ℝ seien A = [1, 2; 0, 1] und B = [1, 0; 3, 1]. Welche Matrix ist AB − BA? Semikolons trennen die Zeilen.",
+    "options": [
+     "[6, 4; 6, 6]",
+     "[6, 0; 0, −6]",
+     "[−6, 0; 0, 6]",
+     "[0, 0; 0, 0]"
+    ],
+    "answer": 1,
+    "why": "AB = [7, 2; 3, 1] und BA = [1, 2; 3, 7]. Ihre Differenz ist nicht null; Matrixmultiplikation ist also selbst für invertierbare Matrizen nicht allgemein kommutativ."
+   },
+   {
+    "q": "A und B sind invertierbare reelle n×n-Matrizen. Welche Regel für das Invertieren eines Produkts gilt allgemein?",
+    "options": [
+     "(AB)⁻¹ = A⁻¹B",
+     "(AB)⁻¹ = BA⁻¹",
+     "(AB)⁻¹ = A⁻¹B⁻¹",
+     "(AB)⁻¹ = B⁻¹A⁻¹"
+    ],
+    "answer": 3,
+    "why": "Im Produkt AB·B⁻¹A⁻¹ heben sich zuerst B und B⁻¹, dann A und A⁻¹ auf. Die umgekehrte Reihenfolge der Inversen ist ohne Kommutativität entscheidend."
+   },
+   {
+    "q": "A hat Grösse 2×3 und B Grösse 3×4. Welche Formel für die Transposition des Produkts gilt allgemein?",
+    "options": [
+     "(AB)ᵀ = BᵀAᵀ",
+     "(AB)ᵀ = BA",
+     "(AB)ᵀ = AB",
+     "(AB)ᵀ = AᵀBᵀ"
+    ],
+    "answer": 0,
+    "why": "BᵀAᵀ besitzt die benötigte Grösse 4×2 und die passenden Einträge. Beim Transponieren eines Produkts kehrt sich die Reihenfolge um; AᵀBᵀ ist hier nicht einmal definiert."
+   },
+   {
+    "q": "Welche Matrix ist das neutrale Element der Gruppe GL₃(ℝ) bezüglich Multiplikation?",
+    "options": [
+     "Die 3×3-Einheitsmatrix",
+     "Das Negative der 3×3-Einheitsmatrix",
+     "Die 3×3-Nullmatrix",
+     "Das Dreifache der 3×3-Einheitsmatrix"
+    ],
+    "answer": 0,
+    "why": "Multiplikation mit I₃ lässt links wie rechts sämtliche Matrizen unverändert. Die Nullmatrix ist zudem nicht invertierbar und gehört deshalb nicht zu GL₃(ℝ)."
+   },
+   {
+    "q": "A = diag(−2, 4, 5) ist eine reelle Diagonalmatrix. Welche Matrix ist A⁻¹?",
+    "options": [
+     "diag(−2, 4, 5)",
+     "diag(−1/2, 1/5, 1/4)",
+     "diag(2, −4, −5)",
+     "diag(−1/2, 1/4, 1/5)"
+    ],
+    "answer": 3,
+    "why": "Die Diagonaleinträge werden einzeln invertiert, sodass beim Multiplizieren jeweils 1 entsteht. Vorzeichenwechsel allein bildet keine multiplikative Inverse."
+   }
+  ]
+ },
+ "20": {
+  "questions": [
+   {
+    "q": "Ein reeller Endomorphismus hat in Basis B die Matrix A = [2, 0; 0, 5]. P = [1, 1; 0, 1] überführt B′-Koordinaten in B-Koordinaten. Welche Matrix hat der Endomorphismus in B′? Semikolons trennen die Zeilen.",
+    "options": [
+     "[2, 3; 0, 5]",
+     "[2, −3; 0, 5]",
+     "[5, 0; 0, 2]",
+     "[2, 0; −3, 5]"
+    ],
+    "answer": 1,
+    "why": "Für B′ gilt P⁻¹AP. Die Rechnung ergibt [2, −3; 0, 5]; PAP⁻¹ würde den Koordinatenwechsel in der falschen Richtung ausführen."
+   },
+   {
+    "q": "T: ℝ³ → ℝ² hat bezüglich alter Basen die Matrix A. Q überführt neue Eingabekoordinaten in alte, P neue Ausgabekoordinaten in alte. Welche Formel liefert die Matrix in den neuen Basen?",
+    "options": [
+     "P⁻¹AQ⁻¹",
+     "P⁻¹AQ",
+     "PAQ",
+     "PAQ⁻¹"
+    ],
+    "answer": 1,
+    "why": "Zuerst wandelt Q die Eingabe um, dann wirkt A, schliesslich führt P⁻¹ zurück zu neuen Ausgabekoordinaten. Ein Wechsel auf der Zielseite läuft deshalb in der entgegengesetzten Richtung."
+   },
+   {
+    "q": "Über ℝ seien A = I₂ und B = 3I₂. Matrizen heissen äquivalent bei B = PAQ, ähnlich bei B = P⁻¹AP, mit invertierbaren Wechselmatrizen. Welche Einordnung stimmt?",
+    "options": [
+     "A und B sind ähnlich, aber nicht äquivalent",
+     "A und B sind äquivalent, aber nicht ähnlich",
+     "A und B sind sowohl ähnlich als auch äquivalent",
+     "A und B sind weder ähnlich noch äquivalent"
+    ],
+    "answer": 1,
+    "why": "Mit P = 3I₂ und Q = I₂ erhält man die Äquivalenz. Dagegen ergibt P⁻¹I₂P für jede invertierbare Matrix P wieder I₂ und niemals 3I₂."
+   },
+   {
+    "q": "Eine reelle 3×4-Matrix hat Rang 2. Welche Beschreibung passt zu ihrer Rangnormalform nach invertierbaren Umformungen links und rechts?",
+    "options": [
+     "Ein 1×1-Einheitsblock, sonst Nullen",
+     "Kein Einheitsblock, sämtliche Einträge null",
+     "Ein 3×3-Einheitsblock, sonst Nullen",
+     "Ein 2×2-Einheitsblock, sonst Nullen"
+    ],
+    "answer": 3,
+    "why": "Die Rangnormalform enthält einen Einheitsblock der Grösse 2 und sonst Nullen. Ein Block der Grösse 1 oder 3 hätte einen anderen Rang, den invertierbare Umformungen nicht erzeugen können."
+   },
+   {
+    "q": "A ist eine reelle Matrix vom Rang 2, und B = PAQ mit passenden invertierbaren P und Q. Welche Angabe ist zwingend?",
+    "options": [
+     "Rang B = 3",
+     "Rang B = 0",
+     "Rang B = 1",
+     "Rang B = 2"
+    ],
+    "answer": 3,
+    "why": "Invertierbare Wechsel auf beiden Seiten verändern die Dimension des dargestellten Bildes nicht. Die Einträge und konkrete Zeilen- oder Spaltenräume dürfen sich dabei durchaus ändern."
+   }
+  ]
+ },
+ "21": {
+  "questions": [
+   {
+    "q": "Eine reelle 4×5-Matrix A hat Zeilenrang 3. Welchen Spaltenrang hat A?",
+    "options": [
+     "4",
+     "5",
+     "3",
+     "2"
+    ],
+    "answer": 2,
+    "why": "Zeilenrang und Spaltenrang stimmen überein. Die Räume selbst liegen hier in ℝ⁵ beziehungsweise ℝ⁴ und sind deshalb nicht als dieselbe Teilmenge zu verstehen."
+   },
+   {
+    "q": "Für A ∈ ℝ³×⁴ und b ∈ ℝ³ gilt Rang A = 2, aber Rang(A|b) = 3. Was folgt für A·x = b?",
+    "options": [
+     "Es gibt unendlich viele Lösungen",
+     "Es gibt genau eine Lösung",
+     "Es gibt keine Lösung",
+     "Es gibt genau zwei Lösungen"
+    ],
+    "answer": 2,
+    "why": "Die zusätzliche Spalte b vergrössert den Rang und liegt daher nicht im Spaltenraum von A. Freie Variablen helfen nicht, wenn das System bereits widersprüchlich ist."
+   },
+   {
+    "q": "A ist eine reelle 4×6-Matrix vom Rang 3. Wie viele freie Parameter braucht eine vollständige Darstellung der Lösungen von A·x = 0?",
+    "options": [
+     "1",
+     "3",
+     "2",
+     "6"
+    ],
+    "answer": 1,
+    "why": "Von den sechs Variablen gehören drei zu Pivotspalten; drei bleiben frei. Die Kerndimension ist 6 − 3 = 3, nicht die Differenz aus Zeilen- und Rangzahl."
+   },
+   {
+    "q": "Welche Menge enthält genau die reellen Lösungen von x + y = 4 und y + z = 1?",
+    "options": [
+     "{(3, 1, 0) + t(−1, 1, 1): t ∈ ℝ}",
+     "{(3, 1, 0) + t(1, −1, 1): t ∈ ℝ}",
+     "{(3, 1, 0) + t(1, 1, 1): t ∈ ℝ}",
+     "{(3, 1, 0) + t(1, −1, −1): t ∈ ℝ}"
+    ],
+    "answer": 1,
+    "why": "Der Startvektor erfüllt beide Gleichungen, und (1, −1, 1) löst das zugehörige homogene System. Die Lösungsmenge entsteht durch Verschieben des Kerns; eine Richtung, die eine Gleichung verändert, ist ungeeignet."
+   },
+   {
+    "q": "A ∈ ℝ⁵×³ hat Rang 3, und b liegt im Spaltenraum von A. Wie viele Lösungen hat A·x = b?",
+    "options": [
+     "Genau drei",
+     "Unendlich viele",
+     "Genau eine",
+     "Keine"
+    ],
+    "answer": 2,
+    "why": "Die Zugehörigkeit von b zum Spaltenraum sichert die Existenz. Rang 3 bei drei Spalten macht den Kern trivial und damit die Lösung eindeutig."
+   }
+  ]
+ },
+ "22": {
+  "questions": [
+   {
+    "q": "Welche reelle Elementarmatrix E bewirkt bei EA die Zeilenoperation Z₂ → Z₂ + 3Z₁ für eine Matrix A mit zwei Zeilen? Semikolons trennen die Zeilen.",
+    "options": [
+     "[0, 1; 1, 3]",
+     "[1, 0; 3, 1]",
+     "[1, 3; 0, 1]",
+     "[3, 0; 0, 1]"
+    ],
+    "answer": 1,
+    "why": "Die zweite Zeile von E gibt die Kombination 3Z₁ + Z₂ vor; die erste lässt Z₁ unverändert. Der Eintrag oben rechts würde dagegen die erste Zeile verändern."
+   },
+   {
+    "q": "Für A = [3, 5; 2, 3] über ℝ wird (A|I₂) mit Gauss auf (I₂|C) gebracht. Welche Matrix steht rechts? Semikolons trennen die Zeilen.",
+    "options": [
+     "[3, −5; −2, 3]",
+     "[−3, 5; 2, −3]",
+     "[3, 5; 2, 3]",
+     "[−3, 2; 5, −3]"
+    ],
+    "answer": 1,
+    "why": "Die mitgeführten Zeilenoperationen liefern C = A⁻¹. Direktes Multiplizieren ergibt AC = CA = I₂; die transponierte Kandidatin erfüllt diese Kontrolle nicht."
+   },
+   {
+    "q": "Bei A = [1, 4; 2, 8] über ℝ wird (A|I₂) mit Gauss bearbeitet. Was verhindert einen linken Einheitsblock? Semikolons trennen die Zeilen.",
+    "options": [
+     "Der rechte Block startet als Einheitsmatrix",
+     "Die zweite Zeile enthält die Zahl 8",
+     "Der linke Block besitzt vier Einträge",
+     "Der linke Block hat nur einen Pivot"
+    ],
+    "answer": 3,
+    "why": "Die zweite linke Zeile ist das Doppelte der ersten, sodass links eine Nullzeile entsteht. Für I₂ wären zwei Pivots nötig; rechts mitgeführte Einträge können den fehlenden linken Pivot nicht ersetzen."
+   },
+   {
+    "q": "Über ℝ seien B = [1, 2; 0, 1], C = [3; 1] und D = [2, 0; −1, 4]. Wie lautet B(C|D)? Semikolons trennen die Zeilen.",
+    "options": [
+     "[5 | 0, 8; 1 | −1, 4]",
+     "[5 | 0, −8; 1 | −1, 4]",
+     "[5 | 0, 8; 1 | 1, −4]",
+     "[5 | 0, 8; −1 | 1, 4]"
+    ],
+    "answer": 0,
+    "why": "Linksmultiplikation wirkt auf beide Blöcke: BC = [5; 1] und BD = [0, 8; −1, 4]. Da die zweite Zeile von B gleich (0, 1) ist, bleibt die zweite Zeile beider Blöcke unverändert."
+   },
+   {
+    "q": "S ∈ Hom(ℝ², ℝ²) sei S(x, y) = (x + 2y, 3x). Welche Abbildung T erfüllt S + T = 0 in diesem Vektorraum?",
+    "options": [
+     "T(x, y) = (−x − 2y, −3x)",
+     "T(x, y) = (−x + 2y, −3x)",
+     "T(x, y) = (0, 0)",
+     "T(x, y) = (x + 2y, 3x)"
+    ],
+    "answer": 0,
+    "why": "Das additive Gegenstück wird punktweise gebildet: T(v) = −S(v). Die Nullabbildung wäre das neutrale Element, hebt aber ein von null verschiedenes S nicht auf."
+   }
+  ]
+ },
+ "23": {
+  "questions": [
+   {
+    "q": "V und W sind endlich-dimensionale Räume über K mit dim V = 3 und dim W = 4. Welche Dimension hat Hom(V, W)?",
+    "options": [
+     "3",
+     "12",
+     "7",
+     "4"
+    ],
+    "answer": 1,
+    "why": "Die Bilder von drei Basisvektoren sind unabhängig voneinander durch je vier Koordinaten festlegbar. Entsprechend besitzt eine Darstellungsmatrix 4·3 = 12 frei wählbare Einträge."
+   },
+   {
+    "q": "Welche Abbildung ℓ: ℝ² → ℝ gehört zum Dualraum (ℝ²)*?",
+    "options": [
+     "ℓ(x, y) = 4x − y",
+     "ℓ(x, y) = 4x − y + 2",
+     "ℓ(x, y) = xy",
+     "ℓ(x, y) = x² + y"
+    ],
+    "answer": 0,
+    "why": "Ein Dualraumelement ist eine skalare lineare Abbildung. Produkt und Quadrat verletzen Linearität, während der konstante Zusatz den Nullvektor nicht auf null abbildet."
+   },
+   {
+    "q": "B = (v₁, v₂) mit v₁ = (1, 1), v₂ = (2, 3) ist eine Basis von ℝ². Welche Linearform ist v₁* aus der dualen Basis?",
+    "options": [
+     "v₁*(x, y) = x − y",
+     "v₁*(x, y) = 2x − y",
+     "v₁*(x, y) = 3x − 2y",
+     "v₁*(x, y) = −x + y"
+    ],
+    "answer": 2,
+    "why": "Gesucht sind die Werte 1 auf v₁ und 0 auf v₂; 3x − 2y erfüllt beide. Die Form −x + y liefert umgekehrt 0 und 1 und gehört daher zum zweiten Basisvektor."
+   },
+   {
+    "q": "B = (v₁, v₂, v₃) ist eine Basis eines reellen Raums. Für ℓ ∈ V* gilt ℓ(v₁) = 2, ℓ(v₂) = −3, ℓ(v₃) = 4. Was ist ℓ(3v₁ + v₂ − 2v₃)?",
+    "options": [
+     "−5",
+     "5",
+     "17",
+     "1"
+    ],
+    "answer": 0,
+    "why": "Linearität ergibt 3·2 + (−3) − 2·4 = −5. Die vorgegebenen Funktionswerte werden mit denselben Koeffizienten wie die Basisvektoren kombiniert."
+   },
+   {
+    "q": "B = (v₁, v₂, v₃) ist eine reelle Basis mit dualer Basis (v₁*, v₂*, v₃*). Eine Linearform erfüllt ℓ(v₁) = −2, ℓ(v₂) = 5, ℓ(v₃) = 1. Welche Darstellung stimmt?",
+    "options": [
+     "ℓ = −2v₁* + v₂* + 5v₃*",
+     "ℓ = 5v₁* − 2v₂* + v₃*",
+     "ℓ = −2v₁* + 5v₂* + v₃*",
+     "ℓ = 2v₁* − 5v₂* − v₃*"
+    ],
+    "answer": 2,
+    "why": "Die Auswertung auf vⱼ liest den Koeffizienten von vⱼ* ab. Daher sind −2, 5 und 1 bereits die gesuchten Koordinaten, ohne zusätzliche Umkehrung oder Vertauschung."
+   }
+  ]
+ },
+ "24": {
+  "questions": [
+   {
+    "q": "T: ℝ² → ℝ² sei T(x, y) = (2x + y, x − y), und ℓ(u, v) = 3u − 2v. Welche Linearform ist T*(ℓ)?",
+    "options": [
+     "(x, y) ↦ 4x + 5y",
+     "(x, y) ↦ 8x + y",
+     "(x, y) ↦ 4x − 5y",
+     "(x, y) ↦ 5x + 4y"
+    ],
+    "answer": 0,
+    "why": "T*(ℓ) bedeutet ℓ∘T, also 3(2x + y) − 2(x − y) = 4x + 5y. Das Sternsymbol bezeichnet hier die duale Abbildung und nicht die Umkehrabbildung."
+   },
+   {
+    "q": "S und T sind lineare Endomorphismen eines endlich-dimensionalen Raums. Welche Regel für ihre dualen Abbildungen gilt allgemein?",
+    "options": [
+     "(S∘T)* = T* − S*",
+     "(S∘T)* = T*∘S*",
+     "(S∘T)* = S*∘T*",
+     "(S∘T)* = S* + T*"
+    ],
+    "answer": 1,
+    "why": "Für eine Linearform ℓ gilt (S∘T)*(ℓ) = ℓ∘S∘T. Rechts entspricht das zuerst S* und danach T*, also einer Umkehrung der Reihenfolge."
+   },
+   {
+    "q": "U = Sp((1, 2, 0), (0, 1, 1)) ⊆ ℝ³. Welche Linearform gehört zum Annihilator U^⊥, verschwindet also auf U?",
+    "options": [
+     "ℓ(x, y, z) = −2x − y + z",
+     "ℓ(x, y, z) = 2x + y − z",
+     "ℓ(x, y, z) = −2x + y + z",
+     "ℓ(x, y, z) = −2x + y − z"
+    ],
+    "answer": 3,
+    "why": "Die richtige Form ergibt auf beiden erzeugenden Vektoren null und damit auf ihrem gesamten Span. Verschwinden auf nur einem Erzeuger genügt nicht."
+   },
+   {
+    "q": "T: V → W ist linear. Welche Beschreibung von ker T* gilt allgemein?",
+    "options": [
+     "{ℓ ∈ V*: ℓ verschwindet auf ganz V}",
+     "{ℓ ∈ W*: ℓ verschwindet auf ganz W}",
+     "{ℓ ∈ V*: ℓ verschwindet auf ker T}",
+     "{ℓ ∈ W*: ℓ verschwindet auf Im T}"
+    ],
+    "answer": 3,
+    "why": "T*(ℓ) = 0 bedeutet ℓ(Tv) = 0 für sämtliche v ∈ V, also Verschwinden auf Im T. ℓ gehört zum Dualraum des Zielraums W; auf dem Rest von W muss es nicht null sein."
+   },
+   {
+    "q": "V ist der reelle Raum der Polynome vom Grad höchstens 2. Für p(x) = 2 − x + x² und ev₃(f) = f(3): Welchen Wert hat ι(p)(ev₃) unter der kanonischen Abbildung ι: V → V**?",
+    "options": [
+     "3",
+     "8",
+     "14",
+     "2"
+    ],
+    "answer": 1,
+    "why": "ι(p) wertet eine Linearform an p aus, hier also ev₃(p) = p(3) = 2 − 3 + 9 = 8. Das Argument von ι(p) ist die Linearform ev₃ und nicht die Zahl 3 selbst."
+   }
+  ]
+ },
+ "25": {
+  "questions": [
+   {
+    "q": "Im reellen Raum ℝ ⊕ ℝ² seien a = (2, (1, −1)) und b = (−3, (4, 2)). Welches Element ist 2a + b?",
+    "options": [
+     "(0, (6, 1))",
+     "(1, (6, 0))",
+     "(1, (0, 6))",
+     "(6, (1, 0))"
+    ],
+    "answer": 1,
+    "why": "Die Operationen erfolgen in beiden Komponenten getrennt: 2·2 − 3 = 1 und 2(1, −1) + (4, 2) = (6, 0). Die äussere direkte Summe vermischt die Komponenten nicht."
+   },
+   {
+    "q": "Für reelle Vektorräume V und W seien i_V(v) = (v, 0), p_V(v, w) = v und p_W(v, w) = w. Welche Regel gilt für die Verkettungen allgemein?",
+    "options": [
+     "p_V∘i_V = 0 und p_W∘i_V = id_V",
+     "p_V∘i_V = 0 und p_W∘i_V = 0",
+     "p_V∘i_V = id_V und p_W∘i_V = 0",
+     "p_V∘i_V = −id_V und p_W∘i_V = 0"
+    ],
+    "answer": 2,
+    "why": "Einbetten in die erste Komponente und Zurückprojizieren liefert den ursprünglichen Vektor. Die Projektion auf die zweite Komponente sieht dagegen den eingesetzten Nullvektor."
+   },
+   {
+    "q": "U = Sp((2, 1)) ⊆ ℝ². Welcher Vektor repräsentiert dieselbe Klasse in ℝ²/U wie v = (1, 3)?",
+    "options": [
+     "(1, 5)",
+     "(3, 5)",
+     "(5, 5)",
+     "(5, 3)"
+    ],
+    "answer": 2,
+    "why": "Die Differenz (5, 5) − (1, 3) = (4, 2) liegt in U. Klassen werden durch Differenzen in U verglichen, nicht durch Gleichheit einer einzelnen Koordinate."
+   },
+   {
+    "q": "Der K-Vektorraum V hat Dimension 7, sein Unterraum U hat Dimension 3. Welche Dimension hat V/U?",
+    "options": [
+     "7",
+     "3",
+     "4",
+     "10"
+    ],
+    "answer": 2,
+    "why": "Im Quotienten werden die drei Richtungen von U mit null identifiziert. Die verbleibende Dimension ist 7 − 3 = 4; Dimensionen werden hier nicht addiert."
+   },
+   {
+    "q": "T: ℝ³ → ℝ² sei T(x, y, z) = (x + 2y, z). Welche Formel gibt den vom Isomorphiesatz gelieferten Isomorphismus ℝ³/ker T → ℝ² an?",
+    "options": [
+     "(x, y, z) + ker T ↦ (x + 2y, 0)",
+     "(x, y, z) + ker T ↦ (x, y)",
+     "(x, y, z) + ker T ↦ (x + 2y, z)",
+     "(x, y, z) + ker T ↦ (x − 2y, z)"
+    ],
+    "answer": 2,
+    "why": "Die Klasse wird auf das Bild ihres Repräsentanten unter T geschickt; Hinzufügen eines Kernvektors ändert dieses Bild nicht. T erreicht ganz ℝ², während das Ersetzen der zweiten Ausgabe durch 0 diese Surjektivität zerstört."
+   }
+  ]
+ },
+ "26": {
+  "questions": [
+   {
+    "q": "T: V → W ist linear über K, U ⊆ V ein Untervektorraum. Welche Bedingung ist genau nötig, damit τ(v + U) = T(v) eine wohldefinierte Abbildung auf V/U ergibt?",
+    "options": [
+     "U ⊆ ker T",
+     "ker T ⊆ U",
+     "U = V",
+     "ker T = {0}"
+    ],
+    "answer": 0,
+    "why": "Repräsentanten einer Klasse unterscheiden sich um ein u ∈ U; ihre Bilder stimmen genau dann überein, wenn T(u) = 0 für sämtliche solchen u. Die umgekehrte Inklusion verhindert unterschiedliche Bilder innerhalb einer Klasse nicht."
+   },
+   {
+    "q": "In ℝ² seien U = Sp((1, 2)) und W = Sp((0, 1)), sodass ℝ² = U ⊕ W. Welcher Vektor in W repräsentiert die Klasse (3, 5) + U?",
+    "options": [
+     "(0, 11)",
+     "(0, 5)",
+     "(3, 5)",
+     "(0, −1)"
+    ],
+    "answer": 3,
+    "why": "Es gilt (3, 5) = 3(1, 2) + (0, −1). Die Projektion nach ℝ²/U identifiziert den ersten Summanden mit null; die zweite Koordinate von (3, 5) einfach zu übernehmen genügt nicht."
+   },
+   {
+    "q": "U = Sp((2, −1)) ⊆ ℝ². Welche Linearform auf ℝ² lässt sich als wohldefinierte Linearform auf ℝ²/U auffassen?",
+    "options": [
+     "ℓ(x, y) = 2x + y",
+     "ℓ(x, y) = x − 2y",
+     "ℓ(x, y) = 2x − y",
+     "ℓ(x, y) = x + 2y"
+    ],
+    "answer": 3,
+    "why": "Eine Linearform steigt genau dann auf den Quotienten ab, wenn sie auf U verschwindet. Für x + 2y ist der Wert an (2, −1) gleich 0; die anderen Kandidaten liefern dort Nichtnullwerte."
+   },
+   {
+    "q": "U = {(x, y, 0): x, y ∈ ℝ} ⊆ ℝ³. Was ist der Kern der Einschränkungsabbildung (ℝ³)* → U*, ℓ ↦ ℓ|_U?",
+    "options": [
+     "{ℓ(x, y, z) = cx: c ∈ ℝ}",
+     "{ℓ(x, y, z) = ax + by: a, b ∈ ℝ}",
+     "{ℓ(x, y, z) = cz: c ∈ ℝ}",
+     "{ℓ(x, y, z) = cy: c ∈ ℝ}"
+    ],
+    "answer": 2,
+    "why": "Auf der Ebene z = 0 verschwindet cz für beliebiges c. Eine Form ax + by + cz kann dort nur dann identisch null sein, wenn a = b = 0; der Kern ist der Annihilator von U."
+   },
+   {
+    "q": "V ist endlich-dimensional über K mit dim V = 6, und U ⊆ V hat Dimension 2. U^⊥ bezeichnet den Annihilator in V*. Welche Angaben stimmen?",
+    "options": [
+     "dim((V/U)*) = 6 und dim(V*/U^⊥) = 6",
+     "dim((V/U)*) = 2 und dim(V*/U^⊥) = 4",
+     "dim((V/U)*) = 4 und dim(V*/U^⊥) = 2",
+     "dim((V/U)*) = 4 und dim(V*/U^⊥) = 4"
+    ],
+    "answer": 2,
+    "why": "Der Quotient V/U hat Dimension 4, ebenso sein Dualraum. Über die Einschränkung ist V*/U^⊥ zu U* isomorph und hat deshalb Dimension 2; beide Dualitätsaussagen dürfen nicht vertauscht werden."
+   }
+  ]
+ },
+ "27": {
+  "questions": [
+   {
+    "q": "A = [4, 7; 2, 3] ist eine reelle 2×2-Matrix. Welche Aussage folgt aus ihrer Determinante? Semikolons trennen die Zeilen.",
+    "options": [
+     "det A = −2, also ist A nicht invertierbar",
+     "det A = 0, also ist A nicht invertierbar",
+     "det A = 2, also ist A invertierbar",
+     "det A = −2, also ist A invertierbar"
+    ],
+    "answer": 3,
+    "why": "Die 2×2-Regel ergibt 4·3 − 7·2 = −2. Entscheidend für Invertierbarkeit ist, dass die Determinante nicht null ist; ein negatives Vorzeichen ist kein Hindernis."
+   },
+   {
+    "q": "Für t ∈ ℝ sei A_t = [1, t; 3, 6]. Bei welchem Wert von t ist A_t nicht invertierbar? Semikolons trennen die Zeilen.",
+    "options": [
+     "t = −2",
+     "t = 3",
+     "t = 2",
+     "t = 6"
+    ],
+    "answer": 2,
+    "why": "Es gilt det A_t = 6 − 3t, also verschwindet die Determinante genau bei t = 2. Dann ist die zweite Zeile das Dreifache der ersten."
+   },
+   {
+    "q": "T: ℝ² → ℝ² ist durch T(x, y) = (2x + y, 3y) gegeben. Welcher Vektor ist ein Eigenvektor zum Eigenwert 3?",
+    "options": [
+     "(0, 0)",
+     "(1, 1)",
+     "(1, 0)",
+     "(0, 1)"
+    ],
+    "answer": 1,
+    "why": "Für (1, 1) gilt T(1, 1) = (3, 3) = 3(1, 1). Der Nullvektor erfüllt zwar die Gleichung, ist aber per Definition kein Eigenvektor; (1, 0) gehört zum Eigenwert 2."
+   },
+   {
+    "q": "Fib umfasst die reellen Folgen mit aₙ₊₂ = aₙ₊₁ + aₙ für n ≥ 0, ohne festgelegte Anfangswerte. Welche Dimension hat dieser Teilraum?",
+    "options": [
+     "2",
+     "1",
+     "3",
+     "∞"
+    ],
+    "answer": 0,
+    "why": "Die beiden frei wählbaren Startwerte a₀ und a₁ bestimmen sämtliche weiteren Glieder. Diese Zuordnung zu ℝ² ist linear und bijektiv; unendlich viele Glieder bedeuten hier keine unendliche Dimension."
+   },
+   {
+    "q": "In P²(ℝ) beschreiben Nichtnullvektoren denselben Punkt, wenn sie sich um einen von null verschiedenen Skalarfaktor unterscheiden. Welcher Vektor gehört zum selben Punkt wie (2, −1, 3)?",
+    "options": [
+     "(−4, 2, −6)",
+     "(4, −2, 3)",
+     "(0, 0, 0)",
+     "(−2, −1, −3)"
+    ],
+    "answer": 0,
+    "why": "Der erste Vektor ist −2 mal (2, −1, 3). Der Faktor muss für sämtliche Komponenten derselbe sein; der Nullvektor ist als Repräsentant ausgeschlossen."
+   }
+  ]
+ }
+}

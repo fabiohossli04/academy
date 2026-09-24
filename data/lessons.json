@@ -657,15 +657,400 @@
     "creators": [
       "Einsiedler, Manfred"
     ],
-    "lessons": []
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Fibonacci-Folgen und Aussagenlogik",
+        "topics": [
+          "Fibonacci-Folgen",
+          "goldener Schnitt",
+          "Implikation",
+          "Wahrheitstafeln"
+        ],
+        "clips": [
+          "a012bc3a-1c2d-4159-b871-e12b5a2b056b"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Quantoren und naive Mengenlehre",
+        "topics": [
+          "All- und Existenzquantor",
+          "Reihenfolge der Quantoren",
+          "kartesisches Produkt"
+        ],
+        "clips": [
+          "70418057-298c-4700-8537-5107fd5a6fb3"
+        ]
+      },
+      {
+        "nr": 3,
+        "title": "Mengenfamilien, Russell-Paradox und Abbildungen",
+        "topics": [
+          "Durchschnitt von Mengenfamilien",
+          "Russell-Paradox",
+          "Abbildung",
+          "injektiv"
+        ],
+        "clips": [
+          "78d583aa-1210-40cd-be2e-dae732bcc332"
+        ]
+      },
+      {
+        "nr": 4,
+        "title": "Verknüpfung, Urbild und Körper",
+        "topics": [
+          "Verknüpfung",
+          "Umkehrabbildung",
+          "Bild und Urbild",
+          "Körper"
+        ],
+        "clips": [
+          "b23a3cf7-47b9-4ebd-879d-95fb8f1d338e"
+        ]
+      },
+      {
+        "nr": 5,
+        "title": "Lineare Gleichungssysteme und Zeilenoperationen",
+        "topics": [
+          "erweiterte Matrix",
+          "elementare Zeilenoperationen",
+          "Zeilenäquivalenz"
+        ],
+        "clips": [
+          "4de7c838-dae8-4fd6-851f-5b144a3febe7"
+        ]
+      },
+      {
+        "nr": 6,
+        "title": "Gauss-Elimination",
+        "topics": [
+          "Pivot",
+          "reduzierte Zeilenstufenform",
+          "Gauss-Algorithmus"
+        ],
+        "clips": [
+          "9c60935a-94be-4e11-a522-4cfd51f15e4c"
+        ]
+      },
+      {
+        "nr": 7,
+        "title": "Vektorräume und Teilräume",
+        "topics": [
+          "Vektorraumaxiome",
+          "Koordinatenraum Kⁿ",
+          "Teilraum",
+          "Lösungsmengen"
+        ],
+        "clips": [
+          "06900833-d3da-42c3-8b4b-c54aa9e24d2b"
+        ]
+      },
+      {
+        "nr": 8,
+        "title": "Folgenräume, Funktionenräume und Span",
+        "topics": [
+          "Folgenraum",
+          "Fibonacci-Teilraum",
+          "Funktionenraum",
+          "Span"
+        ],
+        "clips": [
+          "dba26265-3ebc-4401-a4f2-912f9ef25158"
+        ],
+        "creators": []
+      },
+      {
+        "nr": 9,
+        "title": "Span und Linearkombinationen",
+        "topics": [
+          "Linearkombination",
+          "kleinster Teilraum",
+          "Teilräume der Ebene",
+          "Erzeugende"
+        ],
+        "clips": [
+          "29415b90-6aad-4a67-96f4-813191d4c3e4"
+        ],
+        "creators": []
+      },
+      {
+        "nr": 10,
+        "title": "Lineare Unabhängigkeit",
+        "topics": [
+          "lineare Unabhängigkeit",
+          "Standardbasis-Matrizen",
+          "Monome",
+          "eindeutige Darstellung"
+        ],
+        "clips": [
+          "e54c2a40-d9d8-46a0-89cf-354b2950bb8c"
+        ]
+      },
+      {
+        "nr": 11,
+        "title": "Basis und Dimension",
+        "topics": [
+          "Erzeugendenmenge",
+          "Basis",
+          "Austausch",
+          "Dimension"
+        ],
+        "clips": [
+          "96a5bb98-0311-4a9d-a3ac-c1af6e9e5757"
+        ]
+      },
+      {
+        "nr": 12,
+        "title": "Endlich-dimensionale Vektorräume",
+        "topics": [
+          "Austauschlemma",
+          "Existenz einer Basis",
+          "Dimension berechnen",
+          "Basisergänzung"
+        ],
+        "clips": [
+          "6764180a-0458-4b69-b0da-7644e89eaad7"
+        ]
+      },
+      {
+        "nr": 13,
+        "title": "Zeilenraum, Spaltenraum und Rang",
+        "topics": [
+          "dim U ≤ dim V",
+          "Fragen in Kᵐ mit Gauss",
+          "Zeilen- und Spaltenraum",
+          "Zeilenrang"
+        ],
+        "clips": [
+          "809a4841-b33a-494c-9209-f71001ba3dd3"
+        ]
+      },
+      {
+        "nr": 14,
+        "title": "Transposition und Summen von Teilräumen",
+        "topics": [
+          "Pivotspalten",
+          "Transposition",
+          "Summe von Teilräumen",
+          "Dimensionsformel"
+        ],
+        "clips": [
+          "6d62f28e-698b-4524-a554-3e7a52ce796c"
+        ]
+      },
+      {
+        "nr": 15,
+        "title": "Lineare Abbildungen",
+        "topics": [
+          "Linearität",
+          "Hom(V, W)",
+          "Abbildung x ↦ Ax",
+          "Festlegung durch eine Basis"
+        ],
+        "clips": [
+          "b259ee9d-f962-4bf6-a226-ab2df8c8c6cc"
+        ]
+      },
+      {
+        "nr": 16,
+        "title": "Kern, Bild und Rangsatz",
+        "topics": [
+          "Matrizen und lineare Abbildungen",
+          "Kern und Injektivität",
+          "Isomorphismus",
+          "Rangsatz"
+        ],
+        "clips": [
+          "b02e7f5d-025d-4339-8ad9-1f13cd0f21d2"
+        ]
+      },
+      {
+        "nr": 17,
+        "title": "Isomorphismen und Koordinaten",
+        "topics": [
+          "Isomorphismen erhalten Basen",
+          "Dimension und Injektivität",
+          "Koordinatenabbildung"
+        ],
+        "clips": [
+          "26e399aa-26b6-4284-a29d-f7125db47b0e"
+        ]
+      },
+      {
+        "nr": 18,
+        "title": "Darstellungsmatrizen und Matrixprodukt",
+        "topics": [
+          "Darstellungsmatrix",
+          "Matrixmultiplikation",
+          "Verkettung"
+        ],
+        "clips": [
+          "1e53212b-c9cb-4dd6-9e72-95b981e8496e"
+        ]
+      },
+      {
+        "nr": 19,
+        "title": "Rechnen mit Matrizen",
+        "topics": [
+          "Einheitsmatrix",
+          "Assoziativität",
+          "Inverse und GLₙ(K)",
+          "Transponierte"
+        ],
+        "clips": [
+          "2ef4c5ab-50f6-4395-bad6-60b0ecfc4e72"
+        ]
+      },
+      {
+        "nr": 20,
+        "title": "Basiswechsel",
+        "topics": [
+          "Basiswechselmatrix",
+          "äquivalente Matrizen",
+          "ähnliche Matrizen",
+          "Normalform"
+        ],
+        "clips": [
+          "b73e57a2-737c-4362-9684-433416ac170a"
+        ]
+      },
+      {
+        "nr": 21,
+        "title": "Spaltenrang gleich Zeilenrang und Lösbarkeit",
+        "topics": [
+          "Rang",
+          "freie Variablen",
+          "partikuläre Lösung",
+          "Lösbarkeitskriterium"
+        ],
+        "clips": [
+          "634d2e9f-d3e9-4d94-b472-49d53e9a5a5b"
+        ]
+      },
+      {
+        "nr": 22,
+        "title": "Elementarmatrizen und Inverse",
+        "topics": [
+          "Elementarmatrizen",
+          "Inverse mit Gauss",
+          "Hom(V, W) und Matrizen"
+        ],
+        "clips": [
+          "ea8e9180-0449-418d-9653-24a4eb355b40"
+        ]
+      },
+      {
+        "nr": 23,
+        "title": "Hom(V, W) und Dualraum",
+        "topics": [
+          "dim Hom(V, W)",
+          "Dualraum",
+          "duale Basis"
+        ],
+        "clips": [
+          "c76e8e1d-be7d-4c48-9cb1-52d1ac42e7c0"
+        ]
+      },
+      {
+        "nr": 24,
+        "title": "Duale Abbildung, Annihilator und Bidualraum",
+        "topics": [
+          "duale Abbildung",
+          "Annihilator",
+          "Bidualraum"
+        ],
+        "clips": [
+          "9ba8116b-22eb-4cd3-bad5-f50cfd4d8425"
+        ]
+      },
+      {
+        "nr": 25,
+        "title": "Direkte Summen und Quotientenräume",
+        "topics": [
+          "äussere direkte Summe",
+          "Quotientenraum",
+          "dim V/U",
+          "Isomorphiesatz"
+        ],
+        "clips": [
+          "9101b739-351d-4f96-b443-c564acda75ec"
+        ]
+      },
+      {
+        "nr": 26,
+        "title": "Quotientenräume und Dualität",
+        "topics": [
+          "Isomorphiesatz",
+          "lineares Komplement",
+          "Dualraum eines Quotienten"
+        ],
+        "clips": [
+          "99a4717a-cc86-483a-bab9-4f3bf21d2d7a"
+        ]
+      },
+      {
+        "nr": 27,
+        "title": "Ausblick: Determinante, Eigenwerte, projektive Ebene",
+        "topics": [
+          "2×2-Determinante",
+          "Eigenwerte",
+          "Fibonacci als Teilraum",
+          "projektive Ebene"
+        ],
+        "clips": [
+          "e71ca7ff-f2f8-4ef6-8636-4f7f7c5229ea"
+        ]
+      }
+    ]
   },
   "analysis": {
     "portal": "/lectures/d-math/2026/autumn/401-1261-07L",
     "title": "Analysis I: eine Variable",
     "subtitle": "ETH Zürich · Manfred Einsiedler · HS 2026",
     "lang": "de",
-    "why": "Das Fundament unter jeder Formel, die du bisher einfach benutzt hast: Mengen und Funktionen, reelle Zahlen, Grenzwerte, Stetigkeit, Ableitung und Integral in einer Variablen - bewiesen statt nur gerechnet. Läuft gerade, auf Deutsch mit Untertiteln.",
+    "why": "Das Fundament unter jeder Formel, die du bisher einfach benutzt hast: reelle Zahlen, Folgen und Reihen, Stetigkeit, Ableitung und Integral in einer Variablen - bewiesen statt nur gerechnet. Läuft gerade, auf Deutsch mit Untertiteln.",
     "running": true,
-    "lessons": []
+    "lessons": [
+      {
+        "nr": 1,
+        "title": "Quadratur der Parabel und logische Begriffe",
+        "topics": [
+          "Fläche unter der Parabel",
+          "vollständige Induktion",
+          "Ober- und Untersummen",
+          "Negation von Quantoren"
+        ],
+        "clips": [
+          "ef956ddf-4be9-4814-9b52-414853dc0936"
+        ]
+      },
+      {
+        "nr": 2,
+        "title": "Naive Mengenlehre und Abbildungen",
+        "topics": [
+          "Mengenoperationen",
+          "Potenzmenge",
+          "Russell-Paradox",
+          "injektiv, surjektiv, bijektiv"
+        ],
+        "clips": [
+          "394936a0-3870-4fae-93b3-a9ef614cc9da"
+        ]
+      },
+      {
+        "nr": 3,
+        "title": "Umkehrabbildung, Graph und Äquivalenzrelationen",
+        "topics": [
+          "Umkehrabbildung",
+          "Verknüpfung",
+          "Graph einer Funktion",
+          "Äquivalenzrelation"
+        ],
+        "clips": [
+          "45c0d051-fddd-46fa-b49e-8dc66f827622"
+        ]
+      }
+    ]
   }
 }

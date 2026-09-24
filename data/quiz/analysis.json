@@ -1,0 +1,179 @@
+{
+ "1": {
+  "questions": [
+   {
+    "q": "Die Fläche unter y = x² zwischen x = 0 und x = 2 wird mit vier gleich breiten Rechtecken abgeschätzt. Welche Unter- und Obersumme ergeben die linken beziehungsweise rechten Randpunkte?",
+    "options": [
+     "Untersumme 7/2, Obersumme 15/2",
+     "Untersumme 15/4, Obersumme 7/4",
+     "Untersumme 7/4, Obersumme 15/4",
+     "Untersumme 7/8, Obersumme 15/8"
+    ],
+    "answer": 2,
+    "why": "Die Rechteckbreite beträgt 1/2, und x² wächst auf diesem Intervall. Links erhältst du (1/2)·(0 + 1/4 + 1 + 9/4) = 7/4, rechts (1/2)·(1/4 + 1 + 9/4 + 4) = 15/4."
+   },
+   {
+    "q": "Für die Quadratsumme wird F(n) = n(n+1)(2n+1)/6 vermutet. Der Induktionsanfang n = 1 ist geprüft. Welche Identität ermöglicht den Schritt von der Summe mit n Summanden zur Summe mit n+1 Summanden?",
+    "options": [
+     "F(n+1) − F(n) = (n+1)²",
+     "F(n+1) − F(n) = n²",
+     "F(n+1) − F(n) = 2n + 1",
+     "F(n+1) + F(n) = (n+1)²"
+    ],
+    "answer": 0,
+    "why": "Beim Verlängern der Summe kommt das Quadrat (n+1)² hinzu. Setzt du für die bisherige Summe die Induktionsannahme F(n) ein, muss F(n) + (n+1)² mit F(n+1) übereinstimmen."
+   },
+   {
+    "q": "Eine feste Zahl a ∈ ℝ erfüllt 2 − 3/n ≤ a ≤ 2 + 3/n für jedes n ∈ ℕ. Für einen Widerspruchsbeweis setzt du d = |a − 2| > 0. Welche Bedingung an n garantiert einen Widerspruch zu d ≤ 3/n?",
+    "options": [
+     "n ist natürlich und n < 3/d",
+     "n ist natürlich und n = 3/d",
+     "n ist natürlich und n ≤ 3/d",
+     "n ist natürlich und n > 3/d"
+    ],
+    "answer": 3,
+    "why": "Das archimedische Prinzip liefert eine natürliche Zahl oberhalb von 3/d. Für diese Wahl gilt 3/n < d, obwohl die Voraussetzung d ≤ 3/n verlangt; daher bleibt a = 2."
+   },
+   {
+    "q": "P(x,n) und Q(x,n) stehen für beliebige Aussagen. Welche Formel verneint «∀x∈ℝ ∃n∈ℕ: P(x,n) ∨ Q(x,n)»? Das Zeichen ∨ bezeichnet das einschliessende Oder.",
+    "options": [
+     "∀x∈ℝ ∃n∈ℕ: ¬P(x,n) ∧ ¬Q(x,n)",
+     "∃x∈ℝ ∀n∈ℕ: ¬P(x,n) ∧ ¬Q(x,n)",
+     "∃x∈ℝ ∀n∈ℕ: ¬P(x,n) ∨ ¬Q(x,n)",
+     "∀x∈ℝ ∃n∈ℕ: ¬P(x,n) ∨ ¬Q(x,n)"
+    ],
+    "answer": 1,
+    "why": "Die Verneinung vertauscht die Quantoren und verlangt ein gemeinsames x, für das bei jeder Wahl von n beide Aussagen falsch sind. Ein einschliessendes Oder scheitert erst, wenn keiner seiner beiden Teile zutrifft."
+   },
+   {
+    "q": "Vergleiche I: ∀m∈ℕ ∃n∈ℕ: n > 3m und II: ∃n∈ℕ ∀m∈ℕ: n > 3m. Dabei beginnt ℕ mit 1. Welche Bewertung stimmt?",
+    "options": [
+     "I ist wahr und II ist falsch",
+     "I ist falsch und II ist wahr",
+     "I ist wahr und II ist wahr",
+     "I ist falsch und II ist falsch"
+    ],
+    "answer": 0,
+    "why": "Bei I passt etwa n = 3m + 1. Für II darf n nicht von m abhängen; die Wahl m = n würde n > 3n verlangen, was wegen n ≥ 1 unmöglich ist."
+   }
+  ]
+ },
+ "2": {
+  "questions": [
+   {
+    "q": "Gegeben sind A = {−2, 3, 6} und B = {3, 6, 9}. Welche Menge ist die symmetrische Differenz A △ B?",
+    "options": [
+     "{−2, 3, 6, 9}",
+     "{3, 6}",
+     "{−2}",
+     "{−2, 9}"
+    ],
+    "answer": 3,
+    "why": "Die gemeinsamen Elemente 3 und 6 fallen heraus. Übrig bleiben −2 aus A und 9 aus B, denn diese beiden Zahlen gehören jeweils genau einer der Mengen an."
+   },
+   {
+    "q": "Sei A = {3, 8, 11, 14}. Wie viele Elemente der Potenzmenge P(A) enthalten die Zahl 3 und enthalten die Zahl 8 nicht?",
+    "options": [
+     "2 Teilmengen",
+     "4 Teilmengen",
+     "8 Teilmengen",
+     "16 Teilmengen"
+    ],
+    "answer": 1,
+    "why": "Die Zugehörigkeit von 3 und 8 ist festgelegt. Für 11 und 14 bleibt jeweils die Wahl zwischen Aufnahme und Weglassen, also ergeben sich 2·2 = 4 Teilmengen."
+   },
+   {
+    "q": "Sei A eine bereits vorhandene Menge und B = {x∈A : x∉x}. Welche Aussage folgt aus dieser eingeschränkten Variante der Mengenbildung beim Russell-Paradox?",
+    "options": [
+     "B ∈ A",
+     "B ∈ B",
+     "B ∉ A",
+     "B ∉ P(A)"
+    ],
+    "answer": 2,
+    "why": "Wäre B ein Element von A, müsste nach der Auswahlregel B∈B genau dann gelten, wenn B∉B gilt. Dieser Widerspruch schliesst B∈A aus und wegen B ⊆ A auch B∈B. Als Teilmenge von A gehört B trotzdem zur Potenzmenge P(A)."
+   },
+   {
+    "q": "Mit ℕ = {1, 2, 3, …} sei f: ℕ → ℕ durch f(n) = n + 4 gegeben. Welche Beschreibung trifft zu?",
+    "options": [
+     "f ist injektiv und nicht surjektiv",
+     "f ist surjektiv und nicht injektiv",
+     "f ist injektiv und surjektiv",
+     "f ist nicht injektiv und nicht surjektiv"
+    ],
+    "answer": 0,
+    "why": "Aus n + 4 = m + 4 folgt n = m, also ist f injektiv. Die Zielwerte 1, 2, 3 und 4 werden nicht erreicht, weshalb die Surjektivität fehlt."
+   },
+   {
+    "q": "Die Funktionen f: {−4, 2} → {1, 7} und g: {−4, 2} → {1, 7, 9} verwenden beide x ↦ x + 5. Funktionen gelten nur als gleich, wenn Definitionsbereich, Zielbereich und Zuordnung übereinstimmen. Sind f und g gleich, und ist g surjektiv?",
+    "options": [
+     "Sie sind gleich und g ist surjektiv",
+     "Sie sind verschieden und g ist surjektiv",
+     "Sie sind verschieden und g ist nicht surjektiv",
+     "Sie sind gleich und g ist nicht surjektiv"
+    ],
+    "answer": 2,
+    "why": "Die Zielmengen unterscheiden sich, deshalb sind f und g verschiedene Funktionen. Beide treffen 1 und 7, doch g hat zusätzlich den unerreichten Zielwert 9."
+   }
+  ]
+ },
+ "3": {
+  "questions": [
+   {
+    "q": "Seien f, g: ℝ → ℝ mit f(x) = 5x − 2 und g(x) = x + 7. Für h = g∘f wird die Umkehrabbildung gesucht. Welche Vorschrift stimmt?",
+    "options": [
+     "h⁻¹(y) = (y + 7 − 2)/5",
+     "h⁻¹(y) = (y − 7 + 2)/5",
+     "h⁻¹(y) = (y + 2)/5 − 7",
+     "h⁻¹(y) = (y − 2)/5 + 7"
+    ],
+    "answer": 1,
+    "why": "Beim Rückweg wird zuerst die Addition von 7 rückgängig gemacht, danach die Regel f. Daher gilt h⁻¹(y) = f⁻¹(g⁻¹(y)) = (y − 7 + 2)/5; die Reihenfolge der beiden Umkehrabbildungen ist entscheidend."
+   },
+   {
+    "q": "X = {−1, 4, 10} und Y = {2, 7}. Wie viele Funktionen gehören zur Menge Y^X, wenn verschiedene Argumente denselben Wert erhalten dürfen?",
+    "options": [
+     "3 Funktionen",
+     "6 Funktionen",
+     "9 Funktionen",
+     "8 Funktionen"
+    ],
+    "answer": 3,
+    "why": "An den drei Argumenten stehen unabhängig voneinander zwei Zielwerte zur Wahl. Das ergibt 2·2·2 = 8 Funktionen; Injektivität wird dabei nicht verlangt."
+   },
+   {
+    "q": "Eine Teilmenge G von ℝ² schneidet jede vertikale Gerade genau einmal. Horizontale Geraden schneiden G höchstens einmal, und mindestens eine horizontale Gerade trifft G gar nicht. Welche Beschreibung gilt für G als Graph einer Abbildung ℝ → ℝ?",
+    "options": [
+     "G beschreibt eine injektive, aber keine surjektive Funktion",
+     "G beschreibt eine surjektive, aber keine injektive Funktion",
+     "G beschreibt eine injektive und zugleich surjektive Funktion",
+     "G beschreibt weder eine injektive noch eine surjektive Funktion"
+    ],
+    "answer": 0,
+    "why": "Die vertikalen Schnittpunkte sichern für jedes Argument einen eindeutig bestimmten Wert. Horizontal gibt es keine mehrfachen Treffer, also ist die Funktion injektiv; die verfehlte Gerade zeigt einen fehlenden Zielwert."
+   },
+   {
+    "q": "Die ganzen Zahlen werden in die Fälle x < 0 und x ≥ 0 aufgeteilt. Es gilt h(x) = x + 5 im ersten Fall und h(x) = x − 3 im zweiten. Welchen Wert liefert die zweimalige Anwendung h(h(−2))?",
+    "options": [
+     "h(h(−2)) = 8",
+     "h(h(−2)) = 3",
+     "h(h(−2)) = 0",
+     "h(h(−2)) = 9"
+    ],
+    "answer": 2,
+    "why": "Zuerst gilt h(−2) = −2 + 5 = 3. Bei der zweiten Anwendung liegt das Argument im anderen Teil der Partition, daher folgt h(3) = 3 − 3 = 0."
+   },
+   {
+    "q": "Auf ℝ sei x ∼ y durch |x − y| < 4 definiert. Welches Tripel (x, y, z) widerlegt die Transitivität, weil x ∼ y und y ∼ z gelten, aber x ∼ z nicht gilt?",
+    "options": [
+     "(x, y, z) = (0, 1, 3)",
+     "(x, y, z) = (2, 5, 8)",
+     "(x, y, z) = (0, 4, 6)",
+     "(x, y, z) = (1, 3, 7)"
+    ],
+    "answer": 1,
+    "why": "Die benachbarten Abstände betragen 3 und 3, während der Abstand von 2 zu 8 gleich 6 ist. Die Relation ist reflexiv und symmetrisch, doch dieses Gegenbeispiel zur Transitivität verhindert eine Äquivalenzrelation."
+   }
+  ]
+ }
+}

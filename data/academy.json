@@ -556,6 +556,683 @@
       ]
     },
     {
+      "id": "linalg",
+      "kind": "stream",
+      "title": "Lineare Algebra I",
+      "subtitle": "ETH Zürich · Manfred Einsiedler · HS 2022",
+      "lang": "de",
+      "why": "Das Werkzeug hinter Grafik, Statistik und maschinellem Lernen: Gleichungssysteme, Vektorräume, lineare Abbildungen und Matrizen - hergeleitet statt als Rezept. Danach weisst du, warum Gauss-Elimination funktioniert und was eine Matrix eigentlich darstellt. Tafelvorlesung auf Deutsch, ohne Untertitel.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-math/2022/autumn/401-1151-00_f7_l",
+      "running": false,
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Fibonacci-Folgen und Aussagenlogik",
+          "topics": [
+            "Fibonacci-Folgen",
+            "goldener Schnitt",
+            "Implikation",
+            "Wahrheitstafeln"
+          ],
+          "durationMs": 5383019.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "a012bc3a-1c2d-4159-b871-e12b5a2b056b",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/a012bc3a-1c2d-4159-b871-e12b5a2b056b/d9e46bf6-6d71-4314-90ff-f0347aff8a4c/presentation_96745ce7_72bf_450e_a17c_471f15283e55.mp4",
+              "durationMs": 5383019.0
+            }
+          ]
+        },
+        {
+          "nr": 2,
+          "title": "Quantoren und naive Mengenlehre",
+          "topics": [
+            "All- und Existenzquantor",
+            "Reihenfolge der Quantoren",
+            "kartesisches Produkt"
+          ],
+          "durationMs": 5410432.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "70418057-298c-4700-8537-5107fd5a6fb3",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/70418057-298c-4700-8537-5107fd5a6fb3/cccd3486-79e8-4abb-bff6-0e680675c1b0/presentation_b49cfa91_618e_40e7_9d75_dba00865e78c.mp4",
+              "durationMs": 5410432.0
+            }
+          ]
+        },
+        {
+          "nr": 3,
+          "title": "Mengenfamilien, Russell-Paradox und Abbildungen",
+          "topics": [
+            "Durchschnitt von Mengenfamilien",
+            "Russell-Paradox",
+            "Abbildung",
+            "injektiv"
+          ],
+          "durationMs": 5431920.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "78d583aa-1210-40cd-be2e-dae732bcc332",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/78d583aa-1210-40cd-be2e-dae732bcc332/7987e325-d334-46fe-9ac5-479cf0a42de8/presentation_0634a3ff_7ea2_4e4c_9e21_5cc5fbd34b27.mp4",
+              "durationMs": 5431920.0
+            }
+          ]
+        },
+        {
+          "nr": 4,
+          "title": "Verknüpfung, Urbild und Körper",
+          "topics": [
+            "Verknüpfung",
+            "Umkehrabbildung",
+            "Bild und Urbild",
+            "Körper"
+          ],
+          "durationMs": 5444040.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "b23a3cf7-47b9-4ebd-879d-95fb8f1d338e",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b23a3cf7-47b9-4ebd-879d-95fb8f1d338e/38ce7773-4ff1-4183-9afb-be9c5f978a34/presentation_18d71702_e842_494e_9a23_6943de455355.mp4",
+              "durationMs": 5444040.0
+            }
+          ]
+        },
+        {
+          "nr": 5,
+          "title": "Lineare Gleichungssysteme und Zeilenoperationen",
+          "topics": [
+            "erweiterte Matrix",
+            "elementare Zeilenoperationen",
+            "Zeilenäquivalenz"
+          ],
+          "durationMs": 5292240.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "4de7c838-dae8-4fd6-851f-5b144a3febe7",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/4de7c838-dae8-4fd6-851f-5b144a3febe7/f0a18b8b-93f9-48e5-ad0a-8fc188d2f82c/presentation_32bc8842_a1e5_4c6c_bcec_60cda4fbb652.mp4",
+              "durationMs": 5292240.0
+            }
+          ]
+        },
+        {
+          "nr": 6,
+          "title": "Gauss-Elimination",
+          "topics": [
+            "Pivot",
+            "reduzierte Zeilenstufenform",
+            "Gauss-Algorithmus"
+          ],
+          "durationMs": 5108246.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "9c60935a-94be-4e11-a522-4cfd51f15e4c",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9c60935a-94be-4e11-a522-4cfd51f15e4c/a666208e-8926-44cd-a9bf-8d989ed9d0c6/presentation_fc014e41_c162_4a87_b8e6_080d9bb57c9e.mp4",
+              "durationMs": 5108246.0
+            }
+          ]
+        },
+        {
+          "nr": 7,
+          "title": "Vektorräume und Teilräume",
+          "topics": [
+            "Vektorraumaxiome",
+            "Koordinatenraum Kⁿ",
+            "Teilraum",
+            "Lösungsmengen"
+          ],
+          "durationMs": 5471120.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "06900833-d3da-42c3-8b4b-c54aa9e24d2b",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/06900833-d3da-42c3-8b4b-c54aa9e24d2b/455305e7-485c-4c0a-bbfd-b048311e73de/presentation_59a29d66_d104_447d_88a6_82c1a03fda50.mp4",
+              "durationMs": 5471120.0
+            }
+          ]
+        },
+        {
+          "nr": 8,
+          "title": "Folgenräume, Funktionenräume und Span",
+          "topics": [
+            "Folgenraum",
+            "Fibonacci-Teilraum",
+            "Funktionenraum",
+            "Span"
+          ],
+          "durationMs": 5657366.0,
+          "creators": [],
+          "clips": [
+            {
+              "opencastId": "dba26265-3ebc-4401-a4f2-912f9ef25158",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/dba26265-3ebc-4401-a4f2-912f9ef25158/1bc59a0a-2b7a-4713-bc6d-ff471e79ad6a/presentation_8a3ae886_7391_447c_8c67_77f84cf61230.mp4",
+              "durationMs": 5657366.0
+            }
+          ]
+        },
+        {
+          "nr": 9,
+          "title": "Span und Linearkombinationen",
+          "topics": [
+            "Linearkombination",
+            "kleinster Teilraum",
+            "Teilräume der Ebene",
+            "Erzeugende"
+          ],
+          "durationMs": 5642134.0,
+          "creators": [],
+          "clips": [
+            {
+              "opencastId": "29415b90-6aad-4a67-96f4-813191d4c3e4",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/29415b90-6aad-4a67-96f4-813191d4c3e4/7a9db967-6abe-46cb-8966-0271d99d6808/presentation_989eddf6_be22_4a8f_8dc3_04d90bd30c20.mp4",
+              "durationMs": 5642134.0
+            }
+          ]
+        },
+        {
+          "nr": 10,
+          "title": "Lineare Unabhängigkeit",
+          "topics": [
+            "lineare Unabhängigkeit",
+            "Standardbasis-Matrizen",
+            "Monome",
+            "eindeutige Darstellung"
+          ],
+          "durationMs": 5511720.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "e54c2a40-d9d8-46a0-89cf-354b2950bb8c",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/e54c2a40-d9d8-46a0-89cf-354b2950bb8c/85b6cffa-2cda-4286-baed-6ef6b7142e9d/presentation_6dc8cdd0_9365_49e9_87a3_4a8b10ef5979.mp4",
+              "durationMs": 5511720.0
+            }
+          ]
+        },
+        {
+          "nr": 11,
+          "title": "Basis und Dimension",
+          "topics": [
+            "Erzeugendenmenge",
+            "Basis",
+            "Austausch",
+            "Dimension"
+          ],
+          "durationMs": 5506520.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "96a5bb98-0311-4a9d-a3ac-c1af6e9e5757",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/96a5bb98-0311-4a9d-a3ac-c1af6e9e5757/bbe90cab-18d6-461c-91a7-c749de18be63/presentation_d3243dfd_8d0e_457c_abb7_2e442d7d77ab.mp4",
+              "durationMs": 5506520.0
+            }
+          ]
+        },
+        {
+          "nr": 12,
+          "title": "Endlich-dimensionale Vektorräume",
+          "topics": [
+            "Austauschlemma",
+            "Existenz einer Basis",
+            "Dimension berechnen",
+            "Basisergänzung"
+          ],
+          "durationMs": 5455160.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "6764180a-0458-4b69-b0da-7644e89eaad7",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/6764180a-0458-4b69-b0da-7644e89eaad7/f253d128-9f78-4b77-8d15-9ddca0824807/presentation_d58f4ee8_7d19_4e8b_9990_777aafda8de2.mp4",
+              "durationMs": 5455160.0
+            }
+          ]
+        },
+        {
+          "nr": 13,
+          "title": "Zeilenraum, Spaltenraum und Rang",
+          "topics": [
+            "dim U ≤ dim V",
+            "Fragen in Kᵐ mit Gauss",
+            "Zeilen- und Spaltenraum",
+            "Zeilenrang"
+          ],
+          "durationMs": 5401360.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "809a4841-b33a-494c-9209-f71001ba3dd3",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/809a4841-b33a-494c-9209-f71001ba3dd3/9eafb52b-cd33-4927-a35b-acd4d1e2942a/presentation_6e3ddfc2_b9f3_4e96_804e_d78d86e8f0f2.mp4",
+              "durationMs": 5401360.0
+            }
+          ]
+        },
+        {
+          "nr": 14,
+          "title": "Transposition und Summen von Teilräumen",
+          "topics": [
+            "Pivotspalten",
+            "Transposition",
+            "Summe von Teilräumen",
+            "Dimensionsformel"
+          ],
+          "durationMs": 5786560.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "6d62f28e-698b-4524-a554-3e7a52ce796c",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/6d62f28e-698b-4524-a554-3e7a52ce796c/55992d87-0f31-43a0-91b4-8a48f5cdbdbf/presentation_afc6fdba_2d00_4c26_b6b4_3d3b92fc6fc4.mp4",
+              "durationMs": 5786560.0
+            }
+          ]
+        },
+        {
+          "nr": 15,
+          "title": "Lineare Abbildungen",
+          "topics": [
+            "Linearität",
+            "Hom(V, W)",
+            "Abbildung x ↦ Ax",
+            "Festlegung durch eine Basis"
+          ],
+          "durationMs": 4489640.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "b259ee9d-f962-4bf6-a226-ab2df8c8c6cc",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b259ee9d-f962-4bf6-a226-ab2df8c8c6cc/cc1302f2-d82a-42d3-a8af-9fcaef51e59d/presentation_90ab2143_e68d_46ea_b2f0_4dd3c1eff188.mp4",
+              "durationMs": 4489640.0
+            }
+          ]
+        },
+        {
+          "nr": 16,
+          "title": "Kern, Bild und Rangsatz",
+          "topics": [
+            "Matrizen und lineare Abbildungen",
+            "Kern und Injektivität",
+            "Isomorphismus",
+            "Rangsatz"
+          ],
+          "durationMs": 5367040.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "b02e7f5d-025d-4339-8ad9-1f13cd0f21d2",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b02e7f5d-025d-4339-8ad9-1f13cd0f21d2/122c7041-ab54-43e6-91a0-dfbee4043334/presentation_7c6180c9_645d_430c_a7d7_6dfb12c0e141.mp4",
+              "durationMs": 5367040.0
+            }
+          ]
+        },
+        {
+          "nr": 17,
+          "title": "Isomorphismen und Koordinaten",
+          "topics": [
+            "Isomorphismen erhalten Basen",
+            "Dimension und Injektivität",
+            "Koordinatenabbildung"
+          ],
+          "durationMs": 5276523.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "26e399aa-26b6-4284-a29d-f7125db47b0e",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/26e399aa-26b6-4284-a29d-f7125db47b0e/6161c908-2199-489b-969c-6a049852bdd7/presentation_d744b53e_5bcd_4ab3_864b_7332032b0aeb.mp4",
+              "durationMs": 5276523.0
+            }
+          ]
+        },
+        {
+          "nr": 18,
+          "title": "Darstellungsmatrizen und Matrixprodukt",
+          "topics": [
+            "Darstellungsmatrix",
+            "Matrixmultiplikation",
+            "Verkettung"
+          ],
+          "durationMs": 5501120.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "1e53212b-c9cb-4dd6-9e72-95b981e8496e",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/1e53212b-c9cb-4dd6-9e72-95b981e8496e/bc13076f-dd24-4c71-9f7e-cd5347f9ec41/presentation_33f4e5bf_14fd_40e1_90ab_a3c2ef990859.mp4",
+              "durationMs": 5501120.0
+            }
+          ]
+        },
+        {
+          "nr": 19,
+          "title": "Rechnen mit Matrizen",
+          "topics": [
+            "Einheitsmatrix",
+            "Assoziativität",
+            "Inverse und GLₙ(K)",
+            "Transponierte"
+          ],
+          "durationMs": 5539240.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "2ef4c5ab-50f6-4395-bad6-60b0ecfc4e72",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/2ef4c5ab-50f6-4395-bad6-60b0ecfc4e72/29283595-feec-4347-ba2e-b1132eaec3dd/presentation_025912ed_b3a8_405d_b25a_0fd7da9fd952.mp4",
+              "durationMs": 5539240.0
+            }
+          ]
+        },
+        {
+          "nr": 20,
+          "title": "Basiswechsel",
+          "topics": [
+            "Basiswechselmatrix",
+            "äquivalente Matrizen",
+            "ähnliche Matrizen",
+            "Normalform"
+          ],
+          "durationMs": 5460120.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "b73e57a2-737c-4362-9684-433416ac170a",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/b73e57a2-737c-4362-9684-433416ac170a/22e89477-53be-44ab-80d5-de5866512c45/presentation_a91a0e9d_25d0_4a27_afca_224377786944.mp4",
+              "durationMs": 5460120.0
+            }
+          ]
+        },
+        {
+          "nr": 21,
+          "title": "Spaltenrang gleich Zeilenrang und Lösbarkeit",
+          "topics": [
+            "Rang",
+            "freie Variablen",
+            "partikuläre Lösung",
+            "Lösbarkeitskriterium"
+          ],
+          "durationMs": 5309120.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "634d2e9f-d3e9-4d94-b472-49d53e9a5a5b",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/634d2e9f-d3e9-4d94-b472-49d53e9a5a5b/b9f4c47e-7147-4693-bf0a-12d8a1b6dad0/presentation_8e51bfce_8ca2_4ccc_98de_46edb98e5758.mp4",
+              "durationMs": 5309120.0
+            }
+          ]
+        },
+        {
+          "nr": 22,
+          "title": "Elementarmatrizen und Inverse",
+          "topics": [
+            "Elementarmatrizen",
+            "Inverse mit Gauss",
+            "Hom(V, W) und Matrizen"
+          ],
+          "durationMs": 5408520.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "ea8e9180-0449-418d-9653-24a4eb355b40",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ea8e9180-0449-418d-9653-24a4eb355b40/c76d1f88-2edb-4e82-b6ba-eb61035a042b/presentation_4799f2e5_fd81_4aa1_87e7_ca4ff4097c57.mp4",
+              "durationMs": 5408520.0
+            }
+          ]
+        },
+        {
+          "nr": 23,
+          "title": "Hom(V, W) und Dualraum",
+          "topics": [
+            "dim Hom(V, W)",
+            "Dualraum",
+            "duale Basis"
+          ],
+          "durationMs": 5044520.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "c76e8e1d-be7d-4c48-9cb1-52d1ac42e7c0",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/c76e8e1d-be7d-4c48-9cb1-52d1ac42e7c0/cd301ff4-3712-4aca-86ae-bb554d1db059/presentation_98227cd9_1b74_43f8_9fc2_ceb91ebdf694.mp4",
+              "durationMs": 5044520.0
+            }
+          ]
+        },
+        {
+          "nr": 24,
+          "title": "Duale Abbildung, Annihilator und Bidualraum",
+          "topics": [
+            "duale Abbildung",
+            "Annihilator",
+            "Bidualraum"
+          ],
+          "durationMs": 5418000.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "9ba8116b-22eb-4cd3-bad5-f50cfd4d8425",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9ba8116b-22eb-4cd3-bad5-f50cfd4d8425/b32a455f-6bde-4d6c-939e-1826f3f5d9bb/presentation_e1ed73f5_b62e_4fc4_9076_3b3fa1165304.mp4",
+              "durationMs": 5418000.0
+            }
+          ]
+        },
+        {
+          "nr": 25,
+          "title": "Direkte Summen und Quotientenräume",
+          "topics": [
+            "äussere direkte Summe",
+            "Quotientenraum",
+            "dim V/U",
+            "Isomorphiesatz"
+          ],
+          "durationMs": 5561536.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "9101b739-351d-4f96-b443-c564acda75ec",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/9101b739-351d-4f96-b443-c564acda75ec/497040cc-7d12-4d0f-9073-a08cb0044be8/presentation_bb4a4e43_1754_4bea_8e69_870a91b3e88c.mp4",
+              "durationMs": 5561536.0
+            }
+          ]
+        },
+        {
+          "nr": 26,
+          "title": "Quotientenräume und Dualität",
+          "topics": [
+            "Isomorphiesatz",
+            "lineares Komplement",
+            "Dualraum eines Quotienten"
+          ],
+          "durationMs": 5576920.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "99a4717a-cc86-483a-bab9-4f3bf21d2d7a",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/99a4717a-cc86-483a-bab9-4f3bf21d2d7a/f76394f0-61dd-4c5a-b033-a91687e84342/presentation_fb29b917_7462_4a55_837b_60f0cebb1d46.mp4",
+              "durationMs": 5576920.0
+            }
+          ]
+        },
+        {
+          "nr": 27,
+          "title": "Ausblick: Determinante, Eigenwerte, projektive Ebene",
+          "topics": [
+            "2×2-Determinante",
+            "Eigenwerte",
+            "Fibonacci als Teilraum",
+            "projektive Ebene"
+          ],
+          "durationMs": 5396920.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "e71ca7ff-f2f8-4ef6-8636-4f7f7c5229ea",
+              "title": "Lineare Algebra I",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/e71ca7ff-f2f8-4ef6-8636-4f7f7c5229ea/b1dc715c-2557-4728-a1a2-359e0cc98741/presentation_81d2decb_0e50_420c_b1e4_61946f492615.mp4",
+              "durationMs": 5396920.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "kind": "stream",
+      "title": "Analysis I: eine Variable",
+      "subtitle": "ETH Zürich · Manfred Einsiedler · HS 2026",
+      "lang": "de",
+      "why": "Das Fundament unter jeder Formel, die du bisher einfach benutzt hast: reelle Zahlen, Folgen und Reihen, Stetigkeit, Ableitung und Integral in einer Variablen - bewiesen statt nur gerechnet. Läuft gerade, auf Deutsch mit Untertiteln.",
+      "portalUrl": "https://video.ethz.ch/lectures/d-math/2026/autumn/401-1261-07L",
+      "running": true,
+      "lessons": [
+        {
+          "nr": 1,
+          "title": "Quadratur der Parabel und logische Begriffe",
+          "topics": [
+            "Fläche unter der Parabel",
+            "vollständige Induktion",
+            "Ober- und Untersummen",
+            "Negation von Quantoren"
+          ],
+          "durationMs": 4742520.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "ef956ddf-4be9-4814-9b52-414853dc0936",
+              "title": "Analysis I: eine Variable",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/ef956ddf-4be9-4814-9b52-414853dc0936/c7ff1815-1d14-442f-9acd-a6b024553813/presentation-92b76a82-fd46-420b-849b-b97838c94080.mp4",
+              "captionLocal": "transcripts/analysis/ef956ddf-4be9-4814-9b52-414853dc0936.vtt",
+              "captionLang": "de-DE",
+              "durationMs": 4742520.0
+            }
+          ]
+        },
+        {
+          "nr": 2,
+          "title": "Naive Mengenlehre und Abbildungen",
+          "topics": [
+            "Mengenoperationen",
+            "Potenzmenge",
+            "Russell-Paradox",
+            "injektiv, surjektiv, bijektiv"
+          ],
+          "durationMs": 5437520.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "394936a0-3870-4fae-93b3-a9ef614cc9da",
+              "title": "Analysis I: eine Variable",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/394936a0-3870-4fae-93b3-a9ef614cc9da/502732e7-7540-4973-9581-3f60cd3f5a89/presentation-abd22bf6-14b6-41b5-a17f-bc23d0266793.mp4",
+              "captionLocal": "transcripts/analysis/394936a0-3870-4fae-93b3-a9ef614cc9da.vtt",
+              "captionLang": "de-DE",
+              "durationMs": 5437520.0
+            }
+          ]
+        },
+        {
+          "nr": 3,
+          "title": "Umkehrabbildung, Graph und Äquivalenzrelationen",
+          "topics": [
+            "Umkehrabbildung",
+            "Verknüpfung",
+            "Graph einer Funktion",
+            "Äquivalenzrelation"
+          ],
+          "durationMs": 5206440.0,
+          "creators": [
+            "Einsiedler, Manfred"
+          ],
+          "clips": [
+            {
+              "opencastId": "45c0d051-fddd-46fa-b49e-8dc66f827622",
+              "title": "Analysis I: eine Variable",
+              "video": "https://dist.tobira.ethz.ch/mh_default_org/engage-player/45c0d051-fddd-46fa-b49e-8dc66f827622/ef65f6e3-fd16-4ab9-9773-f82e20bafbc7/presentation-f5666014-1f60-4965-90b4-8e050929708f.mp4",
+              "captionLocal": "transcripts/analysis/45c0d051-fddd-46fa-b49e-8dc66f827622.vtt",
+              "captionLang": "de-DE",
+              "durationMs": 5206440.0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "architektur",
       "kind": "stream",
       "title": "Digital Design und Rechnerarchitektur",
