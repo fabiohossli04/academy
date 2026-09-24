@@ -645,5 +645,27 @@
         ]
       }
     ]
+  },
+  "linalg": {
+    "portal": "/lectures/d-math/2022/autumn/401-1151-00_f7_l",
+    "title": "Lineare Algebra I",
+    "subtitle": "ETH Zürich · Manfred Einsiedler · HS 2022",
+    "lang": "de",
+    "why": "Das Werkzeug hinter Grafik, Statistik und maschinellem Lernen: Gleichungssysteme, Vektorräume, lineare Abbildungen und Matrizen - hergeleitet statt als Rezept. Danach weisst du, warum Gauss-Elimination funktioniert und was eine Matrix eigentlich darstellt. Tafelvorlesung auf Deutsch, ohne Untertitel.",
+    "running": false,
+    "captions": false,
+    "creators": [
+      "Einsiedler, Manfred"
+    ],
+    "lessons": []
+  },
+  "analysis": {
+    "portal": "/lectures/d-math/2026/autumn/401-1261-07L",
+    "title": "Analysis I: eine Variable",
+    "subtitle": "ETH Zürich · Manfred Einsiedler · HS 2026",
+    "lang": "de",
+    "why": "Das Fundament unter jeder Formel, die du bisher einfach benutzt hast: Mengen und Funktionen, reelle Zahlen, Grenzwerte, Stetigkeit, Ableitung und Integral in einer Variablen - bewiesen statt nur gerechnet. Läuft gerade, auf Deutsch mit Untertiteln.",
+    "running": true,
+    "lessons": []
   }
 }
