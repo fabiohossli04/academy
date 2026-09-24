@@ -1,6 +1,6 @@
 # Academy
 
-Eine kleine persönliche Lernoberfläche für fünf Kurse, ausgelegt auf 30 Minuten am Tag.
+Eine kleine persönliche Lernoberfläche für sieben Kurse, ausgelegt auf 30 Minuten am Tag.
 
 ## Starten
 
@@ -16,12 +16,14 @@ Daten per `fetch` lädt – ein Doppelklick auf `index.html` reicht nicht.
 | Kurs | Quelle | Umfang |
 |---|---|---|
 | Theoretische Informatik | ETH Zürich, Dennis Komm, HS 2023 (deutsch) | 24 Lektionen, 34,9 h |
+| Lineare Algebra I | ETH Zürich, Manfred Einsiedler, HS 2022 (deutsch, ohne Untertitel) | 27 Lektionen, 40,5 h |
+| Analysis I: eine Variable | ETH Zürich, Manfred Einsiedler, HS 2026 (deutsch, läuft) | 3 Lektionen, 4,3 h |
 | Digital Design und Rechnerarchitektur | ETH Zürich, Onur Mutlu, FS 2025 (englisch) | 22 Lektionen, 33,7 h |
 | Funktionale Programmierung in Scala | EPFL, Martin Odersky, Coursera | 7 Wochen, extern |
 | Privacy Enhancing Technologies | ETH Zürich, Florian Tramèr, HS 2026 (englisch, läuft) | 3 Lektionen, 3,1 h |
 | Software Engineering | ETH Zürich, Marcel Lüthi, HS 2026 (englisch, läuft) | 2 Wochen aus Kurzclips, 0,5 h |
 
-Zu jeder Lektion gibt es fünf Testfragen, pro Kurs eine Abschlussprüfung. Die zwei laufenden
+Zu jeder Lektion gibt es fünf Testfragen, pro Kurs eine Abschlussprüfung. Die drei laufenden
 Kurse werden wöchentlich ergänzt; wie, steht in `HANDOFF.md` unter *Laufende Kurse pflegen*.
 
 ## Bedienung
@@ -39,7 +41,8 @@ ETH-Server gestreamt** – diese App kopiert und verbreitet kein Videomaterial, 
 ein Abspieler mit Fortschrittsverwaltung.
 
 Die Untertitel liegen lokal unter `transcripts/`, weil der ETH-Server keine
-CORS-Kopfzeile schickt und der Browser sie sonst nicht einbinden darf. Dieser Ordner
+CORS-Kopfzeile schickt und der Browser sie sonst nicht einbinden darf
+(Lineare Algebra I hat keine Untertitel). Dieser Ordner
 ist bewusst per `.gitignore` ausgeschlossen: er enthält fremdes Material und gehört
 nicht in ein Repository.
 

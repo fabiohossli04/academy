@@ -1,15 +1,17 @@
 # Handoff
 
-Stand: 23.09.2026. Alles läuft, nichts ist halbfertig.
+Stand: 24.09.2026. Alles läuft, nichts ist halbfertig.
 
 ## Was das ist
 
-Eine persönliche Lernoberfläche für 30 Minuten am Tag. Fünf Kurse,
-58 Lektionen, 290 selbst geschriebene Testfragen. Start mit `./start.sh`.
+Eine persönliche Lernoberfläche für 30 Minuten am Tag. Sieben Kurse,
+88 Lektionen, 440 selbst geschriebene Testfragen. Start mit `./start.sh`.
 
 | Kurs | id | Lektionen | Umfang | Tests |
 |---|---|---|---|---|
 | Theoretische Informatik (ETH, Komm, HS23, deutsch) | `theoinf` | 24 | 34,9 h | 120 |
+| Lineare Algebra I (ETH, Einsiedler, HS22, deutsch, ohne Untertitel) | `linalg` | 27 | 40,5 h | 135 |
+| Analysis I: eine Variable (ETH, Einsiedler, HS26, deutsch, **läuft**) | `analysis` | 3 | 4,3 h | 15 |
 | Digital Design und Rechnerarchitektur (ETH, Mutlu, FS25, englisch) | `architektur` | 22 | 33,7 h | 110 |
 | Funktionale Programmierung in Scala (EPFL, Odersky) | `scala` | 7 | extern | 35 |
 | Privacy Enhancing Technologies (ETH, Tramèr, HS26, englisch, **läuft**) | `privacy` | 3 | 3,1 h | 15 |
@@ -20,14 +22,15 @@ Eine persönliche Lernoberfläche für 30 Minuten am Tag. Fünf Kurse,
 1. **Videos werden gestreamt, nie heruntergeladen.** Die App ist ein Abspieler,
    kein Archiv; der Player blendet das Download-Menü aus
    (`controlslist="nodownload"`). Auf dem Rechner waren zuletzt rund 30 GB frei –
-   68 h Video passen da ohnehin nicht hin.
+   117 h Video passen da ohnehin nicht hin.
 2. **`transcripts/` bleibt gitignored.** Das Repo ist öffentlich. Der Ordner
    enthält die Untertitel der ETH-Vorlesungen, also fremdes Material. Er liegt
    lokal, weil der ETH-Server keine CORS-Kopfzeile schickt und der Browser die
-   Dateien sonst nicht einbinden darf.
+   Dateien sonst nicht einbinden darf. Dasselbe gilt für Skripte und
+   Arbeitsmaterial der Vorlesungen: nur lokal, nie ins Repo.
 3. **Testfragen bleiben eigene Formulierungen.** Sie prüfen Verständnis des
-   Themas und geben keine Vorlesungsinhalte wieder. Die Untertitel sind nur
-   Arbeitsgrundlage.
+   Themas und geben keine Vorlesungsinhalte wieder. Untertitel und Skripte sind
+   nur Arbeitsgrundlage.
 4. **`python3 scripts/check.py` muss grün sein**, bevor etwas committet wird.
    Die Routine schlägt unter anderem fehl, wenn die richtige Antwort bei mehr
    als 45 % der Fragen an derselben Position steht oder bei mehr als 40 % die
@@ -38,6 +41,9 @@ Eine persönliche Lernoberfläche für 30 Minuten am Tag. Fünf Kurse,
    neu geschrieben und weitere Rate-Muster abgebaut; keine gemessene Faustregel
    trifft seitdem mehr als 32 % (Zufall: 25 %). Vorsicht beim Schreiben neuer
    Fragen: Präzise richtige Antworten werden von selbst länger – messen.
+   check.py und muster.py prüfen nur Form und Rate-Muster, **nicht, ob eine
+   Frage fachlich stimmt**. Neue Fragen deshalb selbst lösen oder unabhängig
+   blind lösen lassen (so geschehen für linalg und analysis am 24.09.).
 
 ## Aufbau
 
@@ -46,7 +52,7 @@ index.html  app.js  styles.css     Oberfläche, kein Build-Schritt
 data/lessons.json                  EINE Autorität für Stream-Kurse: Kursdaten, Lektionen mit fester Nummer und Clip-Liste (opencastIds)
 data/academy.json                  gebaut aus lessons.json + Portal-Rohdaten – nie von Hand ändern
 data/quiz/<kurs>.json              Testfragen, Schlüssel = Lektionsnummer
-scripts/fetch.py                   zieht Metadaten aller Kurse aus lessons.json aus dem ETH-Videoportal
+scripts/fetch.py                   zieht Metadaten aller Kurse aus lessons.json aus dem ETH-Videoportal (Video: höchste Auflösung bis 720p)
 scripts/transcripts.py             lädt Untertitel nach opencastId (.vtt für den Player, .txt zum Lesen)
 scripts/build.py                   baut academy.json, prüft den Kandidaten und schreibt nur, wenn alles gültig ist
 scripts/check.py                   Vollständigkeits- und Plausibilitätsprüfung, inkl. Schutz veröffentlichter Lektionen
@@ -54,6 +60,18 @@ scripts/muster.py                  misst Rate-Muster in einer Quizdatei (Länge,
 scripts/smoke.py                   Oberflächentest mit Playwright (optional, --stream mit echter Wiedergabe)
 transcripts/                       lokal, gitignored
 ```
+
+Optionale Felder in `lessons.json`:
+
+- `"captions": false` am Kurs – der Kurs hat keine Untertitel (heute nur
+  `linalg`). transcripts.py überspringt ihn, die Clips bekommen keine
+  Untertitelspur. Bei allen anderen Kursen ist eine fehlende Untertitel-URL im
+  Portal ein Fehler – so verschwinden Untertitel nie still.
+- `"creators": [...]` am Kurs oder an einer Lektion – ersetzt die Dozenten aus
+  dem Portal (Vorrang: Lektion vor Kurs vor Portal). Eine leere Liste zeigt
+  keinen Namen. Das Portal nennt bei `linalg` auch den Dozenten der englischen
+  Parallelvorlesung; die Lektionen 8 und 9 hielt eine Vertretung, deren Name
+  nicht bekannt ist.
 
 Komplett neu aufbauen:
 
@@ -63,6 +81,7 @@ python3 scripts/fetch.py && python3 scripts/transcripts.py \
 ```
 
 `build.py --dry-run` prüft und berichtet, ohne academy.json anzufassen.
+`fetch.py --selftest` prüft die Auswahl der Videospur ohne Netz.
 
 Format einer Frage:
 
@@ -78,7 +97,7 @@ Schweizer Schreibung (ss statt ß).
 
 ## Laufende Kurse pflegen
 
-`privacy` und `software` werden wöchentlich ergänzt. Ablauf:
+`analysis`, `privacy` und `software` werden wöchentlich ergänzt. Ablauf:
 
 1. `python3 scripts/fetch.py && python3 scripts/transcripts.py`
 2. `python3 scripts/build.py --dry-run` – listet „neu im Portal, noch nicht
@@ -86,18 +105,22 @@ Schweizer Schreibung (ss statt ß).
 3. In `data/lessons.json` eine **neue** Lektion mit der nächsten Nummer anlegen:
    Titel und Themen aus dem Inhalt (die Untertitel liegen unter
    `transcripts/<kurs>/<opencastId>.txt`), `clips` = die opencastIds in
-   Aufnahmereihenfolge. `privacy`: eine Lektion pro Vorlesung. `software`: eine
-   Lektion pro Woche; kommen zu einer bereits aufgenommenen Woche Clips nach,
-   werden sie eine neue Lektion („Woche 3, Nachtrag“).
+   Aufnahmereihenfolge. `analysis` und `privacy`: eine Lektion pro Vorlesung.
+   `software`: eine Lektion pro Woche; kommen zu einer bereits aufgenommenen
+   Woche Clips nach, werden sie eine neue Lektion („Woche 3, Nachtrag“).
+   Fehlen einer neuen Aufnahme noch die Untertitel, meldet transcripts.py einen
+   Fehler – dann die Aufnahme noch nicht aufnehmen und später erneut versuchen.
 4. Fünf eigene Fragen unter der neuen Nummer in `data/quiz/<kurs>.json`,
-   dann `muster.py --strict`.
+   dann `muster.py --strict`, und jede Frage selbst lösen.
 5. `python3 scripts/build.py && python3 scripts/check.py`, dann committen.
 
 **Veröffentlichte Lektionen sind unveränderlich:** `check.py` vergleicht mit
-`HEAD:data/lessons.json`; Nummer und Clip-Liste einer committeten Lektion dürfen
-sich nicht mehr ändern (Titel und Themen schon). So hängen Fortschritt, Tests und
-Untertitel nie an der falschen Aufnahme. Verschwindet eine kuratierte Aufnahme aus
-dem Portal, bricht `build.py` ab und academy.json bleibt, wie sie ist.
+`main:data/lessons.json` (fehlt `main`, mit HEAD); Nummer und Clip-Liste einer
+veröffentlichten Lektion dürfen sich nicht mehr ändern (Titel, Themen und
+`creators` schon). So hängen Fortschritt, Tests und Untertitel nie an der
+falschen Aufnahme. Auf einem Branch bleiben neue Lektionen bis zum Merge
+änderbar. Verschwindet eine kuratierte Aufnahme aus dem Portal, bricht
+`build.py` ab und academy.json bleibt, wie sie ist.
 
 Zum Semesterende `"running": false` setzen – dann öffnet die Abschlussprüfung.
 
@@ -108,6 +131,7 @@ Zum Semesterende `"running": false` setzen – dann öffnet die Abschlussprüfun
   nächste Lektion oder Abschlussprüfung – dazu Tagesziel und die letzten sieben Tage.
 - Lektionen aus mehreren Clips zeigen eine Clip-Liste; am Clip-Ende geht es
   automatisch weiter, ±10 s wirken über Clip-Grenzen, Tempo und Untertitel wechseln mit.
+  Clips ohne Untertitel (Lineare Algebra) spielen einfach ohne Untertitelspur.
 - Tests per Tastatur: A–D oder 1–4 wählt, Enter geht weiter. Nach dem Test
   stehen die falsch beantworteten Fragen mit Begründung zum Nachlesen da.
 - Lernzeit zählt echte Zeit beim Abspielen (Uhr, nicht Videoposition): Sprünge,
@@ -116,9 +140,10 @@ Zum Semesterende `"running": false` setzen – dann öffnet die Abschlussprüfun
 - Fortschritt in `localStorage` unter `academy.v1` (Lektionsschlüssel `<kurs>/<nr>`);
   mehrere offene Tabs gleichen sich über das `storage`-Ereignis ab.
 - `python3 scripts/smoke.py` prüft alle Routen hell und dunkel bei 1440, 390 und
-  360 px, Clip-Lektionen (mit Testkurs), den Test per Tastatur, zwei Tabs und die
-  Einstellungen – offline, Videos werden abgebrochen. `--stream` spielt zusätzlich
-  echte ETH-Videos stumm ab (Fortsetzen, Clip-Folge, Lernzeit, „geschaut“); nichts
+  360 px, Clip-Lektionen (mit Testkurs, auch gemischt mit und ohne Untertitel),
+  den Test per Tastatur, zwei Tabs und die Einstellungen – offline, Videos werden
+  abgebrochen. `--stream` spielt zusätzlich echte ETH-Videos stumm ab
+  (Fortsetzen, Clip-Folge, Lernzeit, „geschaut“, Clip ohne Untertitel); nichts
   wird gespeichert oder aufgezeichnet. Braucht `pip install playwright` und
   `python3 -m playwright install chromium`.
 
@@ -130,8 +155,9 @@ erscheint auch bei gesperrten Videos. Entscheidend ist, ob
 `authorizedData.tracks` befüllt ist. Gegengeprüft wird zusätzlich mit einem
 Bereichsabruf auf die Videodatei (Antwort 206, `video/mp4`). Der Server leitet
 dabei zuerst mit 302 von `dist.tobira.ethz.ch` auf `dist01`/`dist02` um – der
-Abruf muss der Weiterleitung folgen. Am 23.09. waren alle 55 Aufnahmen der
-vier ETH-Kurse so geprüft öffentlich.
+Abruf muss der Weiterleitung folgen. Am 24.09. waren alle 85 Aufnahmen der
+sechs ETH-Kurse so geprüft öffentlich (720p-Spur). Bis zum 24.09. wählte
+fetch.py wegen eines Sortierfehlers die 360p-Spur.
 
 Abfrage gegen `https://video.ethz.ch/graphql`, anonym:
 
@@ -140,6 +166,17 @@ Abfrage gegen `https://video.ethz.ch/graphql`, anonym:
     blocks { ... on SeriesBlock { series { entries {
       ... on AuthorizedEvent { authorizedData { tracks { uri } } } } } } } } }
 ```
+
+**Lineare Algebra I** hat keine Untertitel. Die Kursseite
+(metaphor.ethz.ch, 401-1151-00L, HS22) nennt pro Termin Skriptabschnitte, die
+aber nicht immer mit dem tatsächlich behandelten Stoff übereinstimmen. Titel und
+Themen aller 27 Lektionen stammen deshalb aus Standbildern der Tafel (sechs pro
+Vorlesung, im Browser aus dem Stream aufgenommen, nicht gespeichert). Die
+Testfragen bauen auf dem öffentlichen deutschen Skript von Dr. Menny Akka
+Ginosar und diesen Tafelbelegen auf und wurden unabhängig blind nachgelöst.
+**Analysis I** hat deutsche Untertitel; die Kursbeschreibung im
+Vorlesungsverzeichnis (401-1261-07L) nennt Zahlen, Folgen und Reihen,
+Stetigkeit, Ableitung, Differentialgleichungen und Riemann-Integral.
 
 ## Was offen ist
 
