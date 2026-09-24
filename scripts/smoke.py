@@ -29,6 +29,15 @@ for l in THEOINF["lessons"]:
         })
         if len(CLIPS) == 3: break
     if len(CLIPS) == 3: break
+RAW = json.loads((ROOT / "data/courses-raw.json").read_text())
+WITHOUT_CAPTIONS = next((clip for c in RAW if c["id"] == "linalg"
+                         for clip in c["lessons"] if not clip.get("caption")), None)
+if WITHOUT_CAPTIONS is None:
+    sys.exit("Keine linalg-Aufnahme ohne Untertitel in courses-raw.json; zuerst fetch.py ausführen")
+MIXED_CLIPS = [CLIPS[0], {
+    **{k: WITHOUT_CAPTIONS[k] for k in ("opencastId", "video", "durationMs")},
+    "title": "Clip ohne Untertitel",
+}, CLIPS[2]]
 FIXTURE = {
     "id": "fixture", "kind": "stream", "running": True, "lang": "de",
     "title": "Laufender Clip-Kurs", "subtitle": "Synthetischer Testkurs",
@@ -38,18 +47,26 @@ FIXTURE = {
          "durationMs": sum(c["durationMs"] for c in CLIPS), "clips": CLIPS},
         {"nr": 2, "title": "Woche 2 · Ein Clip", "topics": ["Wiederholen"],
          "durationMs": CLIPS[0]["durationMs"], "clips": [CLIPS[0]]},
+        {"nr": 3, "title": "Woche 3 · Gemischte Untertitel", "topics": ["Untertitel", "Fortsetzen"],
+         "durationMs": sum(c["durationMs"] for c in MIXED_CLIPS), "clips": MIXED_CLIPS},
     ],
 }
 ACADEMY["courses"].append(FIXTURE)
-# Streaming der Clip-Folge an einer echten Clip-Lektion mit kurzen Clips, falls vorhanden: Lange Einzelvideos
+# Streaming der Clip-Folge an einer echten Clip-Lektion mit Untertiteln, falls vorhanden: Lange Einzelvideos
 # als Clips laden ihre Metadaten beim Wechsel mitunter zu langsam für einen stabilen Test.
 SEQ_CID, SEQ = next(((c["id"], l) for c in ACADEMY["courses"] if c["id"] != "fixture"
-                     for l in c["lessons"] if len(l.get("clips") or []) > 1), ("fixture", FIXTURE["lessons"][0]))
+                     for l in c["lessons"] if len(l.get("clips") or []) > 1 and
+                     all(clip.get("captionLocal") for clip in l["clips"])), ("fixture", FIXTURE["lessons"][0]))
 SEQ_KEY = f"{SEQ_CID}/{SEQ['nr']}"
+BARE_CID, BARE_LESSON, BARE_INDEX = next(((c["id"], l, i) for c in ACADEMY["courses"] if c["id"] == "linalg"
+                                        for l in c["lessons"] for i, clip in enumerate(l["clips"])
+                                        if "captionLocal" not in clip and "captionLang" not in clip),
+                                       ("fixture", FIXTURE["lessons"][2], 1))
+BARE_KEY = f"{BARE_CID}/{BARE_LESSON['nr']}"
 FIXTURE_QUIZ = {str(nr): {"questions": [
     {"q": f"Was ergibt {nr} + {i}?", "options": [str(nr+i+j) for j in range(4)],
      "answer": 0, "why": f"Die Summe ist {nr+i}."} for i in range(1, 6)
-]} for nr in (1, 2)}
+]} for nr in (l["nr"] for l in FIXTURE["lessons"])}
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a): pass
@@ -101,7 +118,7 @@ def open_route(page, hsh):
 
 def fixture_checks(b):
     state = copy.deepcopy(SEEDED)
-    state["quiz"].update({f"fixture/{nr}": {"passed": True, "best": 1, "attempts": 1} for nr in (1, 2)})
+    state["quiz"].update({f"fixture/{l['nr']}": {"passed": True, "best": 1, "attempts": 1} for l in FIXTURE["lessons"]})
     ctx, page, errs = new_page(b, state)
     open_route(page, "#/lesson/fixture/1")
     check(page.locator(".clip-row").count() == 3, "Fixture: Clip-Liste mit 3 Einträgen")
@@ -183,6 +200,46 @@ def fixture_checks(b):
     check(not errs, f"Nächster Schritt: keine Fehler {errs[:3]}")
     ctx.close()
 
+    ctx, page, errs = new_page(b, SEEDED)
+    open_route(page, "#/lesson/fixture/3")
+    check(page.locator(".clip-row").count() == 3, "Gemischte Untertitel: drei Clips in Lektion 3")
+    for i in (0, 1, 2, 1, 0):
+        page.click(f'[data-clip="{i}"]')
+        clip = MIXED_CLIPS[i]
+        check(page.locator(f'[data-clip="{i}"][aria-current="true"]').count() == 1 and
+              page.locator("video source").get_attribute("src") == clip["video"],
+              f"Gemischte Untertitel: Wechsel zu Clip {i+1}")
+        track = page.locator("video track")
+        if clip.get("captionLocal"):
+            check(track.count() == 1 and track.get_attribute("src") == clip["captionLocal"] and
+                  track.get_attribute("srclang") == clip["captionLang"][:2],
+                  f"Gemischte Untertitel: Clip {i+1} hat seinen Track und seine Sprache")
+        else:
+            check(track.count() == 0, "Gemischte Untertitel: Clip 2 hat kein track-Element")
+    check(not errs, f"Gemischte Untertitel: keine Fehler {errs[:3]}")
+    ctx.close()
+
+    state = copy.deepcopy(SEEDED)
+    pos = MIXED_CLIPS[0]["durationMs"] / 1000 + 42
+    state["lessons"]["fixture/3"] = {"pos": pos}
+    ctx, page, errs = new_page(b, state)
+    open_route(page, "#/lesson/fixture/3")
+    check(page.locator('[data-clip="1"][aria-current="true"]').count() == 1 and
+          page.locator("video source").get_attribute("src") == MIXED_CLIPS[1]["video"] and
+          page.locator("video track").count() == 0, "Gemischte Untertitel: Fortsetzen im Clip ohne Untertitel")
+    seconds = round(pos)
+    check(f"fortsetzen bei {seconds//60}:{seconds%60:02d}" in page.locator(".lede").text_content(),
+          "Gemischte Untertitel: Fortsetzen-Hinweis zeigt die gespeicherte Gesamtposition")
+    page.click("a.back")
+    saved = page.evaluate("JSON.parse(localStorage.getItem('academy.v1')).lessons['fixture/3'].pos")
+    check(abs(saved - pos) < .01, "Gemischte Untertitel: Verlassen erhält die Position ohne Metadaten")
+    page.click('a[href="#/lesson/fixture/3"]')
+    page.wait_for_selector("video")
+    check(page.locator('[data-clip="1"][aria-current="true"]').count() == 1 and page.locator("video track").count() == 0,
+          "Gemischte Untertitel: Rückkehr setzt erneut ohne track-Element fort")
+    check(not errs, f"Fortsetzen ohne Untertitel: keine Fehler {errs[:3]}")
+    ctx.close()
+
 def video_ready(page, pos=None):
     page.evaluate("document.querySelector('video').muted = true")
     page.wait_for_function("""pos => { const v = document.querySelector('video');
@@ -200,10 +257,13 @@ def play_ms(page, ms, pause=True):
     }""", [ms, pause])
 
 def stream_checks(b):
-    for case in ("Fortsetzen", "Clip-Folge", "Lernzeit", "Geschaut"):
+    for case in ("Fortsetzen", "Clip-Folge", "Lernzeit", "Geschaut", "Ohne Untertitel"):
         print(f"Stream: {case} …", flush=True)
         state = copy.deepcopy(SEEDED)
         state["rate"] = 1.5 if case in ("Clip-Folge", "Lernzeit") else 1.25
+        if case == "Ohne Untertitel":
+            offset = sum(c["durationMs"] for c in BARE_LESSON["clips"][:BARE_INDEX]) / 1000
+            state["lessons"][BARE_KEY] = {"pos": offset + 42}
         ctx, page, errs = new_page(b, state, stream=True)
         try:
             if case == "Fortsetzen":
@@ -262,6 +322,19 @@ def stream_checks(b):
                 page.wait_for_timeout(1100)
                 paused = page.evaluate("JSON.parse(localStorage.getItem('academy.v1')).days[new Date().toLocaleDateString('sv-SE')] || 0")
                 check(abs(paused-after) < .05, "Stream: pausierte Zeit zählt nicht")
+            elif case == "Ohne Untertitel":
+                open_route(page, f"#/lesson/{BARE_KEY}")
+                video_ready(page, 42)
+                check(page.locator("video source").get_attribute("src") == BARE_LESSON["clips"][BARE_INDEX]["video"],
+                      f"Stream: {BARE_KEY} setzt im Clip ohne Untertitel fort")
+                check(page.locator("video track").count() == 0, "Stream: ohne Untertitel kein track-Element")
+                start = page.locator("video").evaluate("v => v.currentTime")
+                play_ms(page, 3000)
+                check(page.locator("video").evaluate("v => v.currentTime") > start + 2,
+                      "Stream: Clip ohne Untertitel spielt nach 3 s weiter")
+                check(page.locator("#playerError").is_hidden() and
+                      page.locator("video").evaluate("v => v.error === null && v.textTracks.length === 0") and
+                      page.locator("video track").count() == 0, "Stream: Wiedergabe ohne Fehler und ohne Track")
             else:
                 open_route(page, "#/lesson/fixture/2")
                 video_ready(page, 0)
@@ -287,7 +360,10 @@ with sync_playwright() as p:
     # 1) Alle Routen rendern ohne Fehler, hell und dunkel, Desktop und Handy
     routes = ["#/", "#/course/theoinf", "#/course/architektur", "#/course/scala", "#/lesson/theoinf/3",
               "#/lesson/architektur/1", "#/lesson/scala/2", "#/quiz/theoinf/4", "#/settings",
-              "#/course/fixture", "#/lesson/fixture/1", "#/lesson/fixture/2"]
+              "#/course/fixture", "#/lesson/fixture/1", "#/lesson/fixture/2", "#/lesson/fixture/3"]
+    for cid in ("linalg", "analysis"):
+        if any(c["id"] == cid for c in ACADEMY["courses"]):
+            routes.extend((f"#/course/{cid}", f"#/lesson/{cid}/1", f"#/quiz/{cid}/1"))
     for scheme in ("light", "dark"):
         for vp in ((1440, 900), (390, 844), (360, 740)):
             ctx, page, errs = new_page(b, SEEDED, vp, scheme)

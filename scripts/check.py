@@ -4,6 +4,9 @@ import json, pathlib, collections, math, re, subprocess, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
+def valid_creators(value):
+    return isinstance(value, list) and all(isinstance(name, str) and name.strip() for name in value)
+
 def check_curation(curated, root):
     problems, warn, seen = [], [], set()
     for cid, meta in curated.items():
@@ -11,6 +14,10 @@ def check_curation(curated, root):
             problems.append("Ungültige Kurs-ID in lessons.json")
         if not isinstance(meta.get("running"), bool):
             problems.append(f"{cid}: running muss ein bool sein")
+        if "captions" in meta and not isinstance(meta["captions"], bool):
+            problems.append(f"{cid}: captions muss ein bool sein")
+        if "creators" in meta and not valid_creators(meta["creators"]):
+            problems.append(f"{cid}: creators muss eine Liste nichtleerer Strings sein")
         for field in ("portal", "title", "subtitle", "lang", "why"):
             if not isinstance(meta.get(field), str):
                 problems.append(f"{cid}: ungültiges Kursfeld {field}")
@@ -21,6 +28,8 @@ def check_curation(curated, root):
             problems.append(f"{cid}: kuratierte Lektionsnummern nicht lückenlos: {nrs}")
         for lesson in meta["lessons"]:
             tag = f"{cid}/{lesson['nr']}"
+            if "creators" in lesson and not valid_creators(lesson["creators"]):
+                problems.append(f"{tag}: creators muss eine Liste nichtleerer Strings sein")
             if not isinstance(lesson.get("title"), str) or not lesson["title"]:
                 problems.append(f"{tag}: kein kuratierter Titel")
             topics = lesson.get("topics")
@@ -37,15 +46,22 @@ def check_curation(curated, root):
                     problems.append(f"{tag}: opencastId mehrfach kuratiert: {oid}")
                 else:
                     seen.add(oid)
-    # HEAD ist die letzte veröffentlichte Zuordnung. Titel und Themen bleiben editierbar.
+    # main ist der veröffentlichte Stand; Branch-Commits frieren keine neuen Lektionen ein.
+    ref = "main"
     try:
-        head = subprocess.run(["git", "show", "HEAD:data/lessons.json"], cwd=root,
+        head = subprocess.run(["git", "show", "main:data/lessons.json"], cwd=root,
                               capture_output=True, text=True)
+        if head.returncode:
+            ref = "HEAD"
+            head = subprocess.run(["git", "show", "HEAD:data/lessons.json"], cwd=root,
+                                  capture_output=True, text=True)
     except OSError:
         head = None
     if head is None or head.returncode:
-        warn.append("Prüfung veröffentlichter Lektionen übersprungen: Git oder HEAD:data/lessons.json nicht verfügbar")
+        warn.append("Prüfung veröffentlichter Lektionen übersprungen: Git, main:data/lessons.json oder HEAD:data/lessons.json nicht verfügbar")
     else:
+        if ref == "HEAD":
+            warn.append("main:data/lessons.json nicht verfügbar – Prüfung veröffentlichter Lektionen gegen HEAD")
         published = json.loads(head.stdout)
         current = {(cid, l["nr"]): l.get("clips") for cid, c in curated.items() for l in c["lessons"]}
         for cid, course in published.items():
@@ -85,8 +101,16 @@ def check(data, curated=None, root=ROOT):
                 actual = [{"nr": l["nr"], "title": l["title"], "topics": l["topics"],
                            "clips": [clip["opencastId"] for clip in l.get("clips", [])]}
                           for l in c["lessons"]]
-                if actual != meta["lessons"]:
+                expected = [{field: l[field] for field in ("nr", "title", "topics", "clips")} for l in meta["lessons"]]
+                if actual != expected:
                     problems.append(f"{c['id']}: Lektionen weichen von lessons.json ab")
+                definitions = {l["nr"]: l for l in meta["lessons"]}
+                for l in c["lessons"]:
+                    definition = definitions.get(l["nr"], {})
+                    if "creators" in definition or "creators" in meta:
+                        override = definition.get("creators", meta.get("creators"))
+                        if l.get("creators") != override:
+                            problems.append(f"{c['id']}/{l['nr']}: creators weicht vom Override in lessons.json ab")
         nrs = [l["nr"] for l in c["lessons"]]
         if any(type(nr) is not int for nr in nrs) or nrs != list(range(1, len(nrs)+1)):
             problems.append(f"{c['id']}: Lektionsnummern nicht lückenlos: {nrs}")
@@ -110,15 +134,20 @@ def check(data, curated=None, root=ROOT):
                         seen.add(oid)
                     if not isinstance(clip.get("video"), str) or not clip["video"].startswith("https://"):
                         problems.append(f"{tag}: keine HTTPS-Video-URL")
-                    cap = clip.get("captionLocal")
-                    if not isinstance(cap, str) or not (root / cap).is_file():
-                        problems.append(f"{tag}: Untertitel fehlt: {cap}")
-                    if cap != f"transcripts/{c['id']}/{oid}.vtt":
-                        problems.append(f"{tag}: Untertitelpfad entspricht nicht der opencastId")
+                    if meta is not None and meta.get("captions", True) is False:
+                        for field in ("captionLocal", "captionLang"):
+                            if field in clip:
+                                problems.append(f"{tag}: {field} muss bei captions false fehlen")
+                    else:
+                        cap = clip.get("captionLocal")
+                        if not isinstance(cap, str) or not (root / cap).is_file():
+                            problems.append(f"{tag}: Untertitel fehlt: {cap}")
+                        if cap != f"transcripts/{c['id']}/{oid}.vtt":
+                            problems.append(f"{tag}: Untertitelpfad entspricht nicht der opencastId")
+                        if not clip.get("captionLang"):
+                            problems.append(f"{tag}: keine Untertitelsprache")
                     if not clip.get("title"):
                         problems.append(f"{tag}: kein Portal-Titel")
-                    if not clip.get("captionLang"):
-                        problems.append(f"{tag}: keine Untertitelsprache")
                     duration = clip.get("durationMs")
                     if type(duration) not in (int, float) or not math.isfinite(duration) or duration <= 0:
                         problems.append(f"{tag}: keine gültige Dauer")

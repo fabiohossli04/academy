@@ -73,18 +73,25 @@ def build_candidate(curated, sources):
                     problems.append(f"{cid}/{lesson['nr']}: kuratierte opencastId fehlt im Portal "
                                     f"(entfernt oder gesperrt): {oid}")
                     continue
-                clips.append({
+                built_clip = {
                     "opencastId": oid, "title": clip["title"], "video": clip["video"],
-                    "captionLocal": f"transcripts/{cid}/{oid}.vtt",
-                    "captionLang": clip["captionLang"], "durationMs": clip["durationMs"],
-                })
+                }
+                if meta.get("captions", True) is False:
+                    if clip.get("caption"):
+                        notes.append(f"Untertitel im Portal verfügbar: {cid}/{lesson['nr']} {oid} – captions-Option prüfen")
+                else:
+                    if not clip.get("caption"):
+                        problems.append(f"{cid}/{lesson['nr']}: kuratierte Aufnahme ohne Untertitel-URL im Portal: {oid}")
+                    built_clip.update(captionLocal=f"transcripts/{cid}/{oid}.vtt", captionLang=clip.get("captionLang"))
+                built_clip["durationMs"] = clip["durationMs"]
+                clips.append(built_clip)
                 for creator in clip["creators"]:
                     if creator not in creators:
                         creators.append(creator)
             lessons.append({
                 "nr": lesson["nr"], "title": lesson["title"], "topics": lesson["topics"],
                 "durationMs": sum(clip["durationMs"] for clip in clips),
-                "creators": creators, "clips": clips,
+                "creators": lesson.get("creators", meta.get("creators", creators)), "clips": clips,
             })
         if lessons:
             out["courses"].append({
@@ -94,7 +101,7 @@ def build_candidate(curated, sources):
                 "running": meta["running"], "lessons": lessons,
             })
     out["courses"].append(scala_course())
-    order = {cid: i for i, cid in enumerate(("theoinf", "architektur", "scala", "privacy", "software"))}
+    order = {cid: i for i, cid in enumerate(("theoinf", "linalg", "analysis", "architektur", "scala", "privacy", "software"))}
     out["courses"].sort(key=lambda c: order.get(c["id"], len(order)))
     return out, problems, notes
 

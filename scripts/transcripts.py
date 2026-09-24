@@ -67,7 +67,9 @@ def main():
     courses = json.loads((ROOT / "data" / "lessons.json").read_text(encoding="utf-8"))
     raw = {c["id"]: c for c in json.loads((ROOT / "data" / "courses-raw.json").read_text(encoding="utf-8"))}
     manifests, jobs = {}, []
-    for cid in courses:
+    for cid, meta in courses.items():
+        if meta.get("captions", True) is False:
+            continue
         manifest = ROOT / "transcripts" / cid / "manifest.json"
         manifests[cid] = json.loads(manifest.read_text(encoding="utf-8")) if manifest.exists() else {}
         for clip in raw[cid]["lessons"]:
