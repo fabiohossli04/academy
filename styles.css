@@ -313,6 +313,62 @@ h2{
 .source a{ color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
 .source a:hover{ color: var(--text); }
 
+/* ---------- Frag Claude ---------- */
+.lesson-media, .lesson-more{ min-width: 0; }
+.storage-notice{ margin: 12px auto 0; padding: 12px 18px; max-width: var(--wide); background: var(--warn-soft); border-radius: var(--r); }
+.tutor{ margin-top: 24px; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+.tutor-heading{ display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 16px 18px 10px; }
+.tutor-heading h2{ margin: 0; font-size: 18px; letter-spacing: -.01em; text-transform: none; color: var(--text); }
+.tutor-body{ display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.tutor [hidden], .storage-notice[hidden]{ display: none; }
+.tutor-controls{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 4px; padding: 0 18px 14px; border-bottom: 1px solid var(--line); }
+.tutor-controls .btn{ padding: 0 7px; font-size: 12.5px; }
+.tutor-pause{ display: flex; align-items: center; gap: 7px; flex-basis: 100%; font-size: 12.5px; color: var(--muted); cursor: pointer; }
+.tutor-pause input{ accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+.tutor .seg button:disabled{ cursor: default; }
+.tutor-messages{ flex: 1; min-height: 140px; max-height: 480px; overflow-y: auto; overscroll-behavior: contain; padding: 18px 14px; scrollbar-gutter: stable; }
+.tutor-empty{ color: var(--muted); font-size: 14px; line-height: 1.65; padding: 8px 4px; }
+.tutor-message{ min-width: 0; max-width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); font-size: 14px; overflow-wrap: anywhere; }
+.tutor-message + .tutor-message{ margin-top: 14px; }
+.tutor-user{ margin-left: 24px; background: var(--accent-soft); border-color: transparent; }
+.tutor-assistant{ margin-right: 12px; }
+.tutor-author{ font-size: 11.5px; font-weight: 650; color: var(--muted); margin-bottom: 6px; }
+.tutor-text{ min-width: 0; }
+.tutor-text p + p, .tutor-text pre, .tutor-text ul, .tutor-text ol{ margin-top: 10px; }
+.tutor-text > :first-child{ margin-top: 0; }
+.tutor-text ul, .tutor-text ol{ padding-left: 22px; margin-bottom: 10px; }
+.tutor-text li + li{ margin-top: 4px; }
+.tutor-text code{ font: .9em/1.6 var(--mono); background: var(--surface-2); border-radius: 4px; padding: 1px 3px; }
+.tutor-text pre{ max-width: 100%; overflow-x: auto; padding: 12px; margin-bottom: 10px; background: var(--surface-2); border-radius: var(--r-sm); white-space: pre; overflow-wrap: normal; }
+.tutor-text pre code{ padding: 0; background: transparent; }
+.tutor-position{ margin-top: 10px; cursor: pointer; height: 26px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.tutor-position:hover{ color: var(--accent); border-color: var(--accent); }
+.tutor-context{ color: var(--muted); font-size: 11.5px; margin-top: 10px; }
+.tutor-status{ font-size: 12.5px; color: var(--warn); margin-top: 10px; white-space: pre-wrap; }
+.tutor-message .btn{ margin-top: 10px; }
+.tutor-thinking{ color: var(--muted); }
+.tutor-thinking span{ display: inline-block; animation: thinking 1.5s ease-in-out infinite; }
+@keyframes thinking{ 50%{ opacity: .3; } }
+.tutor-service, .tutor-storage{ padding: 14px 18px; font-size: 13px; background: var(--warn-soft); overflow-wrap: anywhere; }
+.tutor-form{ padding: 12px 14px 14px; border-top: 1px solid var(--line); }
+.tutor-form textarea{ display: block; width: 100%; min-height: 64px; max-height: 152px; resize: none; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); font: 14px/1.5 var(--font); background: var(--bg); color: var(--text); }
+.tutor-form textarea::placeholder{ color: var(--muted); }
+.tutor-form textarea[aria-invalid="true"]{ border-color: var(--bad); }
+.tutor-send{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.tutor-send span{ color: var(--muted); font-size: 11px; }
+.tutor-send button{ margin-left: auto; }
+#tutorCount{ font-variant-numeric: tabular-nums; }
+#tutorCleared{ margin-top: 10px; }
+@media (min-width: 1100px){
+  main.lesson-page{ max-width: 1480px; }
+  .lesson-layout{ display: grid; grid-template-columns: minmax(0, 1fr) 400px; grid-template-rows: auto 1fr; column-gap: 28px; align-items: start; }
+  .lesson-media{ grid-column: 1; grid-row: 1; }
+  .lesson-more{ grid-column: 1; grid-row: 2; }
+  .tutor{ grid-column: 2; grid-row: 1 / 3; position: sticky; top: 76px; height: max(360px, calc(100vh - var(--tutor-top, 76px) - 16px)); height: max(360px, calc(100dvh - var(--tutor-top, 76px) - 16px)); }
+  .tutor-toggle{ display: none; }
+  .tutor-messages{ min-height: 0; max-height: none; }
+}
+
 /* ---------- Test ---------- */
 .qhead{ display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 28px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .qprog{ display: flex; gap: 5px; margin-top: 10px; }

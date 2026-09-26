@@ -24,7 +24,20 @@ function load(){
     return s && typeof s === "object" ? Object.assign(blank(), s) : blank();
   }catch{ return blank(); }
 }
-function save(){ localStorage.setItem(STORE, JSON.stringify(S)); }
+let progressSaveFailed = false;
+function storageNotice(message){
+  const el = document.getElementById("storageNotice");
+  el.textContent = message; el.hidden = false;
+}
+function save(){
+  try{ localStorage.setItem(STORE, JSON.stringify(S)); }
+  catch{
+    if (!progressSaveFailed){
+      progressSaveFailed = true;
+      storageNotice("Dein Fortschritt konnte nicht im Browser gespeichert werden. Die Academy läuft weiter; sichere deinen Stand in den Einstellungen als Datei.");
+    }
+  }
+}
 let S = load();
 window.addEventListener("storage", e => {
   if (e.key !== STORE || e.storageArea !== localStorage) return;
@@ -199,9 +212,9 @@ function route(){
   view().focus({ preventScroll:true });
 }
 
-function mount(html, { title = "", narrow = false } = {}){
+function mount(html, { title = "", narrow = false, lessonPage = false } = {}){
   const v = view();
-  v.className = narrow ? "narrow" : "";
+  v.className = lessonPage ? "lesson-page" : narrow ? "narrow" : "";
   v.innerHTML = html;
   void v.offsetWidth;                    // Einblendung nur beim Neuaufbau erneut starten.
   v.classList.add("enter");
@@ -447,26 +460,31 @@ function renderLesson(cid, nr){
       <button type="button" class="btn btn-secondary btn-sm" id="fwd10" title="10 Sekunden vor">+10 s</button>
       <span class="spacer"></span>
       <span class="budget" id="budget"></span>
-    </div>
-    <div class="actions">${markBtn(k)}${testBtn()}</div>
-    ${topics ? `<div class="topics"><h3>Themen</h3><div class="chips">${topics}</div></div>` : ""}`;
+    </div>`;
 
   mount(`
     <a class="back" href="#/course/${esc(cid)}">${icon("arrowLeft")} ${esc(c.title)}</a>
     <p class="eyebrow">Lektion ${esc(l.nr)} von ${c.lessons.length}</p>
     <h1>${esc(l.title)}</h1>
     <p class="lede">${meta.map(esc).join(" · ")}</p>
-    ${body}
+    <div class="lesson-layout">
+    <div class="lesson-media">${body}</div>
+    ${tutorPanel()}
+    <div class="lesson-more">
+    ${ext ? "" : `<div class="actions">${markBtn(k)}${testBtn()}</div>
+      ${topics ? `<div class="topics"><h3>Themen</h3><div class="chips">${topics}</div></div>` : ""}`}
     <nav class="pager" aria-label="Lektionen">
       ${prev ? `<a class="pg" href="#/lesson/${esc(cid)}/${esc(prev.nr)}"><span>${icon("arrowLeft")} Lektion ${esc(prev.nr)}</span><b>${esc(prev.title)}</b></a>` : ""}
       ${next ? `<a class="pg next" href="#/lesson/${esc(cid)}/${esc(next.nr)}"><span>Lektion ${esc(next.nr)} ${icon("arrowRight")}</span><b>${esc(next.title)}</b></a>`
              : `<a class="pg next" href="#/course/${esc(cid)}"><span>${c.running ? "Zum Kurs" : "Zum Abschluss"} ${icon("arrowRight")}</span><b>${c.running ? "Zur Kursübersicht" : "Zur Abschlussprüfung"}</b></a>`}
     </nav>
-    ${ext ? "" : `<p class="source"><a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal ${icon("external")}</a></p>`}`,
-    { title:l.title });
+    ${ext ? "" : `<p class="source"><a href="${esc(c.portalUrl)}" target="_blank" rel="noopener">Kurs im ETH-Portal ${icon("external")}</a></p>`}
+    </div></div>`,
+    { title:l.title, lessonPage:true });
 
   wireMark(k);
-  if (!ext) wirePlayer(k, clips, c.lang);
+  const player = ext ? null : wirePlayer(k, clips, c.lang);
+  wireTutor(k, player);
 }
 
 function wirePlayer(k, clips, lang){
@@ -544,7 +562,7 @@ function wirePlayer(k, clips, lang){
     selectClip(i, pos - offsets[i], play);
   }
 
-  document.querySelector(".seg").onclick = e => {
+  document.querySelector(".toolbar .seg").onclick = e => {
     const b = e.target.closest("[data-rate]");
     if (!b) return;
     finishSegment();
@@ -597,6 +615,398 @@ function wirePlayer(k, clips, lang){
     v.pause();
   });
   seekTo(resume, false);
+  return {
+    getPosition: position,
+    seek(sec){ if (alive && Number.isFinite(sec)) seekTo(sec, wantsPlay()); },
+    pause(){ autoplay = false; v.pause(); stop(); },
+  };
+}
+
+/* ---------- Claude-Tutor: eigener Speicher, unabhängig vom Fortschritt ---------- */
+const TUTOR_STORE = "academy.tutor.v1", TUTOR_MODEL = "academy.tutor.model";
+const TUTOR_BYTES = 1500000, TUTOR_TEXT = 20000;
+const TUTOR_UNAVAILABLE = "Claude-Tutor nicht verfügbar – starte die Academy mit ./start.sh";
+const tutorBlank = () => ({ v:1, lessons:Object.create(null) });
+const tutorTrim = (text, limit) => text.slice(0, limit).replace(/[\uD800-\uDBFF]$/, "");
+function tutorContext(ctx){
+  if (!["transcript", "no_captions", "transcript_missing", "external"].includes(ctx?.kind)) return undefined;
+  return { kind:ctx.kind, position:typeof ctx.position === "string" && /^\d+:\d{2}$/.test(ctx.position) ? ctx.position : null };
+}
+function tutorMessages(messages){
+  if (!Array.isArray(messages)) return [];
+  return messages.filter(m => m && ["user", "assistant"].includes(m.role) && typeof m.text === "string"
+    && m.status !== "streaming").slice(-40).map(m => ({
+    id:typeof m.id === "string" ? m.id.slice(0, 100) : crypto.randomUUID(), role:m.role,
+    text:tutorTrim(m.text, TUTOR_TEXT), at:Number.isFinite(m.at) ? m.at : 0,
+    ...(Number.isFinite(m.pos) && m.pos >= 0 ? {pos:m.pos} : {}),
+    status:["error", "cancelled"].includes(m.status) ? m.status : "done",
+    ...(tutorContext(m.ctx) ? {ctx:tutorContext(m.ctx)} : {}),
+  }));
+}
+function readTutor(){
+  const result = tutorBlank();
+  const stored = JSON.parse(localStorage.getItem(TUTOR_STORE));
+  if (stored?.v === 1 && stored.lessons && typeof stored.lessons === "object"){
+    for (const [k, entry] of Object.entries(stored.lessons)){
+      if (!entry || !/^[^/]+\/\d+$/.test(k)) continue;
+      result.lessons[k] = { updated:Number.isFinite(entry.updated) ? entry.updated : 0, messages:tutorMessages(entry.messages) };
+    }
+  }
+  return result;
+}
+function writeTutor(k, messages){
+  // Direkt vor jedem Schreiben frisch lesen: andere Lektionen aus anderen Tabs erhalten.
+  let data;
+  try{ data = readTutor(); }catch(e){ if (!(e instanceof SyntaxError)) throw e; data = tutorBlank(); }
+  if (messages.length) data.lessons[k] = { updated:Date.now(), messages:tutorMessages(messages) };
+  else delete data.lessons[k];
+  const oldest = Object.keys(data.lessons).filter(id => id !== k)
+    .sort((a, b) => data.lessons[a].updated - data.lessons[b].updated);
+  let json = JSON.stringify(data);
+  // UTF-16-Speicher konservativ mit zwei Bytes pro Code-Einheit begrenzen.
+  while (json.length*2 > TUTOR_BYTES){
+    if (oldest.length) delete data.lessons[oldest.shift()];
+    else if (data.lessons[k]?.messages.length) data.lessons[k].messages.shift();
+    else break;
+    json = JSON.stringify(data);
+  }
+  localStorage.setItem(TUTOR_STORE, json);
+  return new Set((data.lessons[k]?.messages || []).map(m => m.id));
+}
+function tutorHistory(messages){
+  const pairs = [];
+  for (let i = 1; i < messages.length; i++){
+    const a = messages[i-1], b = messages[i];
+    if (a.role === "user" && b.role === "assistant" && a.status === "done" && b.status === "done")
+      pairs.push([a, b].map(m => ({role:m.role, text:tutorTrim(m.text, 8000)})));
+  }
+  let history = [], size = 0;
+  for (const pair of pairs.reverse()){
+    const length = pair.reduce((sum, m) => sum + m.text.length, 0);
+    if (history.length + 2 > 12 || size + length > 40000) break;
+    history = [...pair, ...history]; size += length;
+  }
+  return history;
+}
+
+/* Zuerst vollständig escapen. Nur feste Tags erzeugen, niemals Attribute aus Text. */
+function tutorMarkdown(text){
+  const lines = esc(text).replace(/\r\n?/g, "\n").split("\n");
+  const inline = text => text.split(/(`[^`\n]+`)/g).map(part => part.startsWith("`") && part.endsWith("`")
+    ? `<code>${part.slice(1, -1)}</code>`
+    : part.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>").replace(/\*([^*\n]+)\*/g, "<em>$1</em>")).join("");
+  const html = []; let paragraph = [], list = null, code = null;
+  const flush = () => { if (paragraph.length){ html.push(`<p>${paragraph.map(inline).join("<br>")}</p>`); paragraph = []; } };
+  const closeList = () => { if (list){ html.push(`</${list}>`); list = null; } };
+  for (const line of lines){
+    if (/^\s*```/.test(line)){
+      flush(); closeList();
+      if (code !== null){ html.push(`<pre tabindex="0" aria-label="Codeblock"><code>${code.join("\n")}</code></pre>`); code = null; }
+      else code = [];
+      continue;
+    }
+    if (code !== null){ code.push(line); continue; }
+    if (!line.trim()){ flush(); closeList(); continue; }
+    const heading = line.match(/^#{1,3}\s+(.+)$/), item = line.match(/^\s*(?:([-*])|\d+\.)\s+(.+)$/);
+    if (heading){ flush(); closeList(); html.push(`<p><strong>${inline(heading[1])}</strong></p>`); }
+    else if (item){
+      flush(); const type = item[1] ? "ul" : "ol";
+      if (list !== type){ closeList(); html.push(`<${type}>`); list = type; }
+      html.push(`<li>${inline(item[2])}</li>`);
+    } else { closeList(); paragraph.push(line); }
+  }
+  flush(); closeList();
+  if (code !== null) html.push(`<pre tabindex="0" aria-label="Codeblock"><code>${code.join("\n")}</code></pre>`);
+  return html.join("");
+}
+function tutorContextLabel(ctx){
+  return ({
+    transcript:ctx?.position ? `mit Untertitel-Ausschnitt ab ${ctx.position}` : "mit Untertitel-Ausschnitt",
+    no_captions:"Tafelvorlesung ohne Untertitel – nur Lektionsthemen",
+    transcript_missing:"Untertitel fehlen lokal", external:"externer Kurs",
+  })[ctx?.kind] || "";
+}
+function tutorError(error){
+  if (error?.kind === "rate_limit"){
+    const reset = error.resetsAt;
+    const date = new Date(typeof reset === "number" && reset < 1e12 ? reset*1000 : reset);
+    return "Dein Claude-Limit ist erreicht" + (reset && Number.isFinite(date.getTime())
+      ? ` – wieder verfügbar ab ${date.toLocaleTimeString("de-DE", {hour:"2-digit", minute:"2-digit"})}.` : ".");
+  }
+  return ({
+    auth:"Claude ist nicht angemeldet. Bitte im Terminal `claude` starten und /login eingeben.",
+    timeout:"Claude hat zu lange gebraucht. Du kannst die Frage erneut stellen.",
+    cancelled:"Antwort abgebrochen.",
+    claude_missing:"Claude wurde nicht gefunden. Installiere die Claude-CLI und starte die Academy neu.",
+    busy:"Claude beantwortet gerade eine andere Frage. Bitte gleich nochmal fragen.",
+    unavailable:TUTOR_UNAVAILABLE,
+    internal:"Die Antwort konnte nicht abgeschlossen werden. Bitte nochmal fragen.",
+  })[error?.kind] || "Die Anfrage konnte nicht verarbeitet werden. Bitte die Frage prüfen und nochmal fragen.";
+}
+async function tutorHealth(signal){
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  signal.addEventListener("abort", abort, {once:true});
+  if (signal.aborted) abort();
+  const timer = setTimeout(abort, 6000);
+  try{
+    const response = await fetch("/api/tutor/health", {cache:"no-store", signal:controller.signal});
+    if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) throw new Error("health");
+    const data = await response.json();
+    if (data.ok !== true || typeof data.token !== "string" || !/^[a-f\d]+$/i.test(data.token)
+      || !Array.isArray(data.models)) throw new Error("health");
+    return data;
+  } finally { clearTimeout(timer); signal.removeEventListener("abort", abort); }
+}
+async function readTutorStream(response, signal, event){
+  const reader = response.body.getReader(), decoder = new TextDecoder();
+  let buffer = "", name = "", data = [], terminal = false;
+  function line(value){
+    if (!value){
+      if (data.length) terminal = event(name, JSON.parse(data.join("\n"))) === true;
+      name = ""; data = []; return;
+    }
+    if (value.startsWith(":")) return;
+    const colon = value.indexOf(":"), field = colon < 0 ? value : value.slice(0, colon);
+    const text = colon < 0 ? "" : value.slice(colon+1).replace(/^ /, "");
+    if (field === "event") name = text;
+    if (field === "data") data.push(text);
+  }
+  try{
+    while (!terminal){
+      const {value, done} = await reader.read();
+      if (signal.aborted) throw new DOMException("Abgebrochen", "AbortError");
+      buffer += done ? decoder.decode() : decoder.decode(value, {stream:true});
+      if (buffer.length > 1000000) throw new Error("SSE-Ereignis zu groß");
+      let newline;
+      while (!terminal && (newline = buffer.indexOf("\n")) !== -1){
+        line(buffer.slice(0, newline).replace(/\r$/, "")); buffer = buffer.slice(newline+1);
+      }
+      if (done){ if (!terminal) throw new Error("Stream ohne Abschluss"); break; }
+    }
+  } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
+}
+function tutorPanel(){
+  return `<section class="card tutor" id="tutor" aria-labelledby="tutorTitle">
+    <div class="tutor-heading"><h2 id="tutorTitle">Frag Claude</h2>
+      <button type="button" class="btn btn-ghost btn-sm tutor-toggle" id="tutorToggle" aria-expanded="true" aria-controls="tutorBody">Einklappen</button></div>
+    <div class="tutor-body" id="tutorBody">
+      <div class="tutor-controls">
+        <div class="seg" id="tutorModels" role="group" aria-label="Claude-Modell">
+          <button type="button" data-model="opus" aria-pressed="true" title="Gründlich (Opus 5)">Gründlich</button>
+          <button type="button" data-model="sonnet" aria-pressed="false" title="Schnell (Sonnet 5)">Schnell</button>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="tutorNew">Neues Gespräch</button>
+        <label class="tutor-pause"><input type="checkbox" id="tutorPause" checked> Beim Fragen pausieren</label>
+      </div>
+      <p class="tutor-storage" id="tutorStorage" role="status" hidden></p>
+      <div class="tutor-messages" id="tutorMessages" role="log" aria-label="Gespräch mit Claude" aria-live="polite" aria-relevant="additions text"></div>
+      <p class="tutor-service" id="tutorService" role="status">Claude-Tutor wird verbunden …</p>
+      <form class="tutor-form" id="tutorForm" hidden>
+        <label class="sr" for="tutorQuestion">Deine Frage zur Lektion</label>
+        <textarea id="tutorQuestion" rows="2" placeholder="Was möchtest du genauer verstehen?" aria-describedby="tutorHint tutorCount"></textarea>
+        <div class="tutor-send"><span id="tutorHint">Enter sendet · Shift+Enter neue Zeile</span>
+          <span id="tutorCount" hidden></span><button type="submit" class="btn btn-primary btn-sm" id="tutorSend" disabled>Senden</button></div>
+      </form>
+    </div></section>`;
+}
+function wireTutor(k, player){
+  const root = document.getElementById("tutor"), get = id => root.querySelector(`#${id}`);
+  const log = get("tutorMessages"), input = get("tutorQuestion"), form = get("tutorForm"), sendButton = get("tutorSend");
+  const service = get("tutorService"), storage = get("tutorStorage"), toggle = get("tutorToggle");
+  const lifetime = new AbortController(), wide = matchMedia("(min-width: 1100px)");
+  let alive = true, ready = false, token = "", active = null, frame = 0, layoutFrame = 0, model = "opus", messages = [];
+  const nodes = new Map();
+  const storageError = () => { storage.textContent = "Claude-Verlauf konnte nicht gespeichert werden. Er bleibt bis zum Verlassen dieser Seite sichtbar."; storage.hidden = false; };
+  try{ messages = readTutor().lessons[k]?.messages || []; model = localStorage.getItem(TUTOR_MODEL) === "sonnet" ? "sonnet" : "opus"; }
+  catch{ storageError(); }
+  const persist = () => {
+    try{
+      const kept = writeTutor(k, messages);
+      messages = messages.filter(m => m.status === "streaming" || kept.has(m.id));
+    }catch{ storageError(); }
+  };
+  const current = request => alive && active === request && request.lessonKey === k && root.isConnected;
+  const listen = (el, type, fn) => el.addEventListener(type, fn, {signal:lifetime.signal});
+  function controls(){
+    sendButton.textContent = active ? "Stopp" : "Senden";
+    sendButton.disabled = !active && (!ready || !input.value.trim() || input.value.length > 4000);
+    get("tutorModels").querySelectorAll("button").forEach(b => {
+      b.setAttribute("aria-pressed", String(b.dataset.model === model)); b.disabled = !!active;
+    });
+    root.querySelectorAll("[data-retry]").forEach(b => { b.disabled = !!active; });
+  }
+  function draw(){
+    frame = 0; if (!alive) return;
+    const bottom = log.scrollHeight - log.scrollTop - log.clientHeight < 64;
+    if (!messages.length){ log.innerHTML = '<p class="tutor-empty">Frag nach einem Beispiel, einer Herleitung oder dem Schritt, der noch unklar ist.</p>'; nodes.clear(); }
+    else {
+      log.querySelector(".tutor-empty")?.remove();
+      for (const [id, entry] of nodes){ if (!messages.some(m => m.id === id)){ entry.el.remove(); nodes.delete(id); } }
+      messages.forEach((m, i) => {
+        let entry = nodes.get(m.id);
+        if (!entry){ const el = document.createElement("article"); log.append(el); entry = {el}; nodes.set(m.id, entry); }
+        const statusText = active?.answer === m ? active.notice : "";
+        const signature = JSON.stringify([m, statusText]);
+        if (entry.signature === signature) return;
+        entry.signature = signature;
+        entry.el.className = `tutor-message tutor-${m.role}`;
+        entry.el.dataset.status = m.status;
+        entry.el.dataset.messageId = m.id;
+        const failed = m.status === "error" || m.status === "cancelled", question = messages[i-1];
+        entry.el.innerHTML = `<p class="tutor-author">${m.role === "user" ? "Du" : "Claude"}</p>
+          <div class="tutor-text">${m.text ? tutorMarkdown(m.text) : m.status === "streaming" ? '<p class="tutor-thinking">Claude denkt nach <span aria-hidden="true">…</span></p>' : ""}</div>
+          ${m.role === "user" && Number.isFinite(m.pos) && player ? `<button type="button" class="chip tutor-position" data-position="${esc(m.pos)}" aria-label="Zur Videoposition ${esc(fmtClock(m.pos))} springen">bei ${esc(fmtClock(m.pos))}</button>` : ""}
+          ${m.ctx ? `<p class="tutor-context">${esc(tutorContextLabel(m.ctx))}</p>` : ""}
+          ${statusText ? `<p class="tutor-status">${esc(statusText)}</p>` : ""}
+          ${failed ? `<p class="tutor-status">${m.status === "cancelled" ? "abgebrochen" : "Antwort nicht abgeschlossen"}</p>
+            ${question?.role === "user" ? `<button type="button" class="btn btn-secondary btn-sm" data-retry="${esc(question.id)}" ${active ? "disabled" : ""}>Nochmal fragen</button>` : ""}` : ""}`;
+      });
+    }
+    if (bottom) log.scrollTop = log.scrollHeight;
+    controls();
+  }
+  const schedule = () => { if (!frame && alive) frame = requestAnimationFrame(draw); };
+  function finish(request, error){
+    if (!current(request)) return;
+    request.answer.status = error ? error.kind === "cancelled" ? "cancelled" : "error" : "done";
+    if (error){
+      const notice = tutorError(error), partial = tutorTrim(request.answer.text, TUTOR_TEXT - notice.length - 2);
+      request.answer.text = (partial ? partial + "\n\n" : "") + notice;
+    }
+    active = null; persist(); schedule(); controls();
+  }
+  function stop(){
+    if (!active) return;
+    const request = active; request.controller.abort(); finish(request, {kind:"cancelled"});
+  }
+  async function connect(){
+    try{
+      const health = await tutorHealth(lifetime.signal);
+      if (!alive) return;
+      token = health.token; ready = true; service.hidden = true; form.hidden = false; controls();
+    }catch{
+      if (!alive) return;
+      ready = false; form.hidden = true; service.textContent = TUTOR_UNAVAILABLE; service.hidden = false;
+    }
+  }
+  async function send(question, retryPosition){
+    if (active || !alive || !question.trim() || question.length > 4000) return;
+    if (!ready){ await connect(); if (!ready || !alive || active) return; }
+    const pos = player ? retryPosition ?? player.getPosition() : null;
+    if (get("tutorPause").checked) player?.pause();
+    const requestId = crypto.randomUUID(), at = Date.now();
+    const history = tutorHistory(messages);
+    const user = {id:crypto.randomUUID(), role:"user", text:question, at, status:"done", ...(pos === null ? {} : {pos})};
+    const answer = {id:requestId, role:"assistant", text:"", at, status:"streaming"};
+    const request = {requestId, lessonKey:k, controller:new AbortController(), answer, notice:"", started:false};
+    active = request; messages = [...messages, user, answer].slice(-40); persist();
+    input.value = ""; resize(); schedule(); controls(); log.scrollTop = log.scrollHeight;
+    const body = JSON.stringify({requestId, lessonKey:k, positionSec:pos, model, question, history});
+    try{
+      let response;
+      for (let attempt = 0; attempt < 2; attempt++){
+        response = await fetch("/api/tutor/chat", {method:"POST", signal:request.controller.signal,
+          headers:{"Content-Type":"application/json", "X-Academy-Tutor":token}, body});
+        if (!current(request)) { await response.body?.cancel(); return; }
+        if (response.status !== 403 || attempt === 1) break;
+        await response.body?.cancel();
+        const health = await tutorHealth(request.controller.signal);
+        if (!current(request)) return;
+        token = health.token;
+      }
+      if (!response.ok){
+        let error;
+        if (response.headers.get("content-type")?.includes("application/json")){
+          try{ error = (await response.json()).error; }catch{ /* Feste, sichere Meldung als Rückfall. */ }
+        }
+        if ([409, 429].includes(response.status)) error = {kind:"busy"};
+        if (response.status === 404){
+          error = {kind:"unavailable"}; ready = false; form.hidden = true; service.textContent = TUTOR_UNAVAILABLE; service.hidden = false;
+        }
+        finish(request, error || {kind:"internal"}); return;
+      }
+      if (response.headers.get("content-type")?.split(";")[0].trim() !== "text/event-stream" || !response.body)
+        throw new Error("Kein Ereignisstream");
+      await readTutorStream(response, request.controller.signal, (name, data) => {
+        if (!current(request)) return true;
+        if (name === "start"){
+          if (data.requestId !== requestId) throw new Error("Falsche Anfrage");
+          request.started = true; answer.ctx = tutorContext(data.context);
+        } else if (name === "delta"){
+          if (!request.started || typeof data.text !== "string") throw new Error("Ungültiges Delta");
+          answer.text += data.text;
+        } else if (name === "status"){
+          if (["retry", "limit_warning"].includes(data.kind)) request.notice = String(data.message || "").slice(0, 8000);
+        } else if (name === "done"){
+          if (!request.started || data.requestId !== requestId) throw new Error("Falscher Abschluss");
+          finish(request); return true;
+        } else if (name === "error") { finish(request, data); return true; }
+        schedule(); return false;
+      });
+    }catch(error){
+      if (current(request)) finish(request, {kind:request.controller.signal.aborted ? "cancelled" : "internal"});
+    } finally { request.controller.abort(); }
+  }
+  function resize(){
+    input.style.height = "auto"; input.style.height = `${Math.min(152, input.scrollHeight)}px`;
+    const count = get("tutorCount"), length = input.value.length;
+    count.hidden = length < 3500; count.textContent = `${length} / 4000`;
+    input.setAttribute("aria-invalid", String(length > 4000)); controls();
+  }
+  function expand(open){
+    get("tutorBody").hidden = !open; toggle.setAttribute("aria-expanded", String(open));
+    toggle.textContent = open ? "Einklappen" : "Ausklappen";
+  }
+  function fitPanel(){
+    if (layoutFrame) return;
+    layoutFrame = requestAnimationFrame(() => {
+      layoutFrame = 0;
+      if (alive && wide.matches) root.style.setProperty("--tutor-top", `${Math.max(76, root.getBoundingClientRect().top)}px`);
+    });
+  }
+  listen(toggle, "click", () => expand(get("tutorBody").hidden));
+  listen(wide, "change", () => { if (wide.matches) expand(true); });
+  listen(window, "scroll", fitPanel);
+  listen(window, "resize", fitPanel);
+  listen(view(), "animationend", fitPanel);
+  listen(form, "submit", e => { e.preventDefault(); if (!active) void send(input.value); });
+  listen(sendButton, "click", e => { if (active){ e.preventDefault(); stop(); } });
+  listen(input, "input", resize);
+  listen(input, "keydown", e => {
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing){ e.preventDefault(); if (!active) form.requestSubmit(); }
+  });
+  listen(document, "keydown", e => {
+    if (e.key !== "/" || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing
+      || e.target.closest?.("input, textarea, select, [contenteditable]:not([contenteditable='false'])") || !ready) return;
+    e.preventDefault(); expand(true); input.focus();
+  });
+  listen(get("tutorModels"), "click", e => {
+    const b = e.target.closest("[data-model]"); if (!b || active) return;
+    model = b.dataset.model;
+    try{ localStorage.setItem(TUTOR_MODEL, model); }catch{ storageError(); }
+    controls();
+  });
+  listen(log, "click", e => {
+    const position = e.target.closest("[data-position]");
+    if (position) player?.seek(Number(position.dataset.position));
+    const retry = e.target.closest("[data-retry]");
+    const question = retry && messages.find(m => m.id === retry.dataset.retry && m.role === "user");
+    if (question) void send(question.text, question.pos);
+  });
+  listen(get("tutorNew"), "click", () => {
+    if (messages.length && !confirm("Das Gespräch dieser Lektion wirklich löschen?")) return;
+    stop(); messages = []; persist(); draw(); if (ready) input.focus();
+  });
+  listen(window, "storage", e => {
+    if (e.key !== TUTOR_STORE) return;
+    // Eine bewusste Löschung in den Einstellungen stoppt auch offene Tabs.
+    if (e.newValue === null){ stop(); messages = []; persist(); draw(); }
+    else if (!active){ try{ messages = readTutor().lessons[k]?.messages || []; draw(); }catch{ storageError(); } }
+  });
+  listen(window, "pagehide", stop);
+  onLeave(() => { stop(); alive = false; lifetime.abort(); cancelAnimationFrame(frame); cancelAnimationFrame(layoutFrame); });
+  draw(); fitPanel(); void connect();
 }
 
 /* ---------- Test ---------- */
@@ -800,7 +1210,11 @@ function renderSettings(){
       <button type="button" class="btn btn-secondary" id="imp">Datei einlesen</button>
       <button type="button" class="btn btn-ghost btn-danger" id="rst">Alles zurücksetzen</button>
     </div>
-    <input type="file" id="file" accept="application/json,.json" hidden>`, { narrow:true, title:"Einstellungen" });
+    <input type="file" id="file" accept="application/json,.json" hidden>
+    <h2>Claude-Verläufe</h2>
+    <p class="note">Gespräche bleiben getrennt vom Fortschritt in diesem Browser. Sie sind nicht in der Sicherungsdatei enthalten und bleiben beim Zurücksetzen des Fortschritts erhalten.</p>
+    <button type="button" class="btn btn-secondary btn-danger" id="tutorClear">Claude-Verläufe löschen</button>
+    <p class="note" id="tutorCleared" role="status"></p>`, { narrow:true, title:"Einstellungen" });
 
   const setGoal = v => { if (v >= 5 && v <= 240){ S.dailyMinutes = Math.round(v); save(); } renderSettings(); };
   document.getElementById("goals").onclick = e => { const b = e.target.closest("[data-goal]"); if (b) setGoal(Number(b.dataset.goal)); };
@@ -828,6 +1242,11 @@ function renderSettings(){
   };
   document.getElementById("rst").onclick = () => {
     if (confirm("Wirklich den gesamten Fortschritt löschen?")){ S = blank(); save(); applyTheme(); go("#/"); }
+  };
+  document.getElementById("tutorClear").onclick = () => {
+    if (!confirm("Wirklich alle Claude-Verläufe in diesem Browser löschen?")) return;
+    try{ localStorage.removeItem(TUTOR_STORE); document.getElementById("tutorCleared").textContent = "Claude-Verläufe gelöscht."; }
+    catch{ document.getElementById("tutorCleared").textContent = "Claude-Verläufe konnten nicht gelöscht werden. Bitte den Browserspeicher prüfen."; }
   };
 }
 
