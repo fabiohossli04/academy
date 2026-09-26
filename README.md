@@ -8,8 +8,9 @@ Eine kleine persönliche Lernoberfläche für sieben Kurse, ausgelegt auf 30 Min
 ./start.sh
 ```
 
-Öffnet `http://127.0.0.1:8777/`. Ein lokaler Server ist nötig, weil die App ihre
-Daten per `fetch` lädt – ein Doppelklick auf `index.html` reicht nicht.
+Startet den lokalen Server `scripts/serve.py` und öffnet `http://127.0.0.1:8777/`. Ein lokaler
+Server ist nötig, weil die App ihre Daten per `fetch` lädt – und er beantwortet die Fragen an den
+Claude-Tutor. Dafür muss Claude Code installiert und mit deinem Abo angemeldet sein (`claude`, dann `/login`).
 
 ## Was drin ist
 
@@ -32,6 +33,9 @@ Kurse werden wöchentlich ergänzt; wie, steht in `HANDOFF.md` unter *Laufende K
 - Lektionen aus mehreren Kurzclips laufen als Clip-Liste am Stück durch.
 - Im Test wählen die Tasten A–D (oder 1–4) eine Antwort, Enter geht weiter.
   Falsch beantwortete Fragen stehen danach mit Begründung zum Nachlesen da.
+- Neben dem Video (auf dem Handy darunter) steht „Frag Claude“: Fragen tragen die aktuelle
+  Videoposition, Claude kennt Lektion, Themen und den Untertitel-Ausschnitt davor. Läuft über dein
+  Claude-Abo, nur lokal; `/` springt ins Eingabefeld.
 - Hell oder dunkel folgt dem System und lässt sich unter *Einstellungen* festlegen.
 
 ## Wie das Material eingebunden ist
@@ -64,6 +68,7 @@ scripts/build.py                   academy.json bauen (schreibt nur einen geprü
 scripts/check.py                   Daten und Testfragen prüfen
 scripts/muster.py                  Rate-Muster in Testfragen messen
 scripts/smoke.py                   Oberfläche prüfen (Playwright, optional; --stream mit echter Wiedergabe)
+scripts/serve.py                   lokaler Server mit Claude-Tutor (nur 127.0.0.1)
 transcripts/                       lokal, gitignored
 ```
 

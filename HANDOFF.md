@@ -1,11 +1,12 @@
 # Handoff
 
-Stand: 24.09.2026. Alles läuft, nichts ist halbfertig.
+Stand: 26.09.2026. Alles läuft, nichts ist halbfertig.
 
 ## Was das ist
 
 Eine persönliche Lernoberfläche für 30 Minuten am Tag. Sieben Kurse,
-88 Lektionen, 440 selbst geschriebene Testfragen. Start mit `./start.sh`.
+88 Lektionen, 440 selbst geschriebene Testfragen, dazu ein Claude-Tutor neben dem Video.
+Start mit `./start.sh`.
 
 | Kurs | id | Lektionen | Umfang | Tests |
 |---|---|---|---|---|
@@ -49,6 +50,8 @@ Eine persönliche Lernoberfläche für 30 Minuten am Tag. Sieben Kurse,
 
 ```
 index.html  app.js  styles.css     Oberfläche, kein Build-Schritt
+scripts/serve.py                   lokaler Server (127.0.0.1): Oberfläche + Claude-Tutor über dein Abo
+scripts/tutor_prompt.md            Systemprompt des Tutors
 data/lessons.json                  EINE Autorität für Stream-Kurse: Kursdaten, Lektionen mit fester Nummer und Clip-Liste (opencastIds)
 data/academy.json                  gebaut aus lessons.json + Portal-Rohdaten – nie von Hand ändern
 data/quiz/<kurs>.json              Testfragen, Schlüssel = Lektionsnummer
@@ -58,6 +61,7 @@ scripts/build.py                   baut academy.json, prüft den Kandidaten und 
 scripts/check.py                   Vollständigkeits- und Plausibilitätsprüfung, inkl. Schutz veröffentlichter Lektionen
 scripts/muster.py                  misst Rate-Muster in einer Quizdatei (Länge, Wortwahl, Satzzeichen …)
 scripts/smoke.py                   Oberflächentest mit Playwright (optional, --stream mit echter Wiedergabe)
+scripts/test_serve.py              Tests des Tutor-Servers (mit scripts/fake_claude.py, nie echtes Claude)
 transcripts/                       lokal, gitignored
 ```
 
@@ -146,6 +150,34 @@ Zum Semesterende `"running": false` setzen – dann öffnet die Abschlussprüfun
   (Fortsetzen, Clip-Folge, Lernzeit, „geschaut“, Clip ohne Untertitel); nichts
   wird gespeichert oder aufgezeichnet. Braucht `pip install playwright` und
   `python3 -m playwright install chromium`.
+
+## Claude-Tutor („Frag Claude“)
+
+Auf jeder Lektionsseite steht neben dem Video (auf dem Handy darunter) ein Chat mit Claude. Jede Frage trägt die
+aktuelle Videoposition; Claude bekommt dazu Kurs, Lektion, Themen und – wo es Untertitel gibt – den Ausschnitt der
+letzten vier Minuten vor dieser Stelle. Modell „Gründlich“ = Claude Opus 5 (mittlere Denktiefe), „Schnell“ = Claude Sonnet 5 (niedrige Denktiefe,
+erstes Wort meist nach 1–2 s).
+
+- **Läuft über dein Claude-Abo, nicht über die API.** Der lokale Server `scripts/serve.py` startet pro Frage
+  `claude -p` (Claude Code im Kopf-los-Modus) mit deinem Login. Voraussetzung: `claude` ist installiert und
+  angemeldet (im Terminal `claude`, dann `/login`). Jede Frage zählt auf dein Abo-Kontingent.
+- **Nur für dich.** Anthropic erlaubt den claude.ai-Login nicht in Produkten für andere. Der Server lauscht deshalb
+  nur auf 127.0.0.1, und der Tutor gehört nicht in die iPhone-App.
+- **Abgeschottet:** `--safe-mode`, `--disable-slash-commands`, `--tools ""` (keine Werkzeuge), `--strict-mcp-config`,
+  `--setting-sources project`, `--no-session-persistence`, eigener leerer Arbeitsordner `~/.academy-tutor` und eine
+  bereinigte Umgebung ohne `ANTHROPIC_*`-Variablen. Meldet Claude beim Start etwas anderes als den Abo-Login
+  (`apiKeySource: none`) oder Werkzeuge, bricht der Server ab. `--bare` geht nicht: es kennt nur API-Schlüssel.
+- **Daten:** Frage, bisheriger Verlauf der Lektion und der Untertitel-Ausschnitt gehen an Anthropic, wie bei jeder
+  Claude-Nutzung. Gespeichert wird der Verlauf nur im Browser (`academy.tutor.v1`, nicht im Fortschritts-Export;
+  löschen unter *Einstellungen*). Claude Code legt dank `--no-session-persistence` keine Sitzungen ab.
+- **Start:** `./start.sh` startet den Server (Port 8777, Protokoll in `~/.academy-tutor/server.log`) und öffnet den
+  Browser. Läuft auf dem Port ein anderer Server, meldet es das und beendet nichts.
+- **Schutz des Endpunkts:** exakter Host-Header, gleiche Herkunft (Origin) und ein Token pro Serverstart; höchstens
+  zwei Fragen gleichzeitig; statische Dateien nur per Positivliste.
+- **Tests:** `python3 -m unittest discover -s scripts -p test_serve.py` und `scripts/smoke.py` (ohne und mit
+  Tutor-Server) arbeiten ausschließlich mit `scripts/fake_claude.py` – nie mit echten Claude-Aufrufen.
+- **Modell-IDs fest:** `claude-opus-5` und `claude-sonnet-5`. Der Alias `opus` zeigt in CLI 2.1.267 auf ein
+  Modell, das diese Version noch nicht kennt.
 
 ## Wie das Material geprüft wurde
 
